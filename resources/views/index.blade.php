@@ -7,6 +7,13 @@
 @endsection
 
 @section('content')
+<div class="row">
+    <div class="col-md">
+        <div class="embed-responsive embed-responsive-16by9 rounded">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/84mxPd0Ma8Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</div>
 <section id="services">
     <div class="row">
         <div class="col-md">
@@ -14,7 +21,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-6 border-bottom">
                         <h2 class="text-white">LAYANAN</h2>
-                        <p class="text-white">Dengan menggunakan Aplikasi SIP, masyarakat dapat dengan mudah mengajukan beberapa layanan berikut ini secara online.</p>
+                        <p class="text-white">Dengan menggunakan Aplikasi {{ config('app.name') }}, masyarakat dapat dengan mudah mengajukan beberapa layanan berikut ini secara online.</p>
                     </div>
                 </div>
             </div>
