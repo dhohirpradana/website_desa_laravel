@@ -121,6 +121,7 @@
     <script src="{{ asset('/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 
     <!--   Optional JS   -->
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!--   Argon JS   -->
     <script src="{{ asset('/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
