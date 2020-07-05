@@ -80,12 +80,12 @@
                                     <span>Pengaturan</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <a href="{{ route('keluar') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
                                     <i class="ni ni-user-run"></i>
                                     <span>Keluar</span>
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="form-keluar" action="{{ route('keluar') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
                             </div>

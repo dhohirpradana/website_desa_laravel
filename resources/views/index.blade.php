@@ -30,7 +30,7 @@
     <div class="row mt-4 text-center">
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded">
-                <a href="https://sipdispendukcapiljember.id/syarat/akta_lahir">
+                <a href="#">
                     <i class="fa fa-baby"></i>
                     <h4>Permohonan Akta Lahir</h4>
                 </a>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded">
-                <a href="https://sipdispendukcapiljember.id/syarat/akta_kematian">
+                <a href="#">
                     <i class="fa fa-ambulance"></i>
                     <h4>Permohonan Akta Kematian</h4>
                 </a>
@@ -48,7 +48,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded">
-                <a href="https://sipdispendukcapiljember.id/syarat/ktp_baru">
+                <a href="#">
                     <i class="fa fa-id-card"></i>
                     <h4>Pengajuan Cetak KTP</h4>
                 </a>
@@ -57,7 +57,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded">
-                <a href="https://sipdispendukcapiljember.id/syarat/ktp_hilang_rusak">
+                <a href="#">
                     <i class="fa fa-id-card"></i>
                     <h4>Permohonan KTP Hilang atau Rusak</h4>
                 </a>
@@ -66,7 +66,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded">
-                <a href="https://sipdispendukcapiljember.id/syarat/suket">
+                <a href="#">
                     <i class="fa fa-file-invoice"></i>
                     <h4>Permohonan Surat Keterangan Perekaman KTP (SUKET)</h4>
                 </a>
@@ -75,7 +75,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded">
-                <a href="https://sipdispendukcapiljember.id/syarat/kia">
+                <a href="#">
                     <i class="fa fa-child"></i>
                     <h4>Permohonan Kartu Identitas Anak (KIA)</h4>
                 </a>
@@ -84,7 +84,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded">
-                <a href="https://sipdispendukcapiljember.id/syarat/kk_baru">
+                <a href="#">
                     <i class="fa fa-address-card"></i>
                     <h4>Permohonan Kartu Keluarga (KK) Baru</h4>
                 </a>
@@ -93,7 +93,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded">
-                <a href="https://sipdispendukcapiljember.id/syarat/kk_hilang_rusak">
+                <a href="#">
                     <i class="fa fa-address-card"></i>
                     <h4>Permohonan Kartu Keluarga (KK) Hilang atau Rusak</h4>
                 </a>
@@ -102,7 +102,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded">
-                <a href="https://sipdispendukcapiljember.id/syarat/pindah_datang">
+                <a href="#">
                     <i class="fa fa-walking"></i>
                     <h4>Permohonan Pelaporan Pindah Datang</h4>
                 </a>
