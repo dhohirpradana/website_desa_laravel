@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class LoginRule implements Rule
 {
@@ -26,8 +27,8 @@ class LoginRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (!auth()->attempt(['email' => $value, 'password' => $this->pass])) {
-            return false;
+        if (Auth::attempt(['email' => $value, 'password' => $this->pass])) {
+            return true;
         }
     }
 

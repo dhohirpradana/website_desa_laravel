@@ -19,12 +19,12 @@ class AuthController extends Controller
             'password'  => ['required']
         ]);
 
-        return redirect()->route('home.index');
+        return redirect()->route('beranda');
     }
 
     public function keluar()
     {
         auth()->logout();
-        return redirect()->route('login');
+        return redirect()->route('beranda');
     }
 }
