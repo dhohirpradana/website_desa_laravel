@@ -153,7 +153,13 @@
                 application: "argon-dashboard-free"
             });
     </script>
-
+    <script>
+        const baseUrl = $("meta[name='base-url']").attr('content');
+        const _token = $("meta[name='csrf-token']").attr('content');
+        setTimeout(() => {
+            console.clear();
+        }, 1000);
+    </script>
     @stack('scripts')
 </body>
 

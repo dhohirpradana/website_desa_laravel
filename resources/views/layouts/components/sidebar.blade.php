@@ -5,7 +5,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Brand -->
-    <a class="navbar-brand pt-0" href="{{ route('home') }}">
+    <a class="navbar-brand pt-0" href="{{ route('beranda') }}">
         <h1 class="text-primary font-weight-900">{{ config('app.name') }}</h1>
     </a>
     <!-- User -->
@@ -15,7 +15,7 @@
                 aria-expanded="false">
                 <div class="media align-items-center">
                     <span class="avatar avatar-sm rounded-circle">
-                        <img alt="{{ asset(Storage::url(auth()->user()->avatar)) }}" src="{{ asset(Storage::url(auth()->user()->avatar)) }}">
+                        <img alt="{{ asset(Storage::url(auth()->user()->foto_profil)) }}" src="{{ asset(Storage::url(auth()->user()->foto_profil)) }}">
                     </span>
                 </div>
             </a>
@@ -29,7 +29,7 @@
                     <span>Pengaturan</span>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a href="{{ route('keluar') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="ni ni-user-run"></i>
                     <span>Keluar</span>
                 </a>
@@ -42,7 +42,7 @@
         <div class="navbar-collapse-header d-md-none">
             <div class="row">
                 <div class="col-6 collapse-brand">
-                    <a href="{{ route('home') }}">
+                    <a href="{{ route('beranda') }}">
                         <h1 class="text-primary"><b>{{ config('app.name') }}</b></h1>
                     </a>
                 </div>
@@ -70,10 +70,14 @@
         <hr class="my-3">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a class="nav-link" href="{{ route('keluar') }}" onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
                     <i class="ni ni-user-run"></i>
                     <span class="nav-link-inner--text">Keluar</span>
                 </a>
+
+                <form id="form-keluar" action="{{ route('keluar') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </li>
         </ul>
     </div>

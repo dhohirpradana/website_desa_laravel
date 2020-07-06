@@ -63,7 +63,7 @@
                                 aria-expanded="false">
                                 <div class="media align-items-center">
                                     <span class="avatar avatar-sm rounded-circle">
-                                        <img alt="{{ asset(Storage::url(auth()->user()->avatar)) }}" src="{{ asset(Storage::url(auth()->user()->avatar)) }}">
+                                        <img alt="{{ asset(Storage::url(auth()->user()->foto_profil)) }}" src="{{ asset(Storage::url(auth()->user()->foto_profil)) }}">
                                     </span>
                                     <div class="media-body ml-2 d-none d-lg-block">
                                         <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->nama }}</span>
@@ -133,7 +133,13 @@
                 application: "argon-dashboard-free"
             });
     </script>
-
+    <script>
+        const baseUrl = $("meta[name='base-url']").attr('content');
+        const _token = $("meta[name='csrf-token']").attr('content');
+        setTimeout(() => {
+            console.clear();
+        }, 1000);
+    </script>
     @stack('scripts')
 </body>
 
