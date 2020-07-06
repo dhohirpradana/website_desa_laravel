@@ -121,7 +121,6 @@
     <script src="{{ asset('/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 
     <!--   Optional JS   -->
-    <script src="{{ asset('js/app.js') }}"></script>
 
     <!--   Argon JS   -->
     <script src="{{ asset('/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
@@ -132,13 +131,6 @@
                 token: "ee6fab19c5a04ac1a32a645abde4613a",
                 application: "argon-dashboard-free"
             });
-    </script>
-    <script>
-        const baseUrl = $("meta[name='base-url']").attr('content');
-        const _token = $("meta[name='csrf-token']").attr('content');
-        setTimeout(() => {
-            console.clear();
-        }, 1000);
     </script>
     @stack('scripts')
 </body>

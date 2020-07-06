@@ -112,7 +112,7 @@ Profil Pengguna
                 let oFReader = new FileReader();
                 formData.append("foto_profil", this.files[0]);
                 formData.append("_method", "patch");
-                formData.append("_token", _token);
+                formData.append("_token", "{{ csrf_token() }}");
                 oFReader.readAsDataURL(this.files[0]);
 
                 $.ajax({
@@ -123,7 +123,7 @@ Profil Pengguna
                     cache: false,
                     processData: false,
                     beforeSend: function () {
-                        $('#img-foto_profil').attr('src', baseUrl + '/storage/loading.gif');
+                        $('#img-foto_profil').attr('src', "{{ url('/storage/loading.gif') }}");
                     },
                     success: function (data) {
                         if (data.error) {
