@@ -17,6 +17,9 @@ class CreateSuratTable extends Migration
             $table->id();
             $table->string('nama', 64)->unique();
             $table->string('icon', 64);
+            $table->boolean('tanda_tangan_bersangkutan')->default(0);
+            $table->boolean('perihal')->default(0);
+            $table->boolean('data_kades')->default(0);
             $table->timestamps();
         });
     }
