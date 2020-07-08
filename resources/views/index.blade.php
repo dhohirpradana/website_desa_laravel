@@ -1,6 +1,10 @@
 @extends('layouts.layout')
 @section('title', 'Beranda')
 
+@section('styles')
+<link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+@endsection
+
 @section('header')
 <h2 class="text-white text-sm text-muted">SELAMAT DATANG DI LAYANAN ONLINE</h2>
 <h2 class="text-lead text-white">DESA ARJASA<br/>KABUPATEN JEMBER</h2>

@@ -40,7 +40,6 @@
 
     <!-- CSS Files -->
     <link href="{{ asset('/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet">
-    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 
     @yield('styles')
 </head>
@@ -80,9 +79,27 @@
                     <ul class="navbar-nav ml-auto">
                         @auth
                             <li class="nav-item">
+                                <a class="nav-link nav-link-icon" href="{{ route('surat.index') }}">
+                                    <i class="ni ni-single-copy-04"></i>
+                                    <span class="nav-link-inner--text">Surat</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-icon" href="{{ route('surat.create') }}">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span class="nav-link-inner--text">Tambah Surat</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link nav-link-icon" href="{{ route('profil') }}">
                                     <i class="ni ni-single-02"></i>
                                     <span class="nav-link-inner--text">Profil</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-icon" href="{{ route('pengaturan') }}">
+                                    <i class="ni ni-settings"></i>
+                                    <span class="nav-link-inner--text">Pengaturan</span>
                                 </a>
                             </li>
                             <li class="nav-item">

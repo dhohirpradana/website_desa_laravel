@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class IsiSurat extends Model
 {
     protected $table = 'isi_surat';
+    protected $guarded = [];
 
     public function surat()
     {

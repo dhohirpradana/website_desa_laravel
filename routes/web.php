@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SuratController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home.index');
 Route::get('/beranda', 'HomeController@index')->name('beranda');
+Route::get('/buat-surat/{surat}', 'SuratController@buat')->name('buat-surat');
 
 Route::group(['middleware' => ['web', 'guest']], function () {
 
@@ -30,5 +32,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/profil', 'UserController@profil')->name('profil');
     Route::patch('/update-pengaturan/{user}', 'UserController@updatePengaturan')->name('update-pengaturan');
     Route::patch('/update-profil/{user}', 'UserController@updateProfil')->name('update-profil');
+
+    Route::get('/tambah-surat', 'SuratController@create')->name('surat.create');
+    Route::resource('/surat', 'SuratController')->except('create');
+
+    Route::resource('/gallery', 'GalleryController')->except('show','edit');
 
 });

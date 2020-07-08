@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\IsiSurat;
 use App\Surat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SuratController extends Controller
 {
@@ -14,7 +16,8 @@ class SuratController extends Controller
      */
     public function index()
     {
-        //
+        $surat = Surat::all();
+        return view('surat.index', compact('surat'));
     }
 
     /**
@@ -24,7 +27,7 @@ class SuratController extends Controller
      */
     public function create()
     {
-        //
+        return view('surat.create');
     }
 
     /**
@@ -35,7 +38,87 @@ class SuratController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama'      => ['required', 'max:64', 'unique:surat,nama'],
+            'icon'      => ['required', 'max:64'],
+            'isian.*'   => ['required']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success'   => false,
+                'message'   => $validator->errors()->all()
+            ]);
+        }
+
+        $dataSurat = [
+            'nama'  => $request->nama,
+            'icon'  => $request->icon,
+        ];
+
+        if ($request->perihal) {
+            $dataSurat['perihal'] = 1;
+        } else {
+            $dataSurat['perihal'] = 0;
+        }
+
+        if ($request->tanda_tangan_bersangkutan) {
+            $dataSurat['tanda_tangan_bersangkutan'] = 1;
+        } else {
+            $dataSurat['tanda_tangan_bersangkutan'] = 0;
+        }
+
+        if ($request->data_kades) {
+            $dataSurat['data_kades'] = 1;
+        } else {
+            $dataSurat['data_kades'] = 0;
+        }
+
+        $surat = Surat::create($dataSurat);
+
+        for ($i = 1; $i < count($request->isian); $i++) {
+            if ($request->status[$i] == 1) {
+                IsiSurat::create([
+                    'surat_id'  => $surat->id,
+                    'isi'       => $request->isian[$i],
+                    'paragraf'  => 1,
+                    'kalimat'   => 0,
+                    'isian'     => 0,
+                    'perihal'   => 0,
+                ]);
+            } elseif ($request->status[$i] == 2) {
+                IsiSurat::create([
+                    'surat_id'  => $surat->id,
+                    'isi'       => $request->isian[$i],
+                    'paragraf'  => 0,
+                    'kalimat'   => 1,
+                    'isian'     => 0,
+                    'perihal'   => 0,
+                ]);
+            } elseif ($request->status[$i] == 3) {
+                IsiSurat::create([
+                    'surat_id'  => $surat->id,
+                    'isi'       => $request->isian[$i],
+                    'paragraf'  => 0,
+                    'kalimat'   => 0,
+                    'isian'     => 1,
+                    'perihal'   => 0,
+                ]);
+            } elseif ($request->status[$i] == 4) {
+                IsiSurat::create([
+                    'surat_id'  => $surat->id,
+                    'isi'       => $request->isian[$i],
+                    'paragraf'  => 0,
+                    'kalimat'   => 0,
+                    'isian'     => 0,
+                    'perihal'   => 1,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'success'   => true,
+        ]);
     }
 
     /**
@@ -57,7 +140,7 @@ class SuratController extends Controller
      */
     public function edit(Surat $surat)
     {
-        //
+        return view('surat.edit', compact('surat'));
     }
 
     /**
@@ -69,7 +152,7 @@ class SuratController extends Controller
      */
     public function update(Request $request, Surat $surat)
     {
-        //
+        return response()->json(['success'  => true]);
     }
 
     /**
@@ -80,6 +163,12 @@ class SuratController extends Controller
      */
     public function destroy(Surat $surat)
     {
-        //
+        $surat->delete();
+        return redirect()->back()->with('success', 'Surat berhasil dihapus');
+    }
+
+    public function buat(Request $request)
+    {
+        # code...
     }
 }
