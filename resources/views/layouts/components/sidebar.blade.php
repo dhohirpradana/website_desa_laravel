@@ -95,10 +95,6 @@
                     <i class="ni ni-user-run"></i>
                     <span class="nav-link-inner--text">Keluar</span>
                 </a>
-
-                <form id="form-keluar" action="{{ route('keluar') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
             </li>
         </ul>
     </div>

@@ -36,6 +36,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/tambah-surat', 'SuratController@create')->name('surat.create');
     Route::resource('/surat', 'SuratController')->except('create');
 
+    Route::resource('/isiSurat', 'IsiSuratController')->except('index', 'create', 'edit', 'show');
+
     Route::resource('/gallery', 'GalleryController')->except('show','edit');
 
 });

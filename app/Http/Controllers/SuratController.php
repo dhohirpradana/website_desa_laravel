@@ -6,6 +6,7 @@ use App\IsiSurat;
 use App\Surat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class SuratController extends Controller
 {
@@ -152,7 +153,57 @@ class SuratController extends Controller
      */
     public function update(Request $request, Surat $surat)
     {
-        return response()->json(['success'  => true]);
+        $validation = [
+            'nama'      => ['required', 'max:64', Rule::unique('surat','nama')->ignore($surat)],
+            'icon'      => ['required', 'max:64'],
+        ];
+
+        if ($request->perihal) {
+            $validation['isian.*'] = ['required'];
+        }
+
+        $validator = Validator::make($request->all(), $validation);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success'   => false,
+                'message'   => $validator->errors()->all()
+            ]);
+        }
+
+        $dataSurat = [
+            'nama'  => $request->nama,
+            'icon'  => $request->icon,
+        ];
+
+        if ($request->perihal) {
+            $dataSurat['perihal'] = 1;
+            for ($i = 1; $i <= 5; $i++) {
+                $surat->isiSurat[$i - 1]->update([
+                    'isi'  => $request->isian[$i],
+                ]);
+            }
+        } else {
+            $dataSurat['perihal'] = 0;
+        }
+
+        if ($request->tanda_tangan_bersangkutan) {
+            $dataSurat['tanda_tangan_bersangkutan'] = 1;
+        } else {
+            $dataSurat['tanda_tangan_bersangkutan'] = 0;
+        }
+
+        if ($request->data_kades) {
+            $dataSurat['data_kades'] = 1;
+        } else {
+            $dataSurat['data_kades'] = 0;
+        }
+
+        $surat->update($dataSurat);
+
+        return response()->json([
+            'success'   => true,
+        ]);
     }
 
     /**

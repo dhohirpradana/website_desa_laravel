@@ -36,7 +36,12 @@
 @endsection
 
 @section('content')
-@include('layouts.components.alert')
+<div class="row fixed-top m-3">
+    <div class="col-lg-6"></div>
+    <div class="col-lg-6">
+        <div class="notifikasi"></div>
+    </div>
+</div>
 <div class="row">
     <div class="col">
         <div class="card bg-secondary shadow h-100">
@@ -44,7 +49,6 @@
                 <h3 class="mb-0">Tambah Surat</h3>
             </div>
             <div class="card-body">
-                <div id="error"></div>
                 <form id="form" autocomplete="off" action="javascript:;" method="post">
                     @csrf
                     <input type="hidden" class="form-control form-control-alternative" name="isian[]" value="isian">
@@ -935,18 +939,13 @@
                     <div class="input-group mb-3">
                         <textarea class="form-control form-control-alternative" name="isian[]"></textarea>
                         <div class="input-group-append">
-    				        <button type="button" class="btn btn-outline-danger hapus-paragraf">Hapus</button>
+    				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="status[]" value="1">
                 </div>
             `);
-            paragraf++;
-        });
-
-        $(document).on("click", ".hapus-paragraf", function () {
-            paragraf--;
-            $(this).parent('div').parent('div').parent('div').remove();
+            $('[data-toggle="tooltip"]').tooltip();
         });
 
         $("#kalimat").click(function(){
@@ -956,18 +955,13 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-alternative" name="isian[]">
                         <div class="input-group-append">
-    				        <button type="button" class="btn btn-outline-danger hapus-kalimat">Hapus</button>
+    				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="status[]" value="2">
                 </div>
             `);
-            kalimat++;
-        });
-
-        $(document).on("click", ".hapus-kalimat", function () {
-            kalimat--;
-            $(this).parent('div').parent('div').parent('div').remove();
+            $('[data-toggle="tooltip"]').tooltip();
         });
 
         $("#isi").click(function(){
@@ -977,17 +971,16 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-alternative" name="isian[]">
                         <div class="input-group-append">
-    				        <button type="button" class="btn btn-outline-danger hapus-isi">Hapus</button>
+    				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="status[]" value="3">
                 </div>
             `);
-            isi++;
+            $('[data-toggle="tooltip"]').tooltip();
         });
 
-        $(document).on("click", ".hapus-isi", function () {
-            isi--;
+        $(document).on("click", ".hapus", function () {
             $(this).parent('div').parent('div').parent('div').remove();
         });
 
@@ -1010,7 +1003,7 @@
                     if (data.success) {
                         location.href = "{{ route('surat.index') }}";
                     } else {
-                        $("#error").html(`
+                        $(".notifikasi").html(`
                             <div class="alert alert-danger alert-dismissible fade show">
                                 <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
                                 <span class="alert-text">
@@ -1025,8 +1018,9 @@
                         $.each(data.message, function (i, e) {
                             $('#pesanError').append(`<li>`+e+`</li>`);
                         });
-                        document.body.scrollTop = 0; // For Safari
-                        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+                        setTimeout(() => {
+                            $(".notifikasi").html('');
+                        }, 10000);
                     }
                 }
             });
