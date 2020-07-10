@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\IsiSurat;
 use App\Surat;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class SuratController extends Controller
 {
@@ -39,7 +40,7 @@ class SuratController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama'      => ['required', 'max:64', 'unique:surat,nama'],
+            'nama'      => ['required', 'max:64'],
             'icon'      => ['required', 'max:64'],
             'isian.*'   => ['required']
         ]);
@@ -52,8 +53,9 @@ class SuratController extends Controller
         }
 
         $dataSurat = [
-            'nama'  => $request->nama,
-            'icon'  => $request->icon,
+            'nama'      => $request->nama,
+            'icon'      => $request->icon,
+            'deskripsi' => $request->deskripsi,
         ];
 
         if ($request->perihal) {
@@ -129,7 +131,7 @@ class SuratController extends Controller
      */
     public function show(Surat $surat)
     {
-        //
+        return back();
     }
 
     /**
@@ -152,7 +154,58 @@ class SuratController extends Controller
      */
     public function update(Request $request, Surat $surat)
     {
-        return response()->json(['success'  => true]);
+        $validation = [
+            'nama'      => ['required', 'max:64'],
+            'icon'      => ['required', 'max:64'],
+        ];
+
+        if ($request->perihal) {
+            $validation['isian.*'] = ['required'];
+        }
+
+        $validator = Validator::make($request->all(), $validation);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success'   => false,
+                'message'   => $validator->errors()->all()
+            ]);
+        }
+
+        $dataSurat = [
+            'nama'      => $request->nama,
+            'icon'      => $request->icon,
+            'deskripsi' => $request->deskripsi,
+        ];
+
+        if ($request->perihal) {
+            $dataSurat['perihal'] = 1;
+            for ($i = 1; $i <= 5; $i++) {
+                $surat->isiSurat[$i - 1]->update([
+                    'isi'  => $request->isian[$i],
+                ]);
+            }
+        } else {
+            $dataSurat['perihal'] = 0;
+        }
+
+        if ($request->tanda_tangan_bersangkutan) {
+            $dataSurat['tanda_tangan_bersangkutan'] = 1;
+        } else {
+            $dataSurat['tanda_tangan_bersangkutan'] = 0;
+        }
+
+        if ($request->data_kades) {
+            $dataSurat['data_kades'] = 1;
+        } else {
+            $dataSurat['data_kades'] = 0;
+        }
+
+        $surat->update($dataSurat);
+
+        return response()->json([
+            'success'   => true,
+        ]);
     }
 
     /**
@@ -167,8 +220,14 @@ class SuratController extends Controller
         return redirect()->back()->with('success', 'Surat berhasil dihapus');
     }
 
-    public function buat(Request $request)
+    public function buat(Request $request, $id, $slug)
     {
-        # code...
+        $surat = Surat::find($id);
+
+        if ($slug != Str::slug($surat->nama)) {
+            return abort(404, 'Halaman Tidak Ditemukan');
+        }
+
+        return view('surat.buat', compact('surat'));
     }
 }

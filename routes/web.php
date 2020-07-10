@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home.index');
 Route::get('/beranda', 'HomeController@index')->name('beranda');
-Route::get('/buat-surat/{surat}', 'SuratController@buat')->name('buat-surat');
+Route::get('/buat-surat/{id}/{slug}', 'SuratController@buat')->name('buat-surat');
+Route::post('/buat-surat/{buat-surat}', 'SuratController@show')->name('buat-surat.download');
 
 Route::group(['middleware' => ['web', 'guest']], function () {
 
@@ -35,6 +36,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get('/tambah-surat', 'SuratController@create')->name('surat.create');
     Route::resource('/surat', 'SuratController')->except('create');
+
+    Route::resource('/isiSurat', 'IsiSuratController')->except('index', 'create', 'edit', 'show');
 
     Route::resource('/gallery', 'GalleryController')->except('show','edit');
 

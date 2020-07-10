@@ -3,6 +3,12 @@
 
 @section('styles')
 <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+    .ikon {
+        font-family: fontAwesome;
+    }
+</style>
 @endsection
 
 @section('header')
@@ -31,88 +37,24 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4 text-center">
-        <div class="col-lg-4 col-md-6">
-            <div class="single-service bg-white rounded">
-                <a href="#">
-                    <i class="fa fa-baby"></i>
-                    <h4>Permohonan Akta Lahir</h4>
-                </a>
-                <p>Klik disini untuk melihat persyaratan</p>
+    <div class="row mt-4 justify-content-center">
+        @forelse ($surat as $item)
+            <div class="col-lg-4 col-md-6">
+                <div class="single-service bg-white rounded shadow p-3">
+                    <a href="{{ route('buat-surat', ['id' => $item->id,'slug' => Str::slug($item->nama)]) }}">
+                        <i class="fas {{ $item->icon }} ikon fa-5x mb-3"></i>
+                        <h4>{{ $item->nama }}</h4>
+                    </a>
+                    <p>{{ $item->deskripsi }}</p>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="single-service bg-white rounded">
-                <a href="#">
-                    <i class="fa fa-ambulance"></i>
-                    <h4>Permohonan Akta Kematian</h4>
-                </a>
-                <p>Klik disini untuk melihat persyaratan</p>
+        @empty
+            <div class="col">
+                <div class="single-service bg-white rounded shadow">
+                    <h4>Data belum tersedia</h4>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="single-service bg-white rounded">
-                <a href="#">
-                    <i class="fa fa-id-card"></i>
-                    <h4>Pengajuan Cetak KTP</h4>
-                </a>
-                <p>Klik disini untuk melihat persyaratan</p>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="single-service bg-white rounded">
-                <a href="#">
-                    <i class="fa fa-id-card"></i>
-                    <h4>Permohonan KTP Hilang atau Rusak</h4>
-                </a>
-                <p>Klik disini untuk melihat persyaratan</p>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="single-service bg-white rounded">
-                <a href="#">
-                    <i class="fa fa-file-invoice"></i>
-                    <h4>Permohonan Surat Keterangan Perekaman KTP (SUKET)</h4>
-                </a>
-                <p>Klik disini untuk melihat persyaratan</p>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="single-service bg-white rounded">
-                <a href="#">
-                    <i class="fa fa-child"></i>
-                    <h4>Permohonan Kartu Identitas Anak (KIA)</h4>
-                </a>
-                <p>Klik disini untuk melihat persyaratan</p>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="single-service bg-white rounded">
-                <a href="#">
-                    <i class="fa fa-address-card"></i>
-                    <h4>Permohonan Kartu Keluarga (KK) Baru</h4>
-                </a>
-                <p>Klik disini untuk melihat persyaratan</p>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="single-service bg-white rounded">
-                <a href="#">
-                    <i class="fa fa-address-card"></i>
-                    <h4>Permohonan Kartu Keluarga (KK) Hilang atau Rusak</h4>
-                </a>
-                <p>Klik disini untuk melihat persyaratan</p>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="single-service bg-white rounded">
-                <a href="#">
-                    <i class="fa fa-walking"></i>
-                    <h4>Permohonan Pelaporan Pindah Datang</h4>
-                </a>
-                <p>Klik disini untuk melihat persyaratan</p>
-            </div>
-        </div>
+        @endforelse
     </div>
 </section>
 @endsection

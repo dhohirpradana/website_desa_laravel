@@ -36,7 +36,12 @@
 @endsection
 
 @section('content')
-@include('layouts.components.alert')
+<div class="row fixed-top m-3">
+    <div class="col-lg-6"></div>
+    <div class="col-lg-6">
+        <div class="notifikasi"></div>
+    </div>
+</div>
 <div class="row">
     <div class="col">
         <div class="card bg-secondary shadow h-100">
@@ -44,7 +49,6 @@
                 <h3 class="mb-0">Edit Surat</h3>
             </div>
             <div class="card-body">
-                <div id="error"></div>
                 <form id="form" autocomplete="off" action="javascript:;" method="post">
                     @csrf @method('patch')
                     <input type="hidden" class="form-control form-control-alternative" name="isian[]" value="isian">
@@ -330,7 +334,7 @@
                                         <option value='fa-file-powerpoint-o'>&#xf1c4; fa-file-powerpoint-o</option>
                                         <option value='fa-file-sound-o'>&#xf1c7; fa-file-sound-o</option>
                                         <option value='fa-file-text'>&#xf15c; fa-file-text</option>
-                                        <option value='fa-file-text-o'selected>&#xf0f6; fa-file-text-o</option>
+                                        <option value='fa-file-text-o'>&#xf0f6; fa-file-text-o</option>
                                         <option value='fa-file-video-o'>&#xf1c8; fa-file-video-o</option>
                                         <option value='fa-file-word-o'>&#xf1c2; fa-file-word-o</option>
                                         <option value='fa-file-zip-o'>&#xf1c6; fa-file-zip-o</option>
@@ -852,6 +856,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Deskripsi</label>
+                            <textarea class="form-control form-control-alternative" name="deskripsi">{{ $surat->deskripsi }}</textarea>
+                        </div>
                     </div>
                     <h6 class="heading-small text-muted">Isian</h6>
                     <div class="pl-lg-4" id="isian">
@@ -894,37 +902,40 @@
                             @if ($isiSurat->paragraf == 1)
                                 <div class="form-group">
                                     <label class="form-control-label">Paragraf</label>
-                                    <div class="input-group mb-3">
-                                        <textarea class="form-control form-control-alternative" name="isian[]">{{ $isiSurat->isi }}</textarea>
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <textarea class="form-control" name="isian[]">{{ $isiSurat->isi }}</textarea>
+                                        <input type="hidden" name="id" value="{{ $isiSurat->id }}">
                                         <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-danger hapus-paragraf">Hapus</button>
+                                            <button type="button" class="btn btn-outline-danger delete" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="btn btn-outline-primary update" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="status[]" value="1">
                                 </div>
                             @endif
                             @if ($isiSurat->kalimat == 1)
                                 <div class="form-group">
                                     <label class="form-control-label">Kalimat</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control form-control-alternative" name="isian[]" value="{{ $isiSurat->isi }}">
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <input type="text" class="form-control" name="isian[]" value="{{ $isiSurat->isi }}">
+                                        <input type="hidden" name="id" value="{{ $isiSurat->id }}">
                                         <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-danger hapus-kalimat">Hapus</button>
+                                            <button type="button" class="btn btn-outline-danger delete" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="btn btn-outline-primary update" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="status[]" value="2">
                                 </div>
                             @endif
                             @if ($isiSurat->isian == 1)
                                 <div class="form-group">
                                     <label class="form-control-label">Isian</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control form-control-alternative" name="isian[]" value="{{ $isiSurat->isi }}">
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <input type="text" class="form-control" name="isian[]" value="{{ $isiSurat->isi }}">
+                                        <input type="hidden" name="id" value="{{ $isiSurat->id }}">
                                         <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-danger hapus-isi">Hapus</button>
+                                            <button type="button" class="btn btn-outline-danger delete" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="btn btn-outline-primary update" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="status[]" value="3">
                                 </div>
                             @endif
                         @endforeach
@@ -960,6 +971,8 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
+        $(".ikon").val("{{ $surat->icon }}");
+
         $("#perihal").change(function(){
             if ($(this).prop('checked') == true) {
                 $("#isian").prepend(`
@@ -1006,63 +1019,54 @@
             $("#isian").append(`
                 <div class="form-group">
                     <label class="form-control-label">Paragraf</label>
-                    <div class="input-group mb-3">
-                        <textarea class="form-control form-control-alternative" name="isian[]"></textarea>
+                    <div class="input-group input-group-alternative mb-3">
+                        <textarea class="form-control" name="isian[]"></textarea>
+                        <input type="hidden" name="surat_id" value="{{ $surat->id }}">
+                        <input type="hidden" name="status[]" value="1">
                         <div class="input-group-append">
-    				        <button type="button" class="btn btn-outline-danger hapus-paragraf">Hapus</button>
+    				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+    				        <button type="button" class="btn btn-outline-primary tambah" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
                         </div>
                     </div>
-                    <input type="hidden" name="status[]" value="1">
                 </div>
             `);
-            paragraf++;
-        });
-
-        $(document).on("click", ".hapus-paragraf", function () {
-            paragraf--;
-            $(this).parent('div').parent('div').parent('div').remove();
+            $('[data-toggle="tooltip"]').tooltip();
         });
 
         $("#kalimat").click(function(){
             $("#isian").append(`
                 <div class="form-group">
                     <label class="form-control-label">Kalimat</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-alternative" name="isian[]">
+                    <div class="input-group input-group-alternative mb-3">
+                        <input type="text" class="form-control" name="isian[]">
+                        <input type="hidden" name="surat_id" value="{{ $surat->id }}">
+                        <input type="hidden" name="status[]" value="2">
                         <div class="input-group-append">
-    				        <button type="button" class="btn btn-outline-danger hapus-kalimat">Hapus</button>
+    				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+    				        <button type="button" class="btn btn-outline-primary tambah" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
                         </div>
                     </div>
-                    <input type="hidden" name="status[]" value="2">
                 </div>
             `);
-            kalimat++;
-        });
-
-        $(document).on("click", ".hapus-kalimat", function () {
-            kalimat--;
-            $(this).parent('div').parent('div').parent('div').remove();
+            $('[data-toggle="tooltip"]').tooltip();
         });
 
         $("#isi").click(function(){
             $("#isian").append(`
                 <div class="form-group">
                     <label class="form-control-label">Isian</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-alternative" name="isian[]">
+                    <div class="input-group input-group-alternative mb-3">
+                        <input type="text" class="form-control" name="isian[]">
+                        <input type="hidden" name="surat_id" value="{{ $surat->id }}">
+                        <input type="hidden" name="status[]" value="3">
                         <div class="input-group-append">
-    				        <button type="button" class="btn btn-outline-danger hapus-isi">Hapus</button>
+    				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+    				        <button type="button" class="btn btn-outline-primary tambah" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
                         </div>
                     </div>
-                    <input type="hidden" name="status[]" value="3">
                 </div>
             `);
-            isi++;
-        });
-
-        $(document).on("click", ".hapus-isi", function () {
-            isi--;
-            $(this).parent('div').parent('div').parent('div').remove();
+            $('[data-toggle="tooltip"]').tooltip();
         });
 
         $('#form').on('submit',function(){
@@ -1078,13 +1082,26 @@
                     $("#simpan").attr('disabled','disabled');
                     $("#simpan").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
                 },
-                success: function(data){
+                success: function(result){
                     $("#simpan").html('SIMPAN');
                     $("#simpan").removeAttr('disabled');
-                    if (data.success) {
-                        location.href = "{{ route('surat.index') }}";
+                    if (result.success) {
+                        $(".notifikasi").html(`
+                            <div class="alert alert-success alert-dismissible fade show">
+                                <span class="alert-icon"><i class="fas fa-thumbs-up"></i> <strong>Berhasil</strong></span>
+                                <span class="alert-text">
+                                    Surat berhasil diperbarui
+                                </span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `);
+                        setTimeout(() => {
+                            $(".notifikasi").html('');
+                        }, 3000);
                     } else {
-                        $("#error").html(`
+                        $(".notifikasi").html(`
                             <div class="alert alert-danger alert-dismissible fade show">
                                 <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
                                 <span class="alert-text">
@@ -1096,11 +1113,197 @@
                                 </button>
                             </div>
                         `);
-                        $.each(data.message, function (i, e) {
+                        $.each(result.message, function (i, e) {
                             $('#pesanError').append(`<li>`+e+`</li>`);
                         });
-                        document.body.scrollTop = 0; // For Safari
-                        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+                        setTimeout(() => {
+                            $(".notifikasi").html('');
+                        }, 10000);
+                    }
+                }
+            });
+        });
+
+        $(document).on("click", ".hapus", function () {
+            $(this).parent('div').parent('div').parent('div').remove();
+        });
+
+        $(document).on("click", ".tambah", function () {
+            let simpan      = $(this);
+            let surat_id    = $(this).parent().siblings('input[name="surat_id"]').val();
+            let isian       = $(this).parent().siblings('[name="isian[]"]').val();
+            let status      = $(this).parent().siblings('input[name="status[]"]').val();
+            $.ajax({
+                url: "{{ route('isiSurat.store') }}",
+                method: "post",
+                data: {
+                    _token      : $("meta[name='csrf-token']").attr('content'),
+                    isian       : isian,
+                    surat_id    : surat_id,
+                    status      : status,
+                },
+                beforeSend: function () {
+                    $(simpan).attr('disabled','disabled');
+                    $(simpan).html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt="">`);
+                },
+                success : function (result) {
+                    $(simpan).html('<i class="fas fa-save"></i>');
+                    $(simpan).removeAttr('disabled');
+                    $(simpan).removeClass('tambah');
+                    $(simpan).addClass('update');
+                    $(simpan).siblings('.hapus').removeClass('hapus');
+                    $(simpan).siblings('.hapus').addClass('delete');
+                    if (result.success) {
+                        $('.notifikasi').html(`
+                            <div class="alert alert-success alert-dismissible fade show">
+                                <span class="alert-icon"><i class="fas fa-thumbs-up"></i> <strong>Berhasil</strong></span>
+                                <span class="alert-text">
+                                    Surat berhasil diperbarui
+                                </span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `);
+                        setTimeout(() => {
+                            $(".notifikasi").html('');
+                        }, 3000);
+                    } else {
+                        $('.notifikasi').html(`
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
+                                <span class="alert-text">
+                                    <ul id="pesanError">
+                                    </ul>
+                                </span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `);
+                        $.each(result.message, function (i, e) {
+                            $('#pesanError').append(`<li>`+e+`</li>`);
+                        });
+                        setTimeout(() => {
+                            $(".notifikasi").html('');
+                        }, 10000);
+                    }
+                }
+            });
+        });
+
+        $(document).on("click", ".delete", function () {
+            let hapus      = $(this);
+            let id          = $(this).parent().siblings('input[name="id"]').val();
+            $.ajax({
+                url         : "{{ url('/isiSurat') }}/" + id,
+                method      : 'post',
+                data        : {
+                    _token  : $("meta[name='csrf-token']").attr('content'),
+                    _method : 'delete',
+                },
+                beforeSend: function () {
+                    $(hapus).attr('disabled','disabled');
+                    $(hapus).html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt="">`);
+                },
+                success : function (result) {
+                    $(hapus).html('<i class="fas fa-trash"></i>');
+                    $(hapus).removeAttr('disabled');
+                    if (result.success) {
+                        $('.notifikasi').html(`
+                            <div class="alert alert-success alert-dismissible fade show">
+                                <span class="alert-icon"><i class="fas fa-thumbs-up"></i> <strong>Berhasil</strong></span>
+                                <span class="alert-text">
+                                    Surat berhasil diperbarui
+                                </span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `);
+
+                        $(hapus).parent('div').parent('div').parent('div').remove();
+
+                        setTimeout(() => {
+                            $(".notifikasi").html('');
+                        }, 3000);
+                    } else {
+                        $('.notifikasi').html(`
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
+                                <span class="alert-text">
+                                    <ul id="pesanError">
+                                    </ul>
+                                </span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `);
+                        $.each(result.message, function (i, e) {
+                            $('#pesanError').append(`<li>`+e+`</li>`);
+                        });
+                        setTimeout(() => {
+                            $(".notifikasi").html('');
+                        }, 10000);
+                    }
+                }
+            });
+        });
+
+        $(document).on("click", ".update", function () {
+            let simpan      = $(this);
+            let id          = $(this).parent().siblings('input[name="id"]').val();
+            let isian       = $(this).parent().siblings('[name="isian[]"]').val();
+            $.ajax({
+                url: "{{ url('/isiSurat') }}/" + id,
+                method: "post",
+                data: {
+                    _token  : $("meta[name='csrf-token']").attr('content'),
+                    _method : 'patch',
+                    isian   : isian,
+                },
+                beforeSend: function () {
+                    $(simpan).attr('disabled','disabled');
+                    $(simpan).html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt="">`);
+                },
+                success : function (result) {
+                    $(simpan).html('<i class="fas fa-save"></i>');
+                    $(simpan).removeAttr('disabled');
+                    if (result.success) {
+                        $('.notifikasi').html(`
+                            <div class="alert alert-success alert-dismissible fade show">
+                                <span class="alert-icon"><i class="fas fa-thumbs-up"></i> <strong>Berhasil</strong></span>
+                                <span class="alert-text">
+                                    Surat berhasil diperbarui
+                                </span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `);
+                        setTimeout(() => {
+                            $(".notifikasi").html('');
+                        }, 3000);
+                    } else {
+                        $('.notifikasi').html(`
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
+                                <span class="alert-text">
+                                    <ul id="pesanError">
+                                    </ul>
+                                </span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        `);
+                        $.each(result.message, function (i, e) {
+                            $('#pesanError').append(`<li>`+e+`</li>`);
+                        });
+                        setTimeout(() => {
+                            $(".notifikasi").html('');
+                        }, 10000);
                     }
                 }
             });
