@@ -77,6 +77,12 @@
                     </div>
                     <!-- Navbar items -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-icon" href="{{ route('beranda') }}">
+                                <i class="fas fa-home"></i>
+                                <span class="nav-link-inner--text">Beranda</span>
+                            </a>
+                        </li>
                         @auth
                             <li class="nav-item">
                                 <a class="nav-link nav-link-icon" href="{{ route('surat.index') }}">

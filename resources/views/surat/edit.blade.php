@@ -334,7 +334,7 @@
                                         <option value='fa-file-powerpoint-o'>&#xf1c4; fa-file-powerpoint-o</option>
                                         <option value='fa-file-sound-o'>&#xf1c7; fa-file-sound-o</option>
                                         <option value='fa-file-text'>&#xf15c; fa-file-text</option>
-                                        <option value='fa-file-text-o'selected>&#xf0f6; fa-file-text-o</option>
+                                        <option value='fa-file-text-o'>&#xf0f6; fa-file-text-o</option>
                                         <option value='fa-file-video-o'>&#xf1c8; fa-file-video-o</option>
                                         <option value='fa-file-word-o'>&#xf1c2; fa-file-word-o</option>
                                         <option value='fa-file-zip-o'>&#xf1c6; fa-file-zip-o</option>
@@ -856,6 +856,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Deskripsi</label>
+                            <textarea class="form-control form-control-alternative" name="deskripsi">{{ $surat->deskripsi }}</textarea>
+                        </div>
                     </div>
                     <h6 class="heading-small text-muted">Isian</h6>
                     <div class="pl-lg-4" id="isian">
@@ -898,8 +902,8 @@
                             @if ($isiSurat->paragraf == 1)
                                 <div class="form-group">
                                     <label class="form-control-label">Paragraf</label>
-                                    <div class="input-group mb-3">
-                                        <textarea class="form-control form-control-alternative" name="isian[]">{{ $isiSurat->isi }}</textarea>
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <textarea class="form-control" name="isian[]">{{ $isiSurat->isi }}</textarea>
                                         <input type="hidden" name="id" value="{{ $isiSurat->id }}">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-outline-danger delete" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
@@ -911,8 +915,8 @@
                             @if ($isiSurat->kalimat == 1)
                                 <div class="form-group">
                                     <label class="form-control-label">Kalimat</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control form-control-alternative" name="isian[]" value="{{ $isiSurat->isi }}">
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <input type="text" class="form-control" name="isian[]" value="{{ $isiSurat->isi }}">
                                         <input type="hidden" name="id" value="{{ $isiSurat->id }}">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-outline-danger delete" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
@@ -924,8 +928,8 @@
                             @if ($isiSurat->isian == 1)
                                 <div class="form-group">
                                     <label class="form-control-label">Isian</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control form-control-alternative" name="isian[]" value="{{ $isiSurat->isi }}">
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <input type="text" class="form-control" name="isian[]" value="{{ $isiSurat->isi }}">
                                         <input type="hidden" name="id" value="{{ $isiSurat->id }}">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-outline-danger delete" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
@@ -967,6 +971,8 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
+        $(".ikon").val("{{ $surat->icon }}");
+
         $("#perihal").change(function(){
             if ($(this).prop('checked') == true) {
                 $("#isian").prepend(`
@@ -1013,8 +1019,8 @@
             $("#isian").append(`
                 <div class="form-group">
                     <label class="form-control-label">Paragraf</label>
-                    <div class="input-group mb-3">
-                        <textarea class="form-control form-control-alternative" name="isian[]"></textarea>
+                    <div class="input-group input-group-alternative mb-3">
+                        <textarea class="form-control" name="isian[]"></textarea>
                         <input type="hidden" name="surat_id" value="{{ $surat->id }}">
                         <input type="hidden" name="status[]" value="1">
                         <div class="input-group-append">
@@ -1031,8 +1037,8 @@
             $("#isian").append(`
                 <div class="form-group">
                     <label class="form-control-label">Kalimat</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-alternative" name="isian[]">
+                    <div class="input-group input-group-alternative mb-3">
+                        <input type="text" class="form-control" name="isian[]">
                         <input type="hidden" name="surat_id" value="{{ $surat->id }}">
                         <input type="hidden" name="status[]" value="2">
                         <div class="input-group-append">
@@ -1049,8 +1055,8 @@
             $("#isian").append(`
                 <div class="form-group">
                     <label class="form-control-label">Isian</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-alternative" name="isian[]">
+                    <div class="input-group input-group-alternative mb-3">
+                        <input type="text" class="form-control" name="isian[]">
                         <input type="hidden" name="surat_id" value="{{ $surat->id }}">
                         <input type="hidden" name="status[]" value="3">
                         <div class="input-group-append">

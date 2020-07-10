@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\IsiSurat;
 use App\Surat;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class SuratController extends Controller
 {
@@ -40,7 +40,7 @@ class SuratController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama'      => ['required', 'max:64', 'unique:surat,nama'],
+            'nama'      => ['required', 'max:64'],
             'icon'      => ['required', 'max:64'],
             'isian.*'   => ['required']
         ]);
@@ -53,8 +53,9 @@ class SuratController extends Controller
         }
 
         $dataSurat = [
-            'nama'  => $request->nama,
-            'icon'  => $request->icon,
+            'nama'      => $request->nama,
+            'icon'      => $request->icon,
+            'deskripsi' => $request->deskripsi,
         ];
 
         if ($request->perihal) {
@@ -130,7 +131,7 @@ class SuratController extends Controller
      */
     public function show(Surat $surat)
     {
-        //
+        return back();
     }
 
     /**
@@ -154,7 +155,7 @@ class SuratController extends Controller
     public function update(Request $request, Surat $surat)
     {
         $validation = [
-            'nama'      => ['required', 'max:64', Rule::unique('surat','nama')->ignore($surat)],
+            'nama'      => ['required', 'max:64'],
             'icon'      => ['required', 'max:64'],
         ];
 
@@ -172,8 +173,9 @@ class SuratController extends Controller
         }
 
         $dataSurat = [
-            'nama'  => $request->nama,
-            'icon'  => $request->icon,
+            'nama'      => $request->nama,
+            'icon'      => $request->icon,
+            'deskripsi' => $request->deskripsi,
         ];
 
         if ($request->perihal) {
@@ -218,8 +220,14 @@ class SuratController extends Controller
         return redirect()->back()->with('success', 'Surat berhasil dihapus');
     }
 
-    public function buat(Request $request)
+    public function buat(Request $request, $id, $slug)
     {
-        # code...
+        $surat = Surat::find($id);
+
+        if ($slug != Str::slug($surat->nama)) {
+            return abort(404, 'Halaman Tidak Ditemukan');
+        }
+
+        return view('surat.buat', compact('surat'));
     }
 }

@@ -856,6 +856,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Deskripsi</label>
+                            <textarea class="form-control form-control-alternative" name="deskripsi"></textarea>
+                        </div>
                     </div>
                     <h6 class="heading-small text-muted mt-4">Isian</h6>
                     <div class="pl-lg-4" id="isian"></div>
@@ -936,8 +940,8 @@
             $("#isian").append(`
                 <div class="form-group">
                     <label class="form-control-label">Paragraf</label>
-                    <div class="input-group mb-3">
-                        <textarea class="form-control form-control-alternative" name="isian[]"></textarea>
+                    <div class="input-group input-group-alternative mb-3">
+                        <textarea class="form-control name="isian[]"></textarea>
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
@@ -952,8 +956,8 @@
             $("#isian").append(`
                 <div class="form-group">
                     <label class="form-control-label">Kalimat</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-alternative" name="isian[]">
+                    <div class="input-group input-group-alternative mb-3">
+                        <input type="text" class="form-control name="isian[]">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
@@ -968,8 +972,8 @@
             $("#isian").append(`
                 <div class="form-group">
                     <label class="form-control-label">Isian</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-alternative" name="isian[]">
+                    <div class="input-group input-group-alternative mb-3">
+                        <input type="text" class="form-control name="isian[]">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>

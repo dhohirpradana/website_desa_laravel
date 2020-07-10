@@ -15,7 +15,8 @@ class CreateSuratTable extends Migration
     {
         Schema::create('surat', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 64)->unique();
+            $table->string('nama', 64);
+            $table->text('deskripsi')->nullable();
             $table->string('icon', 64);
             $table->boolean('tanda_tangan_bersangkutan')->default(0);
             $table->boolean('perihal')->default(0);

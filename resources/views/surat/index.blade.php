@@ -43,10 +43,11 @@
     @forelse ($surat as $item)
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded shadow">
-                <a href="{{ route('buat-surat', Str::slug($item->nama)) }}">
+                <a href="{{ route('buat-surat', ['id' => $item->id,'slug' => Str::slug($item->nama)]) }}">
                     <i class="fas {{ $item->icon }} ikon fa-5x mb-3"></i>
                     <h4>{{ $item->nama }}</h4>
                 </a>
+                <p>{{ $item->deskripsi }}</p>
                 <a href="{{ route('surat.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
                 <a class="btn btn-sm btn-danger hapus" data-nama="{{ $item->nama }}" data-id="{{ $item->id }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
             </div>
@@ -54,7 +55,7 @@
     @empty
         <div class="col">
             <div class="single-service bg-white rounded shadow">
-                <h4>Tidak ada data</h4>
+                <h4>Data belum tersedia</h4>
             </div>
         </div>
     @endforelse
