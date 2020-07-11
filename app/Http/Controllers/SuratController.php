@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Desa;
 use App\IsiSurat;
 use App\Surat;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -129,9 +131,17 @@ class SuratController extends Controller
      * @param  \App\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function show(Surat $surat)
+    public function show(Request $request, $id)
     {
-        return back();
+        $request->validate([
+            'isian.*'  => ['required']
+        ]);
+
+        $desa = Desa::find(1);
+        $surat = Surat::find($id);
+        $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request'));
+        return $pdf->stream($surat->nama . '.pdf');
+
     }
 
     /**
