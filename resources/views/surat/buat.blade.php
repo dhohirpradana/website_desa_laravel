@@ -29,6 +29,25 @@ Buat Surat {{ $surat->nama }}
                         @enderror
                     </div>
                 @endif
+                @php
+                    $string = $isiSurat->isi;
+                    preg_match_all("/\{[A-Za-z_]+\}/", $string, $matches);
+                @endphp
+                @foreach ($matches[0] as $k => $value)
+                    @php
+                        $pertama = substr($value,1);
+                        $hasil = str_replace('_',' ',substr($pertama,0,-1));
+                    @endphp
+                    <div class="form-group mb-3">
+                        <label for="{{ $hasil .''.$k }}" class="form-control-label">{{ $hasil }}</label>
+                        <input id="{{ $hasil .''.$k }}" class="form-control form-control-alternative @error($hasil) is-invalid @enderror" name="{{ $hasil }}" required autofocus placeholder="Masukkan {{ $hasil }}">
+                        @error($hasil)
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                @endforeach
             @endforeach
             <div class="text-center">
                 <button type="submit" class="btn btn-primary my-4">Cetak</button>
