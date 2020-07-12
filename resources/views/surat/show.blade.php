@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $surat->nama }}</title>
-    <link rel="icon" href="{{ $logo }}">
+    <link rel="icon" href="{{ url(Storage::url($desa->logo)) }}" type="image/png">
 
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -20,7 +20,7 @@
 
 <body>
     <div style="margin:1cm">
-        <div style="height:100px;width:100%">
+        <div style="height:100px;width:100%" class="mb-5">
             <div style="height:90px;width:90px;float:left" class="">
                 <img class="mw-100" src="{{ $logo }}" alt="">
             </div>
@@ -34,24 +34,143 @@
             </div>
             <hr style="border-top: 5px double #000000;">
         </div>
-        <div class="text-center mt-5 mb-3" >
-            <b style="text-decoration: underline;">{{ Str::upper($surat->nama) }}</b><br>
-            Nomor : 140 / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / 22.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}
+
+        @if ($surat->perihal == 1)
+            <div style="width: 50%" class="float-left">
+                <br>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Nomor</td>
+                            <td>:140 / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / 22.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sifat</td>
+                            <td>: {{ $surat->isiSurat[0]->isi }}</td>
+                        </tr>
+                        <tr>
+                            <td>Lampiran</td>
+                            <td>: {{ $surat->isiSurat[1]->isi }}</td>
+                        </tr>
+                        <tr>
+                            <td>Perihal</td>
+                            <td>: {{ $surat->isiSurat[2]->isi }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-left: 50%; width: 50%" class="text-center float-right">
+                <p style="margin-bottom: 55px">{{ $desa->nama_desa }}, {{ $tanggal }}<br>Kepada {{ $surat->isiSurat[3]->isi }}</p>
+                <p>Di - {{ $surat->isiSurat[4]->isi }}</p>
+            </div>
+        @else
+            <div class="text-center mt-5 mb-3" >
+                <b style="text-decoration: underline;">{{ Str::upper($surat->nama) }}</b><br>
+                Nomor : 140 / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / 22.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}
+            </div>
+        @endif
+
+        @php
+            $data_kades = true;
+            $tabel = true;
+            $i = 0;
+        @endphp
+
+        @foreach ($surat->isiSurat->where('perihal', 0) as $key => $isiSurat)
+            @if ($isiSurat->paragraf == 1)
+                @php
+                    $string = $isiSurat->isi;
+                    $pattern = "/\{[A-Za-z_]+\}/";
+                    preg_match_all($pattern, $string, $matches);
+                    $x = count($surat->isiSurat->where('isian', 1));
+                    $hasil = $string;
+                @endphp
+                @foreach ($matches[0] as $k => $value)
+                    @php
+                        $hasil = str_replace($value, $request->isian[$x], $hasil);
+                        $x++;
+                    @endphp
+                @endforeach
+                <p class="text-justify" style="text-indent: 50px">{{ $hasil }}</p>
+            @endif
+
+            @if ($isiSurat->kalimat == 1)
+                <p>{{ $isiSurat->isi }}</p>
+            @endif
+
+            @if ($data_kades)
+                @if ($surat->data_kades == 1)
+                    <table class="mb-3 ml-5">
+                        <tbody>
+                            <tr>
+                                <td width="150px" valign="top">Nama</td>
+                                <td width="10px" valign="top">:</td>
+                                <td>{{ $desa->nama_kepala_desa }}</td>
+                            </tr>
+                            <tr>
+                                <td width="150px" valign="top">Jabatan</td>
+                                <td width="10px" valign="top">:</td>
+                                <td>Kepala Desa</td>
+                            </tr>
+                            <tr>
+                                <td width="150px" valign="top">Alamat</td>
+                                <td width="10px" valign="top">:</td>
+                                <td>{{ $desa->alamat_kepala_desa }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                @endif
+
+                @php
+                    $data_kades = false;
+                @endphp
+            @endif
+
+            @if ($isiSurat->isian == 1)
+                @if ($tabel)
+                    <table class="mb-3 ml-5">
+                        <tbody>
+                    @php
+                        $tabel = false;
+                    @endphp
+                @endif
+                <tr>
+                    <td width="150px" valign="top">{{ $isiSurat->isi }}</td>
+                    <td width="10px" valign="top">:</td>
+                    <td>{{ $request->isian[$i] }}</td>
+                </tr>
+
+                @php
+                    $i++;
+                @endphp
+                @if ($surat->isiSurat[$key + 1]->isian != 1)
+                        </tbody>
+                    </table>
+                @endif
+            @endif
+        @endforeach
+        <div class="mt-5">
+            @if ($surat->tanda_tangan_bersangkutan == 1)
+                <div style="width: 50%" class="float-left text-center">
+                    <br>
+                    <p style="margin-bottom: 100px">
+                        Yang Bersangkutan
+                    </p>
+                    <p style="" class="bold underline">
+                        {{ $request->isian[count($request->isian)-1] }}
+                    </p>
+                </div>
+            @endif
+            <div style="margin-left: 50%; width: 50%" class="text-center float-right">
+                <p style="margin-bottom: 100px">
+                    {{ $desa->nama_desa }}, {{ $tanggal }}  <br>
+                    Kepala Desa {{ $desa->nama_desa }}
+                </p>
+                <p style="" class="bold underline">
+                    {{ $desa->nama_kepala_desa }}
+                </p>
+            </div>
         </div>
-
-        <p class="text-justify mt-3 text-center">
-            Mohon maaf website sedang dalam perkembangan
-        </p>
-
-        {{-- <div style="margin-left:50%;" class="text-center">
-            <p style="line-height: 1; margin-bottom: 75px">
-                {{ $desa->nama_desa }}, {{ date('d-m-Y') }}  <br>
-                Kepala Desa {{ $desa->nama_desa }}
-            </p>
-            <p style="line-height: 1;" class="bold underline">
-                {{ $desa->nama_kepala_desa }}
-            </p>
-        </div> --}}
     </div>
 </body>
 

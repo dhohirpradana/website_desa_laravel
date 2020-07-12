@@ -56,6 +56,14 @@ Buat Surat {{ $surat->nama }}
                     </div>
                 @endforeach
             @endforeach
+
+            @if ($surat->tanda_tangan_bersangkutan == 1)
+                <div class="form-group mb-3">
+                    <label for="tanda_tangan_bersangkutan" class="form-control-label">Nama yang bersangkutan</label>
+                    <input required id="tanda_tangan_bersangkutan" class="form-control form-control-alternative" name="isian[]" autofocus placeholder="Masukkan nama yang bersangkutan">
+                </div>
+            @endif
+
             <div class="text-center">
                 <button type="submit" class="btn btn-primary my-4">Cetak</button>
             </div>
