@@ -6,9 +6,11 @@ use App\Desa;
 use App\IsiSurat;
 use App\Surat;
 use Barryvdh\DomPDF\Facade as PDF;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SuratController extends Controller
 {
@@ -139,7 +141,8 @@ class SuratController extends Controller
 
         $desa = Desa::find(1);
         $surat = Surat::find($id);
-        $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request'));
+        $logo = (string) Image::make(public_path(Storage::url($desa->logo)))->encode('data-url');
+        $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request', 'logo'));
         return $pdf->stream($surat->nama . '.pdf');
 
     }
