@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $surat->nama }}</title>
-    <link rel="icon" href="{{ public_path(Storage::url($desa->logo)) }}">
+    <link rel="icon" href="{{ $logo }}">
 
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -22,7 +22,7 @@
     <div style="margin:1cm">
         <div style="height:100px;width:100%">
             <div style="height:90px;width:90px;float:left" class="">
-                <img class="mw-100" src="{{ public_path(Storage::url($desa->logo)) }}" alt="">
+                <img class="mw-100" src="{{ $logo }}" alt="">
             </div>
             <div class="text-center lh-20px">
                 <span style="font-size: 14pt" class="font-weight-bold">PEMERINTAHAN KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</span><br>
