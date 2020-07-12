@@ -13,7 +13,7 @@
 
 @section('header')
 <h2 class="text-white text-sm text-muted">SELAMAT DATANG DI LAYANAN ONLINE</h2>
-<h2 class="text-lead text-white">DESA ARJASA<br/>KABUPATEN JEMBER</h2>
+<h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
 @endsection
 
 @section('content')

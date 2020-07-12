@@ -1,3 +1,6 @@
+@php
+    $desa = App\Desa::find(1);
+@endphp
 <!--
 
 =========================================================
@@ -29,7 +32,7 @@
     </title>
 
     <!-- Favicon -->
-    <link href="{{ asset('/img/brand/favicon.png') }}" rel="icon" type="image/png">
+    <link href="{{ asset(Storage::url($desa->logo)) }}" rel="icon" type="image/png">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
