@@ -951,7 +951,7 @@
                             <label class="custom-control-label" for="data_kades">Data Kades</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="tanda_tangan_bersangkutan" id="tanda_tangan_bersangkutan" value="1" {{ $surat->tanda_tangan_bersangkutan == 1 ? 'checked':'' }}>
+                            <input type="checkbox" class="custom-control-input" id="tanda_tangan_bersangkutan" name="tanda_tangan_bersangkutan" value="1" {{ $surat->tanda_tangan_bersangkutan == 1 ? 'checked':'' }}>
                             <label class="custom-control-label" for="tanda_tangan_bersangkutan">Tanda tangan bersangkutan</label>
                         </div>
                         <button type="button" id="paragraf" class="btn btn-sm btn-slack mt-2">Paragraf</button>

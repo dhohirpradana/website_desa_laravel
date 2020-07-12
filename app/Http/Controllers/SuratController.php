@@ -141,8 +141,10 @@ class SuratController extends Controller
 
         $desa = Desa::find(1);
         $surat = Surat::find($id);
-        $logo = (string) Image::make(public_path(Storage::url($desa->logo)))->encode('data-url');
-        $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request', 'logo'));
+        $image = (string) Image::make(public_path(Storage::url($desa->logo)))->encode('jpg');
+        $logo = (string) Image::make($image)->encode('data-url');
+        $tanggal = tgl(date('Y-m-d'));
+        $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request', 'logo', 'tanggal'));
         return $pdf->stream($surat->nama . '.pdf');
 
     }
