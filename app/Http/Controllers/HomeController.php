@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Desa;
+use App\Gallery;
 use App\Surat;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,7 @@ class HomeController extends Controller
     {
         $surat = Surat::all();
         $desa = Desa::find(1);
-        return view('index', compact('surat', 'desa'));
+        $gallery = Gallery::all();
+        return view('index', compact('surat', 'desa', 'gallery'));
     }
 }

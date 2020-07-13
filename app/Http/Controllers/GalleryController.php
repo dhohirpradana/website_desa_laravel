@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class GalleryController extends Controller
 {
@@ -14,7 +15,8 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        //
+        $gallery = Gallery::all();
+        return view('gallery.index', compact('gallery'));
     }
 
     /**
@@ -24,7 +26,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        //
+        return view('gallery.create');
     }
 
     /**
@@ -35,41 +37,21 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $photos = $request->file('file');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Gallery  $gallery
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Gallery $gallery)
-    {
-        //
-    }
+        if (!is_array($photos)) {
+            $photos = [$photos];
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Gallery  $gallery
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Gallery $gallery)
-    {
-        //
-    }
+        for ($i = 0; $i < count($photos); $i++) {
+            Gallery::create([
+                'gallery' => $photos[$i]->store('public/gallery'),
+            ]);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Gallery  $gallery
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Gallery $gallery)
-    {
-        //
+        return response()->json([
+            'message' => 'Gallery berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -80,6 +62,8 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
-        //
+        File::delete(storage_path('app/'.$gallery->gallery));
+        $gallery->delete();
+        return back()->with('success', 'Gallery berhasil dihapus');
     }
 }
