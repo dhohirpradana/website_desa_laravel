@@ -34,6 +34,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::patch('/update-pengaturan/{user}', 'UserController@updatePengaturan')->name('update-pengaturan');
     Route::patch('/update-profil/{user}', 'UserController@updateProfil')->name('update-profil');
 
+    Route::get('/profil-desa', 'DesaController@index')->name('profil-desa');
+    Route::patch('/update-desa/{desa}', 'DesaController@update')->name('update-desa');
+
     Route::get('/tambah-surat', 'SuratController@create')->name('surat.create');
     Route::resource('/surat', 'SuratController')->except('create');
 

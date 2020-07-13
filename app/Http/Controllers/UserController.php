@@ -50,11 +50,9 @@ class UserController extends Controller
         } else {
             $data = $request->validate([
                 'nama'          => ['required', 'max:32', 'string'],
-                'alamat'        => ['nullable','string'],
-                'nomor_hp'      => ['nullable','digits_between:11,13'],
-                'tentang_saya'  => ['nullable','string']
             ]);
-            if ($request->nama != $user->nama || $request->alamat != $user->alamat || $request->nomor_hp != $user->nomor_hp || $request->tentang_saya != $user->tentang_saya) {
+
+            if ($request->nama != $user->nama) {
                 $user->update($data);
                 return redirect()->back()->with('success','Profil berhasil di perbarui');
             } else {

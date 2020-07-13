@@ -1088,7 +1088,7 @@
                     if (result.success) {
                         $(".notifikasi").html(`
                             <div class="alert alert-success alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-thumbs-up"></i> <strong>Berhasil</strong></span>
+                                <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
                                 <span class="alert-text">
                                     Surat berhasil diperbarui
                                 </span>
@@ -1103,7 +1103,7 @@
                     } else {
                         $(".notifikasi").html(`
                             <div class="alert alert-danger alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
+                                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
                                 <span class="alert-text">
                                     <ul id="pesanError">
                                     </ul>
@@ -1156,7 +1156,7 @@
                     if (result.success) {
                         $('.notifikasi').html(`
                             <div class="alert alert-success alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-thumbs-up"></i> <strong>Berhasil</strong></span>
+                                <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
                                 <span class="alert-text">
                                     Surat berhasil diperbarui
                                 </span>
@@ -1171,7 +1171,7 @@
                     } else {
                         $('.notifikasi').html(`
                             <div class="alert alert-danger alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
+                                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
                                 <span class="alert-text">
                                     <ul id="pesanError">
                                     </ul>
@@ -1212,7 +1212,7 @@
                     if (result.success) {
                         $('.notifikasi').html(`
                             <div class="alert alert-success alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-thumbs-up"></i> <strong>Berhasil</strong></span>
+                                <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
                                 <span class="alert-text">
                                     Surat berhasil diperbarui
                                 </span>
@@ -1230,7 +1230,7 @@
                     } else {
                         $('.notifikasi').html(`
                             <div class="alert alert-danger alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
+                                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
                                 <span class="alert-text">
                                     <ul id="pesanError">
                                     </ul>
@@ -1273,7 +1273,7 @@
                     if (result.success) {
                         $('.notifikasi').html(`
                             <div class="alert alert-success alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-thumbs-up"></i> <strong>Berhasil</strong></span>
+                                <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
                                 <span class="alert-text">
                                     Surat berhasil diperbarui
                                 </span>
@@ -1288,7 +1288,7 @@
                     } else {
                         $('.notifikasi').html(`
                             <div class="alert alert-danger alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
+                                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
                                 <span class="alert-text">
                                     <ul id="pesanError">
                                     </ul>

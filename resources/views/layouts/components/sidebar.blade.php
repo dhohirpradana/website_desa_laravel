@@ -76,6 +76,12 @@
         <hr class="my-3">
         <ul class="navbar-nav">
             <li class="nav-item">
+                <a class="nav-link @if (Request::segment(1) == 'profil-desa') active @endif" href="{{ route('profil-desa') }}">
+                    <i class="fas fa-users text-info"></i>
+                    <span class="nav-link-inner--text">Profil Desa</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'profil') active @endif" href="{{ route('profil') }}">
                     <i class="ni ni-single-02 text-yellow"></i>
                     <span class="nav-link-inner--text">Profil Saya</span>
