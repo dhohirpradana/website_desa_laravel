@@ -1009,7 +1009,7 @@
                     } else {
                         $(".notifikasi").html(`
                             <div class="alert alert-danger alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i> <strong>Gagal</strong></span>
+                                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
                                 <span class="alert-text">
                                     <ul id="pesanError">
                                     </ul>
