@@ -76,6 +76,21 @@
         <hr class="my-3">
         <ul class="navbar-nav">
             <li class="nav-item">
+                <a class="nav-link @if (Request::segment(1) == 'gallery') active @endif" href="{{ route('gallery.index') }}">
+                    <i class="fas fa-images text-primary"></i>
+                    <span class="nav-link-inner--text">Gallery</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if (Request::segment(1) == 'tambah-gallery') active @endif" href="{{ route('gallery.create') }}">
+                    <i class="fas fa-plus-circle text-success"></i>
+                    <span class="nav-link-inner--text">Tambah Gallery</span>
+                </a>
+            </li>
+        </ul>
+        <hr class="my-3">
+        <ul class="navbar-nav">
+            <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'profil-desa') active @endif" href="{{ route('profil-desa') }}">
                     <i class="fas fa-users text-info"></i>
                     <span class="nav-link-inner--text">Profil Desa</span>

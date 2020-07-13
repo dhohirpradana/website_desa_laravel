@@ -2,6 +2,9 @@
 @section('title', 'Beranda')
 
 @section('styles')
+<link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">
 <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <style>
@@ -19,8 +22,12 @@
 @section('content')
 <div class="row">
     <div class="col-md">
-        <div class="embed-responsive embed-responsive-16by9 rounded">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/84mxPd0Ma8Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        <div id="owl-one" class="owl-carousel owl-theme">
+            @foreach($gallery as $item)
+                <a href="{{ asset(Storage::url($item->gallery)) }}" data-fancybox>
+                    <img src="{{ asset(Storage::url($item->gallery)) }}" class="mw-100">
+                </a>
+            @endforeach
         </div>
     </div>
 </div>
@@ -58,3 +65,31 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('js/jquery.fancybox.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('#owl-one').owlCarousel({
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            smartSpeed:1000,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
+                }
+            }
+        });
+    });
+
+</script>
+@endpush

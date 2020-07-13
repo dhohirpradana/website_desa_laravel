@@ -42,6 +42,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::resource('/isiSurat', 'IsiSuratController')->except('index', 'create', 'edit', 'show');
 
-    Route::resource('/gallery', 'GalleryController')->except('show','edit');
+    Route::get('/tambah-gallery', 'GalleryController@create')->name('gallery.create');
+    Route::resource('/gallery', 'GalleryController')->except('show', 'edit', 'update', 'create');
 
 });

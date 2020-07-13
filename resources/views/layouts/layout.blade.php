@@ -94,9 +94,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('surat.create') }}">
-                                    <i class="fas fa-plus-circle"></i>
-                                    <span class="nav-link-inner--text">Tambah Surat</span>
+                                <a class="nav-link nav-link-icon" href="{{ route('gallery.index') }}">
+                                    <i class="fas fa-images"></i>
+                                    <span class="nav-link-inner--text">Gallery</span>
                                 </a>
                             </li>
                             <li class="nav-item">
