@@ -43,12 +43,12 @@ Buat Surat {{ $surat->nama }}
                 @endif
                 @php
                     $string = $isiSurat->isi;
-                    preg_match_all("/\{[A-Za-z_]+\}/", $string, $matches);
+                    preg_match_all("/\{[A-Za-z\s\(\)]+\}/", $string, $matches);
                 @endphp
                 @foreach ($matches[0] as $k => $value)
                     @php
                         $pertama = substr($value,1);
-                        $hasil = str_replace('_',' ',substr($pertama,0,-1));
+                        $hasil = substr($pertama,0,-1);
                     @endphp
                     <div class="form-group mb-3">
                         <label for="{{ $hasil .''.$k }}" class="form-control-label">{{ $hasil }}</label>
