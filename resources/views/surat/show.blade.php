@@ -42,7 +42,7 @@
                     <tbody>
                         <tr>
                             <td>Nomor</td>
-                            <td>:140 / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / 22.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}</td>
+                            <td>:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}</td>
                         </tr>
                         <tr>
                             <td>Sifat</td>
@@ -64,9 +64,9 @@
                 <p>Di - {{ $surat->isiSurat[4]->isi }}</p>
             </div>
         @else
-            <div class="text-center mt-5 mb-3" >
+            <div class="text-center mt-5 mb-3">
                 <b style="text-decoration: underline;">{{ Str::upper($surat->nama) }}</b><br>
-                Nomor : 140 / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / 22.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}
+                Nomor : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}
             </div>
         @endif
 
@@ -80,7 +80,7 @@
             @if ($isiSurat->paragraf == 1)
                 @php
                     $string = $isiSurat->isi;
-                    $pattern = "/\{[A-Za-z_]+\}/";
+                    $pattern = "/\{[A-Za-z\s\(\)]+\}/";
                     preg_match_all($pattern, $string, $matches);
                     $x = count($surat->isiSurat->where('isian', 1));
                     $hasil = $string;
@@ -135,9 +135,9 @@
                     @endphp
                 @endif
                 <tr>
-                    <td width="150px" valign="top">{{ $isiSurat->isi }}</td>
+                    <td width="160px" valign="top">{{ $isiSurat->isi }}</td>
                     <td width="10px" valign="top">:</td>
-                    <td>{{ $request->isian[$i] }}</td>
+                    <td width="10cm">{{ $request->isian[$i] }}</td>
                 </tr>
 
                 @php
