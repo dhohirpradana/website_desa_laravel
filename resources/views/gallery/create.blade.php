@@ -44,7 +44,7 @@
                     <div class="dz-message">
                         <div class="col-xs-8">
                             <div class="message">
-                                <p>Drop files here or Click to Upload</p>
+                                <p>Seret gambar kesini atau klik untuk mengunggah</p>
                             </div>
                         </div>
                     </div>
@@ -118,12 +118,13 @@
     Dropzone.options.myDropzone = {
         uploadMultiple: true,
         parallelUploads: 2,
-        maxFilesize: 16,
+        maxFilesize: 2,
         previewTemplate: document.querySelector('#preview').innerHTML,
         addRemoveLinks: true,
-        dictRemoveFile: 'Remove file',
-        dictFileTooBig: 'Image is larger than 16MB',
+        dictRemoveFile: 'Hapus gambar',
+        dictFileTooBig: 'Maximum ukuran gambar adalah 2 mb',
         timeout: 10000,
+        acceptedFiles: "image/*",
         renameFile: function (file) {
             name = new Date().getTime() + Math.floor((Math.random() * 100) + 1) + '_' + file.name;
             return name;

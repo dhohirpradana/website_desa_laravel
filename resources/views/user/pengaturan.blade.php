@@ -39,7 +39,6 @@
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" for="email_baru">Email Baru</label>
-                            <p class="mb-3 text-sm text-muted"><em>Agar dapat menerima email konfirmasi, harap masukkan alamat email yang aktif.</em></p>
                             <input class="form-control form-control-alternative @error('email') is-invalid @enderror" type="email" name="email" id="email" placeholder="Masukkan alamat email baru ..." value="{{ old('email') }}">
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
