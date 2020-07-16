@@ -904,6 +904,11 @@
                                 <div class="form-group">
                                     <label class="form-control-label">Paragraf</label> <a href="{{ url('img/bantuan-paragraf.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                                     <div class="input-group input-group-alternative mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan paragraf ini pada form buat surat" @if($isiSurat->tampilkan == 1) checked @endif>
+                                            </div>
+                                        </div>
                                         <textarea class="form-control" name="isian[]">{{ $isiSurat->isi }}</textarea>
                                         <input type="hidden" name="id" value="{{ $isiSurat->id }}">
                                         <div class="input-group-append">
@@ -917,6 +922,11 @@
                                 <div class="form-group">
                                     <label class="form-control-label">Kalimat</label>
                                     <div class="input-group input-group-alternative mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan kalimat ini pada form buat surat" @if($isiSurat->tampilkan == 1) checked @endif>
+                                            </div>
+                                        </div>
                                         <input type="text" class="form-control" name="isian[]" value="{{ $isiSurat->isi }}">
                                         <input type="hidden" name="id" value="{{ $isiSurat->id }}">
                                         <div class="input-group-append">
@@ -1023,6 +1033,11 @@
                 <div class="form-group">
                     <label class="form-control-label">Paragraf</label> <a href="{{ url('img/bantuan-paragraf.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     <div class="input-group input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan paragraf ini pada form buat surat">
+                            </div>
+                        </div>
                         <textarea class="form-control" name="isian[]"></textarea>
                         <input type="hidden" name="surat_id" value="{{ $surat->id }}">
                         <input type="hidden" name="status[]" value="1">
@@ -1041,6 +1056,11 @@
                 <div class="form-group">
                     <label class="form-control-label">Kalimat</label>
                     <div class="input-group input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan kalimat ini pada form buat surat">
+                            </div>
+                        </div>
                         <input type="text" class="form-control" name="isian[]">
                         <input type="hidden" name="surat_id" value="{{ $surat->id }}">
                         <input type="hidden" name="status[]" value="2">
@@ -1128,7 +1148,12 @@
         });
 
         $(document).on("click", ".hapus", function () {
+            $(this).tooltip('dispose');
             $(this).parent('div').parent('div').parent('div').remove();
+        });
+
+        $(document).on("click", "input[type='checkbox']", function () {
+            $(this).tooltip('hide');
         });
 
         $(document).on("click", ".tambah", function () {
@@ -1136,6 +1161,12 @@
             let surat_id    = $(this).parent().siblings('input[name="surat_id"]').val();
             let isian       = $(this).parent().siblings('[name="isian[]"]').val();
             let status      = $(this).parent().siblings('input[name="status[]"]').val();
+            let tampilkan   = $(this).parent().siblings('.input-group-prepend').children('.input-group-text').children('input[name="tampilkan[]"]');
+            if ($(tampilkan).is(':checked')) {
+                tampilkan = 1;
+            } else {
+                tampilkan = 0;
+            }
             $.ajax({
                 url: "{{ route('isiSurat.store') }}",
                 method: "post",
@@ -1144,6 +1175,7 @@
                     isian       : isian,
                     surat_id    : surat_id,
                     status      : status,
+                    tampilkan   : tampilkan,
                 },
                 beforeSend: function () {
                     $(simpan).attr('disabled','disabled');
@@ -1225,6 +1257,7 @@
                             </div>
                         `);
 
+                        $(hapus).tooltip('dispose');
                         $(hapus).parent('div').parent('div').parent('div').remove();
 
                         setTimeout(() => {
@@ -1258,6 +1291,12 @@
             let simpan      = $(this);
             let id          = $(this).parent().siblings('input[name="id"]').val();
             let isian       = $(this).parent().siblings('[name="isian[]"]').val();
+            let tampilkan   = $(this).parent().siblings('.input-group-prepend').children('.input-group-text').children('input[name="tampilkan[]"]');
+            if ($(tampilkan).is(':checked')) {
+                tampilkan = 1;
+            } else {
+                tampilkan = 0;
+            }
             $.ajax({
                 url: "{{ url('/isiSurat') }}/" + id,
                 method: "post",
@@ -1265,6 +1304,7 @@
                     _token  : $("meta[name='csrf-token']").attr('content'),
                     _method : 'patch',
                     isian   : isian,
+                    tampilkan   : tampilkan,
                 },
                 beforeSend: function () {
                     $(simpan).attr('disabled','disabled');
