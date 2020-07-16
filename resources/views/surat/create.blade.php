@@ -944,7 +944,7 @@
                 <div class="form-group">
                     <label class="form-control-label">Paragraf</label> <a href="{{ url('img/bantuan-paragraf.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     <div class="input-group input-group-alternative mb-3">
-                        <textarea class="form-control name="isian[]"></textarea>
+                        <textarea class="form-control" name="isian[]"></textarea>
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
@@ -960,7 +960,7 @@
                 <div class="form-group">
                     <label class="form-control-label">Kalimat</label>
                     <div class="input-group input-group-alternative mb-3">
-                        <input type="text" class="form-control name="isian[]">
+                        <input type="text" class="form-control" name="isian[]">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
@@ -976,7 +976,7 @@
                 <div class="form-group">
                     <label class="form-control-label">Isian</label>
                     <div class="input-group input-group-alternative mb-3">
-                        <input type="text" class="form-control name="isian[]">
+                        <input type="text" class="form-control" name="isian[]">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
