@@ -145,8 +145,9 @@ class SuratController extends Controller
         $logo = (string) Image::make($image)->encode('data-url');
         $tanggal = tgl(date('Y-m-d'));
         $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request', 'logo', 'tanggal'));
+        $surat->jumlah_cetak = $surat->jumlah_cetak + 1;
+        $surat->save();
         return $pdf->stream($surat->nama . '.pdf');
-
     }
 
     /**

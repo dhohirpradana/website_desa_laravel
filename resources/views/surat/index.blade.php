@@ -48,6 +48,9 @@
                     <h4>{{ $item->nama }}</h4>
                 </a>
                 <p>{{ $item->deskripsi }}</p>
+                @if ($item->jumlah_cetak > 0)
+                    <p>Telah dicetak sebanyak {{ $item->jumlah_cetak }}x</p>
+                @endif
                 <a href="{{ route('surat.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
                 <a class="btn btn-sm btn-danger hapus" data-nama="{{ $item->nama }}" data-id="{{ $item->id }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
             </div>

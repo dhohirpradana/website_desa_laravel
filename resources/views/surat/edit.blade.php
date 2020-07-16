@@ -3,6 +3,7 @@
 @section('title', 'Edit Surat')
 
 @section('styles')
+<link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <style>
     .ikon {
@@ -901,7 +902,7 @@
                         @foreach ($surat->isiSurat as $isiSurat)
                             @if ($isiSurat->paragraf == 1)
                                 <div class="form-group">
-                                    <label class="form-control-label">Paragraf</label>
+                                    <label class="form-control-label">Paragraf</label> <a href="{{ url('img/bantuan-paragraf.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                                     <div class="input-group input-group-alternative mb-3">
                                         <textarea class="form-control" name="isian[]">{{ $isiSurat->isi }}</textarea>
                                         <input type="hidden" name="id" value="{{ $isiSurat->id }}">
@@ -944,19 +945,20 @@
                     <div class="pl-lg-4">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="perihal" name="perihal" value="1" {{ $surat->perihal == 1 ? 'checked':'' }}>
-                            <label class="custom-control-label" for="perihal">Perihal</label>
+                            <label class="custom-control-label" for="perihal">Perihal</label> <a href="{{ url('img/bantuan-perihal.png') }}" data-fancybox data-caption="Akan menampilkan surat seperti ini"><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                         </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="data_kades" name="data_kades" value="1" {{ $surat->data_kades == 1 ? 'checked':'' }}>
-                            <label class="custom-control-label" for="data_kades">Data Kades</label>
+                            <label class="custom-control-label" for="data_kades">Data Kades</label> <a href="{{ url('img/bantuan-data-kades.png') }}" data-fancybox data-caption="Akan menampilkan data kepala desa"><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                         </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="tanda_tangan_bersangkutan" name="tanda_tangan_bersangkutan" value="1" {{ $surat->tanda_tangan_bersangkutan == 1 ? 'checked':'' }}>
-                            <label class="custom-control-label" for="tanda_tangan_bersangkutan">Tanda tangan bersangkutan</label>
+                            <label class="custom-control-label" for="tanda_tangan_bersangkutan">Tanda tangan bersangkutan</label> <a href="{{ url('img/bantuan-tanda-tangan-bersangkutan.png') }}" data-fancybox data-caption="Akan menampilkan tanda tangan yang bersangkutan"><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                         </div>
                         <button type="button" id="paragraf" class="btn btn-sm btn-slack mt-2">Paragraf</button>
                         <button type="button" id="kalimat" class="btn btn-sm btn-slack mt-2">Kalimat</button>
                         <button type="button" id="isi" class="btn btn-sm btn-slack mt-2">Isian</button>
+                        <a href="{{ url('img/bantuan-paragraf-kalimat-isian.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     </div>
                     <div class="form-group mt-3">
                         <button type="submit" class="btn btn-primary btn-block" id="simpan">SIMPAN</button>
@@ -969,6 +971,7 @@
 @endsection
 
 @push('scripts')
+<script src="{{ asset('js/jquery.fancybox.js') }}"></script>
 <script>
     $(document).ready(function(){
         $(".ikon").val("{{ $surat->icon }}");
@@ -1018,7 +1021,7 @@
         $("#paragraf").click(function(){
             $("#isian").append(`
                 <div class="form-group">
-                    <label class="form-control-label">Paragraf</label>
+                    <label class="form-control-label">Paragraf</label> <a href="{{ url('img/bantuan-paragraf.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     <div class="input-group input-group-alternative mb-3">
                         <textarea class="form-control" name="isian[]"></textarea>
                         <input type="hidden" name="surat_id" value="{{ $surat->id }}">

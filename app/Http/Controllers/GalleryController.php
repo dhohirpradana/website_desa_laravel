@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class GalleryController extends Controller
 {
@@ -37,6 +38,17 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'file.*'    => ['required', 'image', 'max:2048']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'     => true,
+                'message'   => $validator->errors()->all()
+            ], 400);
+        }
+
         $photos = $request->file('file');
 
         if (!is_array($photos)) {
