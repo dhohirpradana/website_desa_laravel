@@ -21,6 +21,7 @@ class CreateIsiSuratTable extends Migration
             $table->boolean('kalimat');
             $table->boolean('isian');
             $table->boolean('perihal');
+            $table->boolean('tampilkan');
             $table->timestamps();
 
             $table->foreign('surat_id')->references('id')->on('surat')->onUpdate('cascade')->onDelete('cascade');

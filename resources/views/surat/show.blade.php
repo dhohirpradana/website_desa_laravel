@@ -134,10 +134,11 @@
                         $tabel = false;
                     @endphp
                 @endif
+
                 <tr>
                     <td width="160px" valign="top">{{ $isiSurat->isi }}</td>
                     <td width="10px" valign="top">:</td>
-                    <td width="10cm">{{ $request->isian[$i] }}</td>
+                    <td width="10cm" valign="top">{{ $request->isian[$i] }}</td>
                 </tr>
 
                 @php
@@ -146,6 +147,9 @@
                 @if ($surat->isiSurat[$key + 1]->isian != 1)
                         </tbody>
                     </table>
+                    @php
+                        $tabel = true;
+                    @endphp
                 @endif
             @endif
         @endforeach

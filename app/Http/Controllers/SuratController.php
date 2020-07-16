@@ -83,6 +83,14 @@ class SuratController extends Controller
         $surat = Surat::create($dataSurat);
 
         for ($i = 1; $i < count($request->isian); $i++) {
+            try {
+                if ($request->tampilkan[$i]) {
+                    $tampilkan = 1;
+                }
+            } catch (\Throwable $th) {
+                $tampilkan = 0;
+            }
+
             if ($request->status[$i] == 1) {
                 IsiSurat::create([
                     'surat_id'  => $surat->id,
@@ -91,6 +99,7 @@ class SuratController extends Controller
                     'kalimat'   => 0,
                     'isian'     => 0,
                     'perihal'   => 0,
+                    'tampilkan' => $tampilkan,
                 ]);
             } elseif ($request->status[$i] == 2) {
                 IsiSurat::create([
@@ -100,6 +109,7 @@ class SuratController extends Controller
                     'kalimat'   => 1,
                     'isian'     => 0,
                     'perihal'   => 0,
+                    'tampilkan' => $tampilkan,
                 ]);
             } elseif ($request->status[$i] == 3) {
                 IsiSurat::create([
@@ -109,6 +119,7 @@ class SuratController extends Controller
                     'kalimat'   => 0,
                     'isian'     => 1,
                     'perihal'   => 0,
+                    'tampilkan' => 0,
                 ]);
             } elseif ($request->status[$i] == 4) {
                 IsiSurat::create([
@@ -118,6 +129,7 @@ class SuratController extends Controller
                     'kalimat'   => 0,
                     'isian'     => 0,
                     'perihal'   => 1,
+                    'tampilkan' => 0,
                 ]);
             }
         }
@@ -144,7 +156,7 @@ class SuratController extends Controller
         $image = (string) Image::make(public_path(Storage::url($desa->logo)))->encode('jpg');
         $logo = (string) Image::make($image)->encode('data-url');
         $tanggal = tgl(date('Y-m-d'));
-        $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request', 'logo', 'tanggal'));
+        $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request', 'logo', 'tanggal'))->setPaper(array(0,0,609.449,935.433));
         $surat->jumlah_cetak = $surat->jumlah_cetak + 1;
         $surat->save();
         return $pdf->stream($surat->nama . '.pdf');

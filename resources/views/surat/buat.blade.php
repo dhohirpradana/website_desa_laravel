@@ -29,8 +29,8 @@ Buat Surat {{ $surat->nama }}
 </div>
 <div class="card bg-secondary shadow border-0">
     <div class="card-body px-lg-5 py-lg-5">
-        <div class="text-center text-muted mb-4">
-            <small>Buat Surat {{ $surat->nama }}</small>
+        <div class="text-center mb-4">
+            <p>{{ $surat->deskripsi }}</p>
         </div>
         <form role="form" action="{{ route('buat-surat.download', $surat) }}" method="POST">
             @csrf
@@ -40,6 +40,9 @@ Buat Surat {{ $surat->nama }}
                         <label for="{{ $isiSurat->isi .''.$key }}" class="form-control-label">{{ $isiSurat->isi }}</label>
                         <input required id="{{ $isiSurat->isi .''.$key }}" class="form-control form-control-alternative" name="isian[]" autofocus placeholder="Masukkan {{ $isiSurat->isi }}">
                     </div>
+                @endif
+                @if ($isiSurat->tampilkan == 1)
+                    <p class="mt-5 mb-0">{{ $isiSurat->isi }}</p>
                 @endif
                 @php
                     $string = $isiSurat->isi;
@@ -66,6 +69,7 @@ Buat Surat {{ $surat->nama }}
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary my-4">Cetak</button>
+                <p>Untuk mencetak harap menggunakan kertas berukuran F4</p>
             </div>
         </form>
     </div>

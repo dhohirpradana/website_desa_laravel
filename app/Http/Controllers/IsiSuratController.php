@@ -36,6 +36,7 @@ class IsiSuratController extends Controller
                 'kalimat'   => 0,
                 'isian'     => 0,
                 'perihal'   => 0,
+                'tampilkan' => $request->tampilkan ? 1 : 0,
             ]);
 
         } elseif ($request->status == 2) {
@@ -47,6 +48,7 @@ class IsiSuratController extends Controller
                 'kalimat'   => 1,
                 'isian'     => 0,
                 'perihal'   => 0,
+                'tampilkan' => $request->tampilkan ? 1 : 0,
             ]);
 
         } elseif ($request->status == 3) {
@@ -58,6 +60,7 @@ class IsiSuratController extends Controller
                 'kalimat'   => 0,
                 'isian'     => 1,
                 'perihal'   => 0,
+                'tampilkan' => 0,
             ]);
 
         }
@@ -88,6 +91,8 @@ class IsiSuratController extends Controller
         }
 
         $isiSurat->isi = $request->isian;
+        $isiSurat->tampilkan = $request->tampilkan ? 1 : 0;
+
         $isiSurat->save();
 
         return response()->json([
