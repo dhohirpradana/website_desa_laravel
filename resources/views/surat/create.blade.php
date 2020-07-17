@@ -969,7 +969,7 @@
         $("#kalimat").click(function(){
             $("#isian").append(`
                 <div class="form-group">
-                    <label class="form-control-label">Kalimat</label>
+                    <label class="form-control-label">Kalimat</label> <a href="{{ url('img/bantuan-kalimat.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     <div class="input-group input-group-alternative mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
