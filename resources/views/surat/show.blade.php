@@ -107,7 +107,7 @@
             @if ($isiSurat->kalimat == 1)
                 @php
                     try {
-                        if ($surat->isiSurat[$key + 1]->isian == 1) {
+                        if ($surat->isiSurat[$key + 1]->isian == 1 || $data_kades == true && $surat->data_kades == 1) {
                             echo '<div>'. $isiSurat->isi .'</div>';
                         } else {
                             echo '<p>'. $isiSurat->isi .'</p>';
@@ -118,28 +118,26 @@
                 @endphp
             @endif
 
-            @if ($data_kades)
-                @if ($surat->data_kades == 1)
-                    <table class="mb-3 ml-5">
-                        <tbody>
-                            <tr>
-                                <td width="150px" valign="top">Nama</td>
-                                <td width="10px" valign="top">:</td>
-                                <td>{{ $desa->nama_kepala_desa }}</td>
-                            </tr>
-                            <tr>
-                                <td width="150px" valign="top">Jabatan</td>
-                                <td width="10px" valign="top">:</td>
-                                <td>Kepala Desa</td>
-                            </tr>
-                            <tr>
-                                <td width="150px" valign="top">Alamat</td>
-                                <td width="10px" valign="top">:</td>
-                                <td>{{ $desa->alamat_kepala_desa }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                @endif
+            @if ($data_kades && $surat->data_kades == 1)
+                <table class="mb-3 ml-5">
+                    <tbody>
+                        <tr>
+                            <td width="160px" valign="top">Nama</td>
+                            <td width="10px" valign="top">:</td>
+                            <td>{{ $desa->nama_kepala_desa }}</td>
+                        </tr>
+                        <tr>
+                            <td width="160px" valign="top">Jabatan</td>
+                            <td width="10px" valign="top">:</td>
+                            <td>Kepala Desa</td>
+                        </tr>
+                        <tr>
+                            <td width="160px" valign="top">Alamat</td>
+                            <td width="10px" valign="top">:</td>
+                            <td>{{ $desa->alamat_kepala_desa }}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 @php
                     $data_kades = false;
