@@ -77,46 +77,39 @@
         @endphp
 
         @foreach ($surat->isiSurat->where('perihal', 0) as $key => $isiSurat)
-            @if ($isiSurat->paragraf == 1)
-                @php
-                    $string = $isiSurat->isi;
-                    $pattern = "/\{[A-Za-z\s\(\)]+\}/";
-                    preg_match_all($pattern, $string, $matches);
-                    $x = count($surat->isiSurat->where('isian', 1));
-                    $hasil = $string;
-                @endphp
-                @foreach ($matches[0] as $k => $value)
-                    @php
-                        $hasil = str_replace($value, $request->isian[$x], $hasil);
-                        $x++;
-                    @endphp
-                @endforeach
-                @php
-                    try {
-                        if ($surat->isiSurat[$key + 1]->isian == 1) {
-                            echo '<div class="text-justify" style="text-indent: 50px">'. $hasil .'</div>';
-                        } else {
-                            echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
-                        }
-                    } catch (\Throwable $th) {
-                        echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
-                    }
-                @endphp
-            @endif
+            @php
+                $string = $isiSurat->isi;
+                $pattern = "/\{[0-9A-Za-z\s\(\)]+\}/";
+                preg_match_all($pattern, $string, $matches);
+                $hasil = $string;
 
-            @if ($isiSurat->kalimat == 1)
-                @php
-                    try {
-                        if ($surat->isiSurat[$key + 1]->isian == 1 || $data_kades == true && $surat->data_kades == 1) {
-                            echo '<div>'. $isiSurat->isi .'</div>';
-                        } else {
-                            echo '<p>'. $isiSurat->isi .'</p>';
+                foreach ($matches[0] as $k => $value) {
+                    $hasil = str_replace($value, $request->isian[$i], $hasil);
+                    $i++;
+                }
+
+                try {
+                    if ($surat->isiSurat[$key + 1]->isian == 1 || $data_kades == true && $surat->data_kades == 1) {
+                        if ($isiSurat->paragraf == 1) {
+                            echo '<div class="text-justify" style="text-indent: 50px">'. $hasil .'</div>';
+                        } elseif ($isiSurat->kalimat == 1) {
+                            echo '<div class="text-justify">'. $hasil .'</div>';
                         }
-                    } catch (\Throwable $th) {
-                        echo '<p>'. $isiSurat->isi .'</p>';
+                    } else {
+                        if ($isiSurat->paragraf == 1) {
+                            echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
+                        } elseif ($isiSurat->kalimat == 1) {
+                            echo '<p class="text-justify">'. $hasil .'</p>';
+                        }
                     }
-                @endphp
-            @endif
+                } catch (\Throwable $th) {
+                    if ($isiSurat->paragraf == 1) {
+                        echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
+                    } elseif ($isiSurat->kalimat == 1) {
+                        echo '<p class="text-justify">'. $hasil .'</p>';
+                    }
+                }
+            @endphp
 
             @if ($data_kades && $surat->data_kades == 1)
                 <table class="mb-3 ml-5">
