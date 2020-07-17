@@ -112,12 +112,6 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('pengaturan') }}">
-                                    <i class="ni ni-settings"></i>
-                                    <span class="nav-link-inner--text">Pengaturan</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link nav-link-icon" href="{{ route('keluar') }}"
                                     onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
                                     <i class="ni ni-user-run"></i>

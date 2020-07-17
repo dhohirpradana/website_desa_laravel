@@ -22,7 +22,7 @@
 @section('content')
 <div class="row">
     <div class="col-md">
-        <div id="owl-one" class="owl-carousel owl-theme">
+        <div id="owl-one" class="owl-carousel owl-theme" style="z-index: 0">
             @foreach($gallery as $item)
                 <a href="{{ asset(Storage::url($item->gallery)) }}" data-fancybox>
                     <img src="{{ asset(Storage::url($item->gallery)) }}" class="mw-100">

@@ -9,8 +9,15 @@
             <div class="col">
                 <div class="card shadow h-100">
                     <div class="card-header border-0">
-                        <h2 class="mb-0">PENGATURAN</h2>
-                        <p class="mb-0 text-sm">Akun Pengguna {{ config('app.name') }}</p>
+                        <div class="row">
+                            <div class="col-6">
+                                <h2 class="mb-0">PENGATURAN</h2>
+                                <p class="mb-0 text-sm">Akun Pengguna {{ config('app.name') }}</p>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="{{ URL::previous() }}" class="btn btn-success" title="Kembali"><i class="fas fa-arrow-left"></i> Kembali</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
