@@ -91,11 +91,31 @@
                         $x++;
                     @endphp
                 @endforeach
-                <p class="text-justify" style="text-indent: 50px">{{ $hasil }}</p>
+                @php
+                    try {
+                        if ($surat->isiSurat[$key + 1]->isian == 1) {
+                            echo '<div class="text-justify" style="text-indent: 50px">'. $hasil .'</div>';
+                        } else {
+                            echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
+                        }
+                    } catch (\Throwable $th) {
+                        echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
+                    }
+                @endphp
             @endif
 
             @if ($isiSurat->kalimat == 1)
-                <p>{{ $isiSurat->isi }}</p>
+                @php
+                    try {
+                        if ($surat->isiSurat[$key + 1]->isian == 1) {
+                            echo '<div>'. $isiSurat->isi .'</div>';
+                        } else {
+                            echo '<p>'. $isiSurat->isi .'</p>';
+                        }
+                    } catch (\Throwable $th) {
+                        echo '<p>'. $isiSurat->isi .'</p>';
+                    }
+                @endphp
             @endif
 
             @if ($data_kades)
@@ -153,7 +173,7 @@
                 @endif
             @endif
         @endforeach
-        <div class="mt-5">
+        <div>
             @if ($surat->tanda_tangan_bersangkutan == 1)
                 <div style="width: 50%" class="float-left text-center">
                     <br>
