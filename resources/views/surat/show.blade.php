@@ -117,17 +117,17 @@
                         <tr>
                             <td width="160px" valign="top">Nama</td>
                             <td width="10px" valign="top">:</td>
-                            <td>{{ $desa->nama_kepala_desa }}</td>
+                            <td class="text-justify" width="10cm" valign="top">{{ $desa->nama_kepala_desa }}</td>
                         </tr>
                         <tr>
                             <td width="160px" valign="top">Jabatan</td>
                             <td width="10px" valign="top">:</td>
-                            <td>Kepala Desa</td>
+                            <td class="text-justify" width="10cm" valign="top">Kepala Desa</td>
                         </tr>
                         <tr>
                             <td width="160px" valign="top">Alamat</td>
                             <td width="10px" valign="top">:</td>
-                            <td>{{ $desa->alamat_kepala_desa }}</td>
+                            <td class="text-justify" width="10cm" valign="top">{{ $desa->alamat_kepala_desa }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -149,7 +149,7 @@
                 <tr>
                     <td width="160px" valign="top">{{ $isiSurat->isi }}</td>
                     <td width="10px" valign="top">:</td>
-                    <td width="10cm" valign="top">{{ $request->isian[$i] }}</td>
+                    <td class="text-justify" width="10cm" valign="top">{{ $request->isian[$i] }}</td>
                 </tr>
 
                 @php
