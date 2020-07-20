@@ -36,6 +36,12 @@
         </div>
 
         @if ($surat->perihal == 1)
+            @php
+                $perihal = array();
+                foreach ($surat->isiSurat->where('perihal',1) as $isiSurat) {
+                    array_push($perihal, $isiSurat->isi);
+                }
+            @endphp
             <div style="width: 50%" class="float-left">
                 <br>
                 <table>
@@ -46,22 +52,22 @@
                         </tr>
                         <tr>
                             <td>Sifat</td>
-                            <td>: {{ $surat->isiSurat[0]->isi }}</td>
+                            <td>: {{ $perihal[0] }}</td>
                         </tr>
                         <tr>
                             <td>Lampiran</td>
-                            <td>: {{ $surat->isiSurat[1]->isi }}</td>
+                            <td>: {{ $perihal[1] }}</td>
                         </tr>
                         <tr>
                             <td>Perihal</td>
-                            <td>: {{ $surat->isiSurat[2]->isi }}</td>
+                            <td>: {{ $perihal[2] }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div style="margin-left: 50%; width: 50%" class="text-center float-right">
-                <p style="margin-bottom: 55px">{{ $desa->nama_desa }}, {{ $tanggal }}<br>Kepada {{ $surat->isiSurat[3]->isi }}</p>
-                <p>Di - {{ $surat->isiSurat[4]->isi }}</p>
+                <p style="margin-bottom: 55px">{{ $desa->nama_desa }}, {{ $tanggal }}<br>Kepada {{ $perihal[3] }}</p>
+                <p>Di - {{ $perihal[4] }}</p>
             </div>
         @else
             <div class="text-center mt-5 mb-3">
