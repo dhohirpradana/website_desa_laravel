@@ -51,6 +51,9 @@
                 @if ($item->jumlah_cetak > 0)
                     <p>Telah dicetak sebanyak {{ $item->jumlah_cetak }}x</p>
                 @endif
+                @if ($item->tampilkan == 0)
+                    <p class="font-weight-bold">(Belum ditampilkan)</p>
+                @endif
                 <a href="{{ route('surat.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
                 <a class="btn btn-sm btn-danger hapus" data-nama="{{ $item->nama }}" data-id="{{ $item->id }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
             </div>
