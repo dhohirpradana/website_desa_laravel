@@ -868,6 +868,10 @@
                     <h6 class="heading-small text-muted">Alat</h6>
                     <div class="pl-lg-4">
                         <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="tampilkan_surat" name="tampilkan_surat" value="1">
+                            <label class="custom-control-label" for="tampilkan_surat">Tampilkan surat ini untuk warga yang ingin mencetak surat keterangan ini</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="perihal" name="perihal" value="1">
                             <label class="custom-control-label" for="perihal">Perihal</label> <a href="{{ url('img/bantuan-perihal.png') }}" data-fancybox data-caption="Akan menampilkan surat seperti ini"><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                         </div>
