@@ -21,6 +21,7 @@ class CreateSuratTable extends Migration
             $table->boolean('tanda_tangan_bersangkutan')->default(0);
             $table->boolean('perihal')->default(0);
             $table->boolean('data_kades')->default(0);
+            $table->boolean('tampilkan')->default(0);
             $table->bigInteger('jumlah_cetak')->default(0);
             $table->timestamps();
         });

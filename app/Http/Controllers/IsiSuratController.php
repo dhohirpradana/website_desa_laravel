@@ -33,9 +33,6 @@ class IsiSuratController extends Controller
                 'surat_id'  => $request->surat_id,
                 'isi'       => $request->isian,
                 'paragraf'  => 1,
-                'kalimat'   => 0,
-                'isian'     => 0,
-                'perihal'   => 0,
                 'tampilkan' => $request->tampilkan ? 1 : 0,
             ]);
 
@@ -44,10 +41,7 @@ class IsiSuratController extends Controller
             IsiSurat::create([
                 'surat_id'  => $request->surat_id,
                 'isi'       => $request->isian,
-                'paragraf'  => 0,
                 'kalimat'   => 1,
-                'isian'     => 0,
-                'perihal'   => 0,
                 'tampilkan' => $request->tampilkan ? 1 : 0,
             ]);
 
@@ -56,11 +50,7 @@ class IsiSuratController extends Controller
             IsiSurat::create([
                 'surat_id'  => $request->surat_id,
                 'isi'       => $request->isian,
-                'paragraf'  => 0,
-                'kalimat'   => 0,
                 'isian'     => 1,
-                'perihal'   => 0,
-                'tampilkan' => 0,
             ]);
 
         }

@@ -64,20 +64,18 @@ class SuratController extends Controller
 
         if ($request->perihal) {
             $dataSurat['perihal'] = 1;
-        } else {
-            $dataSurat['perihal'] = 0;
         }
 
         if ($request->tanda_tangan_bersangkutan) {
             $dataSurat['tanda_tangan_bersangkutan'] = 1;
-        } else {
-            $dataSurat['tanda_tangan_bersangkutan'] = 0;
         }
 
         if ($request->data_kades) {
             $dataSurat['data_kades'] = 1;
-        } else {
-            $dataSurat['data_kades'] = 0;
+        }
+
+        if ($request->tampilkan_surat) {
+            $dataSurat['tampilkan'] = 1;
         }
 
         $surat = Surat::create($dataSurat);
@@ -86,6 +84,8 @@ class SuratController extends Controller
             try {
                 if ($request->tampilkan[$i]) {
                     $tampilkan = 1;
+                } else {
+                    $tampilkan = 0;
                 }
             } catch (\Throwable $th) {
                 $tampilkan = 0;
@@ -96,40 +96,26 @@ class SuratController extends Controller
                     'surat_id'  => $surat->id,
                     'isi'       => $request->isian[$i],
                     'paragraf'  => 1,
-                    'kalimat'   => 0,
-                    'isian'     => 0,
-                    'perihal'   => 0,
                     'tampilkan' => $tampilkan,
                 ]);
             } elseif ($request->status[$i] == 2) {
                 IsiSurat::create([
                     'surat_id'  => $surat->id,
                     'isi'       => $request->isian[$i],
-                    'paragraf'  => 0,
                     'kalimat'   => 1,
-                    'isian'     => 0,
-                    'perihal'   => 0,
                     'tampilkan' => $tampilkan,
                 ]);
             } elseif ($request->status[$i] == 3) {
                 IsiSurat::create([
                     'surat_id'  => $surat->id,
                     'isi'       => $request->isian[$i],
-                    'paragraf'  => 0,
-                    'kalimat'   => 0,
                     'isian'     => 1,
-                    'perihal'   => 0,
-                    'tampilkan' => 0,
                 ]);
             } elseif ($request->status[$i] == 4) {
                 IsiSurat::create([
                     'surat_id'  => $surat->id,
                     'isi'       => $request->isian[$i],
-                    'paragraf'  => 0,
-                    'kalimat'   => 0,
-                    'isian'     => 0,
                     'perihal'   => 1,
-                    'tampilkan' => 0,
                 ]);
             }
         }
@@ -157,7 +143,9 @@ class SuratController extends Controller
         $logo = (string) Image::make($image)->encode('data-url');
         $tanggal = tgl(date('Y-m-d'));
         $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request', 'logo', 'tanggal'))->setPaper(array(0,0,609.449,935.433));
-        $surat->jumlah_cetak = $surat->jumlah_cetak + 1;
+        if ($surat->tampilkan == 1) {
+            $surat->jumlah_cetak = $surat->jumlah_cetak + 1;
+        }
         $surat->save();
         return $pdf->stream($surat->nama . '.pdf');
     }
@@ -208,12 +196,29 @@ class SuratController extends Controller
 
         if ($request->perihal) {
             $dataSurat['perihal'] = 1;
-            for ($i = 1; $i <= 5; $i++) {
-                $surat->isiSurat[$i - 1]->update([
-                    'isi'  => $request->isian[$i],
-                ]);
+            if ($surat->isiSurat->where('perihal',1)->first()) {
+                $i = 1;
+                foreach ($surat->isiSurat->where('perihal',1) as $isiSurat) {
+                    $isiSurat->update([
+                        'isi'  => $request->isian[$i],
+                    ]);
+                    $i++;
+                }
+            } else {
+                for ($i = 1; $i <= 5; $i++) {
+                    IsiSurat::create([
+                        'surat_id'  => $surat->id,
+                        'isi'       => $request->isian[$i],
+                        'perihal'   => 1,
+                    ]);
+                }
             }
         } else {
+            if ($surat->isiSurat->where('perihal',1)->first()) {
+                foreach ($surat->isiSurat->where('perihal',1) as $isiSurat) {
+                    $isiSurat->delete();
+                }
+            }
             $dataSurat['perihal'] = 0;
         }
 
@@ -227,6 +232,12 @@ class SuratController extends Controller
             $dataSurat['data_kades'] = 1;
         } else {
             $dataSurat['data_kades'] = 0;
+        }
+
+        if ($request->tampilkan_surat) {
+            $dataSurat['tampilkan'] = 1;
+        } else {
+            $dataSurat['tampilkan'] = 0;
         }
 
         $surat->update($dataSurat);

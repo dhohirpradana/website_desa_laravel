@@ -865,34 +865,40 @@
                     <h6 class="heading-small text-muted">Isian</h6>
                     <div class="pl-lg-4" id="isian">
                         @if ($surat->perihal == 1)
+                            @php
+                                $perihal = array();
+                                foreach ($surat->isiSurat->where('perihal',1) as $isiSurat) {
+                                    array_push($perihal, $isiSurat->isi);
+                                }
+                            @endphp
                             <div id="isian_perihal">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-control-label">Sifat</label>
-                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $surat->isiSurat[0]->isi }}">
+                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[0] }}">
                                             <input type="hidden" name="status[]" value="4">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label">Lampiran</label>
-                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $surat->isiSurat[1]->isi }}">
+                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[1] }}">
                                             <input type="hidden" name="status[]" value="4">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label">Perihal</label>
-                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $surat->isiSurat[2]->isi }}">
+                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[2] }}">
                                             <input type="hidden" name="status[]" value="4">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-control-label">Kepada</label>
-                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $surat->isiSurat[3]->isi }}">
+                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[3] }}">
                                             <input type="hidden" name="status[]" value="4">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label">Di</label>
-                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $surat->isiSurat[4]->isi }}">
+                                            <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[4] }}">
                                             <input type="hidden" name="status[]" value="4">
                                         </div>
                                     </div>
@@ -953,6 +959,10 @@
                     </div>
                     <h6 class="heading-small text-muted">Alat</h6>
                     <div class="pl-lg-4">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="tampilkan_surat" name="tampilkan_surat" value="1" {{ $surat->tampilkan == 1 ? 'checked':'' }}>
+                            <label class="custom-control-label" for="tampilkan_surat">Tampilkan surat ini untuk warga yang ingin mencetak surat keterangan ini</label>
+                        </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="perihal" name="perihal" value="1" {{ $surat->perihal == 1 ? 'checked':'' }}>
                             <label class="custom-control-label" for="perihal">Perihal</label> <a href="{{ url('img/bantuan-perihal.png') }}" data-fancybox data-caption="Akan menampilkan surat seperti ini"><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
