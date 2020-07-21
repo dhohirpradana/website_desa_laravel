@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 
-@section('title')
-    {{ config('app.name') }} - Masuk
-@endsection
+@section('title', 'Masuk')
 
 @section('header')
     <h1 class="text-white">Masuk</h1>

@@ -19,7 +19,7 @@ Profil Pengguna
 
         <div class="row">
             <div class="col-lg-7 col-md-10">
-                <h1 class="display-2 text-white">Hello {{ Auth::user()->nama }}</h1>
+                <h1 class="display-2 text-white">Hello {{ auth()->user()->nama }}</h1>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@ Profil Pengguna
                 <div class="col-lg-3 order-lg-2">
                     <div class="card-profile-image">
                         <a href="{{ asset(Storage::url(auth()->user()->foto_profil)) }}" data-fancybox>
-                            <img id="foto_profil" src="{{asset(Storage::url(Auth::user()->foto_profil))}}" alt="{{asset(Storage::url(Auth::user()->foto_profil))}}" class="rounded-circle" style="max-height: 150px; max-width: 200px">
+                            <img id="foto_profil" src="{{asset(Storage::url(auth()->user()->foto_profil))}}" alt="{{asset(Storage::url(auth()->user()->foto_profil))}}" class="rounded-circle" style="max-height: 150px; max-width: 200px">
                         </a>
                     </div>
                 </div>
@@ -46,10 +46,10 @@ Profil Pengguna
             <div class="card-body pt-0 pt-md-4 pt-5">
                 <div class="text-center">
                     <h3>
-                        {{ Auth::user()->nama }}
+                        {{ auth()->user()->nama }}
                     </h3>
                     <div class="h5 font-weight-300">
-                        {{ Auth::user()->email }}
+                        {{ auth()->user()->email }}
                     </div>
                 </div>
             </div>
@@ -69,13 +69,13 @@ Profil Pengguna
             </div>
             <div class="card-body">
                 @include('layouts.components.alert')
-                <form action="{{ route('update-profil', Auth::user()) }}" method="POST">
+                <form action="{{ route('update-profil', auth()->user()) }}" method="POST">
                     @csrf @method('patch')
                     <h6 class="heading-small text-muted mb-4">Informasi Pengguna</h6>
                     <div class="pl-lg-4">
                         <div class="form-group">
                             <label class="form-control-label" for="input-nama">Nama</label>
-                            <input name="nama" type="text" id="input-nama" class="form-control form-control-alternative @error('nama') is-invalid @enderror" placeholder="Masukkan nama ..." value="{{ old('nama',Auth::user()->nama) }}">
+                            <input name="nama" type="text" id="input-nama" class="form-control form-control-alternative @error('nama') is-invalid @enderror" placeholder="Masukkan nama ..." value="{{ old('nama',auth()->user()->nama) }}">
                             @error('nama')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -84,7 +84,7 @@ Profil Pengguna
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" for="input-email">Email <a href="{{ route('pengaturan') }}" class="badge badge-primary" title="Ganti email"><span class="fas fa-edit"></span></a></label>
-                            <input type="email" id="input-email" class="form-control form-control-alternative" value="{{ Auth::user()->email }}" disabled>
+                            <input type="email" id="input-email" class="form-control form-control-alternative" value="{{ auth()->user()->email }}" disabled>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
@@ -116,7 +116,7 @@ Profil Pengguna
                 oFReader.readAsDataURL(this.files[0]);
 
                 $.ajax({
-                    url: "{{ route('update-profil', Auth::user()) }}",
+                    url: "{{ route('update-profil', auth()->user()) }}",
                     type: 'POST',
                     data: formData,
                     contentType: false,
