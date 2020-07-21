@@ -37,7 +37,7 @@ class UserController extends Controller
                 ]);
             }
 
-            if ($user->foto_profil != 'noimage.jpg') {
+            if ($user->foto_profil != 'noavatar.png') {
                 File::delete(storage_path('app/'.$user->foto_profil));
             }
             $user->foto_profil = $request->file('foto_profil')->store('public/foto_profil');
@@ -92,10 +92,8 @@ class UserController extends Controller
                 $user->save();
 
                 if ($email && $password) {
-                    $user->sendEmailVerificationNotification();
                     return redirect()->back()->with('success','Email dan password berhasil diperbarui');
                 } elseif ($email) {
-                    $user->sendEmailVerificationNotification();
                     return redirect()->back()->with('success','Email berhasil diperbarui');
                 } elseif($password){
                     return redirect()->back()->with('success','Password berhasil diperbarui');
@@ -104,7 +102,5 @@ class UserController extends Controller
         } else {
             return redirect()->back()->with('error','Password yang anda masukkan salah');
         }
-
-
     }
 }
