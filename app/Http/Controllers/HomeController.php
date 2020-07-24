@@ -16,4 +16,10 @@ class HomeController extends Controller
         $gallery = Gallery::all();
         return view('index', compact('surat', 'desa', 'gallery'));
     }
+
+    public function panduan()
+    {
+        $desa = Desa::find(1);
+        return view('panduan', compact('desa'));
+    }
 }

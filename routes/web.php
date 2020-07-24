@@ -21,6 +21,7 @@ Route::post('/buat-surat/{id}', 'SuratController@show')->name('buat-surat.downlo
 
 Route::group(['middleware' => ['web', 'guest']], function () {
 
+    Route::get('/panduan', 'HomeController@panduan')->name('panduan');
     Route::get('/masuk', 'AuthController@index')->name('masuk');
     Route::post('/masuk', 'AuthController@masuk');
 
