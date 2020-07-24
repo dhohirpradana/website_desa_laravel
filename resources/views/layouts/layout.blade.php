@@ -86,6 +86,14 @@
                                 <span class="nav-link-inner--text">Beranda</span>
                             </a>
                         </li>
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-icon" href="{{ route('panduan') }}">
+                                    <i class="fas fa-question"></i>
+                                    <span class="nav-link-inner--text">Panduan</span>
+                                </a>
+                            </li>
+                        @endguest
                         @auth
                             <li class="nav-item">
                                 <a class="nav-link nav-link-icon" href="{{ route('surat.index') }}">
