@@ -134,6 +134,18 @@
                 token: "ee6fab19c5a04ac1a32a645abde4613a",
                 application: "argon-dashboard-free"
             });
+
+        $(document).on("change", "input", function () {
+            $(this).removeClass('is-invalid');
+            $(this).siblings('.invalid-feedback').remove();
+            $('.alert-dismissible').remove();
+        });
+
+        $(document).on("change", "textarea", function () {
+            $(this).removeClass('is-invalid');
+            $(this).siblings('.invalid-feedback').remove();
+            $('.alert-dismissible').remove();
+        });
     </script>
     @stack('scripts')
 </body>

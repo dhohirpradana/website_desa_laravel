@@ -86,6 +86,12 @@
                                 <span class="nav-link-inner--text">Beranda</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-icon" href="{{ route('sejarah') }}">
+                                <i class="fas fa-atlas"></i>
+                                <span class="nav-link-inner--text">Sejarah</span>
+                            </a>
+                        </li>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link nav-link-icon" href="{{ route('panduan') }}">
