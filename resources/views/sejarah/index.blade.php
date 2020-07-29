@@ -9,6 +9,9 @@
     .ikon {
         font-family: fontAwesome;
     }
+    .animate-up:hover {
+        top: -5px;
+    }
 </style>
 @endsection
 
@@ -42,13 +45,12 @@
 <div class="row mt-4 justify-content-center">
     @forelse ($sejarah as $item)
         <div class="col-lg-4 col-md-6 mb-3">
-            <div class="card">
+            <div class="card animate-up">
                 @if ($item->gambar)
-                    <div class="card-img">
-                        <a href="{{ route('sejarah.show', ['sejarah' => $item, 'slug' => Str::slug($item->judul)]) }}">
-                            <img class="mw-100" src="{{ url(Storage::url($item->gambar)) }}" alt="">
-                        </a>
-                    </div>
+                    <a href="{{ route('sejarah.show', ['sejarah' => $item, 'slug' => Str::slug($item->judul)]) }}">
+                        <div class="card-img" style="background-image: url('{{ url(Storage::url($item->gambar)) }}'); background-size: cover; height: 200px;">
+                        </div>
+                    </a>
                 @endif
                 <div class="card-body text-center">
                     <a href="{{ route('sejarah.show', ['sejarah' => $item, 'slug' => Str::slug($item->judul)]) }}">
