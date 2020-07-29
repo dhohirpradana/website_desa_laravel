@@ -91,11 +91,11 @@ class SejarahController extends Controller
     public function show(Sejarah $sejarah, $slug)
     {
         $desa = Desa::find(1);
-
+        $sejarahs = Sejarah::where('id','!=', $sejarah->id)->inRandomOrder()->limit(3)->get();
         if ($slug != Str::slug($sejarah->judul)) {
             return abort(404);
         }
-        return view('sejarah.show', compact('sejarah','desa'));
+        return view('sejarah.show', compact('sejarah','desa','sejarahs'));
     }
 
     /**
