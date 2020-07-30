@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Tambah Gallery')
+@section('title', 'Tambah Slider')
 
 @section('styles')
 <link rel="stylesheet" href="{{ url('/css/dropzone.css') }}">
@@ -15,8 +15,8 @@
                     <div class="card-header border-0">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
                             <div class="mb-3">
-                                <h2 class="mb-0">Tambah Gallery</h2>
-                                <p class="mb-0 text-sm">Kelola Gallery {{ config('app.name') }}</p>
+                                <h2 class="mb-0">Tambah Slider</h2>
+                                <p class="mb-0 text-sm">Kelola Slider {{ config('app.name') }}</p>
                             </div>
                             <div class="mb-3">
                                 <a href="{{ URL::previous() }}" class="btn btn-success" title="Kembali"><i class="fas fa-arrow-left"></i> Kembali</a>
@@ -35,7 +35,7 @@
     <div class="col">
         <div class="card bg-secondary shadow h-100">
             <div class="card-header bg-white border-0">
-                <h3 class="mb-0">Tambah Gallery</h3>
+                <h3 class="mb-0">Tambah Slider</h3>
             </div>
             <div class="card-body">
                 <form method="post" action="{{ route('gallery.store') }}" enctype="multipart/form-data"
