@@ -92,42 +92,52 @@
                                 <span class="nav-link-inner--text">Sejarah</span>
                             </a>
                         </li>
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('panduan') }}">
-                                    <i class="fas fa-question"></i>
-                                    <span class="nav-link-inner--text">Panduan</span>
-                                </a>
-                            </li>
-                        @endguest
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-icon" href="{{ route('gallery') }}">
+                                <i class="fas fa-images"></i>
+                                <span class="nav-link-inner--text">Gallery</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-icon" href="{{ route('panduan') }}">
+                                <i class="fas fa-question"></i>
+                                <span class="nav-link-inner--text">Panduan</span>
+                            </a>
+                        </li>
                         @auth
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('surat.index') }}">
-                                    <i class="ni ni-single-copy-04"></i>
-                                    <span class="nav-link-inner--text">Surat</span>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-copy"></i> <span class="nav-link-inner--text">Menu</span>
                                 </a>
+                                <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
+                                    <a class="dropdown-item font-weight-bold" href="{{ route('surat.index') }}">
+                                        <i class="ni ni-single-copy-04 text-primary"></i>
+                                        <span class="nav-link-inner--text">Kelola Surat</span>
+                                    </a>
+                                    <a href="{{ route('sejarah.index') }}" class="dropdown-item font-weight-bold">
+                                        <i class="fas fa-atlas text-success"></i>
+                                        <span class="nav-link-inner--text">Kelola Sejarah</span>
+                                    </a>
+                                    <a class="dropdown-item font-weight-bold" href="{{ route('gallery.index') }}">
+                                        <i class="fas fa-images text-orange"></i>
+                                        <span class="nav-link-inner--text">Kelola Gallery</span>
+                                    </a>
+                                    <a class="dropdown-item font-weight-bold" href="{{ route('slider.index') }}">
+                                        <i class="fas fa-images text-purple"></i>
+                                        <span class="nav-link-inner--text">Kelola Slider</span>
+                                    </a>
+                                    <a class="dropdown-item font-weight-bold" href="{{ route('profil-desa') }}">
+                                        <i class="fas fa-users text-info"></i>
+                                        <span class="nav-link-inner--text">Profil Desa</span>
+                                    </a>
+                                    <a class="dropdown-item font-weight-bold" href="{{ route('profil') }}">
+                                        <i class="ni ni-single-02 text-yellow"></i>
+                                        <span class="nav-link-inner--text">Profil Saya</span>
+                                    </a>
+                                </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('gallery.index') }}">
-                                    <i class="fas fa-images"></i>
-                                    <span class="nav-link-inner--text">Gallery</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('profil-desa') }}">
-                                    <i class="fas fa-users"></i>
-                                    <span class="nav-link-inner--text">Profil Desa</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('profil') }}">
-                                    <i class="ni ni-single-02"></i>
-                                    <span class="nav-link-inner--text">Profil</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('keluar') }}"
-                                    onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
+                                <a class="nav-link nav-link-icon" href="{{ route('keluar') }}" onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
                                     <i class="ni ni-user-run"></i>
                                     <span class="nav-link-inner--text">Keluar</span>
                                 </a>

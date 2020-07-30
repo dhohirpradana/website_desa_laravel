@@ -13,7 +13,7 @@ class HomeController extends Controller
     {
         $surat = Surat::whereTampilkan(1)->get();
         $desa = Desa::find(1);
-        $gallery = Gallery::all();
+        $gallery = Gallery::where('slider', 1)->get();
         return view('index', compact('surat', 'desa', 'gallery'));
     }
 

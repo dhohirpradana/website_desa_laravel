@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Desa;
 use App\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -16,8 +17,32 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $gallery = Gallery::all();
+        $gallery = Gallery::where('slider', null)->get();
         return view('gallery.index', compact('gallery'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function gallery()
+    {
+        $desa = Desa::find(1);
+
+        $gallery = Gallery::where('slider', null)->get();
+        return view('gallery.gallery', compact('gallery','desa'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexSlider()
+    {
+        $gallery = Gallery::where('slider', 1)->get();
+        return view('gallery.slider', compact('gallery'));
     }
 
     /**
@@ -57,12 +82,30 @@ class GalleryController extends Controller
 
         for ($i = 0; $i < count($photos); $i++) {
             Gallery::create([
-                'gallery' => $photos[$i]->store('public/gallery'),
+                'gallery'   => $photos[$i]->store('public/gallery'),
+                'slider'    => 1
             ]);
         }
 
         return response()->json([
-            'message' => 'Gallery berhasil ditambahkan'
+            'message' => 'Slider berhasil ditambahkan'
+        ]);
+    }
+
+    public function storeGallery(Request $request)
+    {
+        $request->validate([
+            'gambar'    => ['required', 'image', 'max:2048'],
+            'caption'   => ['nullable', 'string']
+        ]);
+
+        Gallery::create([
+            'gallery'   => $request->gambar->store('public/gallery'),
+            'caption'   => $request->caption
+        ]);
+
+        return response()->json([
+            'message' => 'Gambar berhasil ditambahkan'
         ]);
     }
 
@@ -76,6 +119,6 @@ class GalleryController extends Controller
     {
         File::delete(storage_path('app/'.$gallery->gallery));
         $gallery->delete();
-        return back()->with('success', 'Gallery berhasil dihapus');
+        return back()->with('success', 'Gambar berhasil dihapus');
     }
 }

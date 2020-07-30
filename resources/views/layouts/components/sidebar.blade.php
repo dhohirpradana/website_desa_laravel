@@ -66,6 +66,9 @@
                     <span class="nav-link-inner--text">Beranda</span>
                 </a>
             </li>
+        </ul>
+        <hr class="my-3">
+        <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'surat') active @endif" href="{{ route('surat.index') }}">
                     <i class="ni ni-single-copy-04 text-primary"></i>
@@ -73,15 +76,21 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if (Request::segment(1) == 'sejarah') active @endif" href="{{ route('sejarah.index') }}">
+                <a class="nav-link @if (Request::segment(1) == 'kelola-sejarah' || Request::segment(1) == 'tambah-sejarah' || Request::segment(1) == 'sejarah') active @endif" href="{{ route('sejarah.index') }}">
                     <i class="fas fa-atlas text-success"></i>
-                    <span class="nav-link-inner--text">Sejarah</span>
+                    <span class="nav-link-inner--text">Kelola Sejarah</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'gallery') active @endif" href="{{ route('gallery.index') }}">
                     <i class="fas fa-images text-orange"></i>
-                    <span class="nav-link-inner--text">Gallery</span>
+                    <span class="nav-link-inner--text">Kelola Gallery</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if (Request::segment(1) == 'slider') active @endif" href="{{ route('slider.index') }}">
+                    <i class="fas fa-images text-purple"></i>
+                    <span class="nav-link-inner--text">Kelola Slider</span>
                 </a>
             </li>
         </ul>

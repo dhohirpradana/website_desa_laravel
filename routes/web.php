@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\SuratController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,12 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home.index');
 Route::get('/beranda', 'HomeController@index')->name('beranda');
 Route::get('/sejarah', 'SejarahController@sejarah')->name('sejarah');
+Route::get('/gallery', 'GalleryController@gallery')->name('gallery');
 Route::get('/buat-surat/{id}/{slug}', 'SuratController@buat')->name('buat-surat');
+Route::get('/panduan', 'HomeController@panduan')->name('panduan');
 Route::post('/buat-surat/{id}', 'SuratController@show')->name('buat-surat.download');
 
 Route::group(['middleware' => ['web', 'guest']], function () {
 
-    Route::get('/panduan', 'HomeController@panduan')->name('panduan');
     Route::get('/masuk', 'AuthController@index')->name('masuk');
     Route::post('/masuk', 'AuthController@masuk');
 
@@ -42,14 +42,18 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/tambah-surat', 'SuratController@create')->name('surat.create');
     Route::resource('/surat', 'SuratController')->except('create');
 
-    Route::get('/admin/sejarah', 'SejarahController@index')->name('sejarah.index');
+    Route::get('/kelola-sejarah', 'SejarahController@index')->name('sejarah.index');
     Route::get('/tambah-sejarah', 'SejarahController@create')->name('sejarah.create');
     Route::resource('/sejarah', 'SejarahController')->except('create','show','index');
     Route::get('/sejarah/{sejarah}/{slug}', 'SejarahController@show')->name('sejarah.show');
 
     Route::resource('/isiSurat', 'IsiSuratController')->except('index', 'create', 'edit', 'show');
 
-    Route::get('/tambah-gallery', 'GalleryController@create')->name('gallery.create');
-    Route::resource('/gallery', 'GalleryController')->except('show', 'edit', 'update', 'create');
+    Route::post('/gallery/store', 'GalleryController@storeGallery')->name('gallery.storeGallery');
+    Route::get('/kelola-gallery', 'GalleryController@index')->name('gallery.index');
+    Route::resource('/gallery', 'GalleryController')->except('index','show', 'edit', 'update', 'create');
+
+    Route::get('/tambah-slider', 'GalleryController@create')->name('slider.create');
+    Route::get('/slider', 'GalleryController@indexSlider')->name('slider.index');
 
 });
