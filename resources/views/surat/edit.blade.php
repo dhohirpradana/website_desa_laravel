@@ -1167,6 +1167,7 @@
         });
 
         $(document).on("click", ".tambah", function () {
+            $(this).tooltip('hide');
             let simpan      = $(this);
             let surat_id    = $(this).parent().siblings('input[name="surat_id"]').val();
             let isian       = $(this).parent().siblings('[name="isian[]"]').val();
@@ -1238,6 +1239,7 @@
         });
 
         $(document).on("click", ".delete", function () {
+            $(this).tooltip('dispose');
             let hapus      = $(this);
             let id          = $(this).parent().siblings('input[name="id"]').val();
             $.ajax({
@@ -1267,7 +1269,6 @@
                             </div>
                         `);
 
-                        $(hapus).tooltip('dispose');
                         $(hapus).parent('div').parent('div').parent('div').remove();
 
                         setTimeout(() => {
@@ -1298,6 +1299,7 @@
         });
 
         $(document).on("click", ".update", function () {
+            $(this).tooltip('hide');
             let simpan      = $(this);
             let id          = $(this).parent().siblings('input[name="id"]').val();
             let isian       = $(this).parent().siblings('[name="isian[]"]').val();

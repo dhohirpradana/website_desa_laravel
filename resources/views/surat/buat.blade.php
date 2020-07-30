@@ -75,3 +75,14 @@ Buat Surat {{ $surat->nama }}
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        $("form").submit(function () {
+            $(this).children('.text-center').children('button').attr('disabled','disabled');
+            $(this).children('.text-center').children('button').html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Sedang diproses`);
+        });
+    });
+</script>
+@endpush

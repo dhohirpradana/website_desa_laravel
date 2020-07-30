@@ -49,7 +49,7 @@
                 </a>
                 <p>{{ $item->deskripsi }}</p>
                 @if ($item->jumlah_cetak > 0)
-                    <p>Telah dicetak sebanyak {{ $item->jumlah_cetak }}x</p>
+                    <p class="text-sm text-muted">Telah dicetak sebanyak {{ $item->jumlah_cetak }}x</p>
                 @endif
                 @if ($item->tampilkan == 0)
                     <p class="font-weight-bold">(Belum ditampilkan)</p>
