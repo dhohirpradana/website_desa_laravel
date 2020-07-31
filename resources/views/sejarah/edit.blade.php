@@ -52,7 +52,7 @@
     <div class="col">
         <div class="card bg-secondary shadow h-100">
             <div class="card-header bg-white border-0">
-                <h3 class="mb-0">Edit Surat</h3>
+                <h3 class="mb-0">Edit Sejarah</h3>
             </div>
             <div class="card-body">
                 <form autocomplete="off" action="{{ route('sejarah.update', $sejarah) }}" method="post" enctype="multipart/form-data">

@@ -35,7 +35,7 @@
     @empty
         <div class="col">
             <div class="card shadow">
-                <div class="card-body">
+                <div class="card-body text-center">
                     <h4>Data belum tersedia</h4>
                 </div>
             </div>
