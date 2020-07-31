@@ -17,17 +17,26 @@
 
 @section('content')
 <div class="row justify-content-center">
-    @forelse ($gallery as $item)
-        <div class="col-lg-4 col-md-6 mb-3 animate-up">
-            <a href="{{ url(Storage::url($item->gallery)) }}" data-fancybox data-caption="{{ $item->caption }}">
-                <img class="mw-100" src="{{ url(Storage::url($item->gallery)) }}" alt="">
-            </a>
-        </div>
+    @forelse ($galleries as $item)
+        @if ($item['jenis'] == 1)
+            <div class="col-lg-4 col-md-6 mb-3 animate-up">
+                <a href="{{ url(Storage::url($item['gambar'])) }}" data-fancybox data-caption="{{ $item['caption'] }}">
+                    <img class="mw-100" src="{{ url(Storage::url($item['gambar'])) }}" alt="">
+                </a>
+            </div>
+        @else
+            <div class="col-lg-4 col-md-6 mb-3 animate-up">
+                <a href="https://www.youtube.com/watch?v={{ $item['id'] }}" data-fancybox data-caption="{{ $item['caption'] }}">
+                    <i class="fas fa-play fa-2x" style="position: absolute; top:45%; left:48%;"></i>
+                    <img class="mw-100" src="{{ $item['gambar'] }}" alt="">
+                </a>
+            </div>
+        @endif
     @empty
         <div class="col">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h3>Data belum tersedia</h3>
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4>Data belum tersedia</h4>
                 </div>
             </div>
         </div>

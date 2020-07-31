@@ -10,6 +10,9 @@
         cursor: pointer;
         opacity: 0.7;
     }
+    .animate-up:hover{
+        top: -5px;
+    }
 </style>
 @endsection
 
@@ -26,7 +29,8 @@
                                 <p class="mb-0 text-sm">Kelola Gallery {{ config('app.name') }}</p>
                             </div>
                             <div class="mb-3">
-                                <a href="#tambah-gambar" data-toggle="modal" class="btn btn-primary"><i class="fas fa-plus mr-2"></i> Tambah Gambar</a>
+                                <a href="#video-modal" data-toggle="modal" class="btn btn-primary"><i class="fas fa-video mr-2"></i> Pengaturan Video</a>
+                                <a href="#tambah-gambar" data-toggle="modal" class="btn btn-primary"><i class="fas fa-image mr-2"></i> Tambah Gambar</a>
                             </div>
                         </div>
                     </div>
@@ -40,15 +44,24 @@
 @section('content')
 @include('layouts.components.alert')
 <div class="row mt-4 justify-content-center">
-    @forelse ($gallery as $item)
-        <div class="col-lg-4 col-md-6 mb-3">
-            <a href="{{ url(Storage::url($item->gallery)) }}" data-fancybox data-caption="{{ $item->caption }}">
-                <img class="mw-100" src="{{ url(Storage::url($item->gallery)) }}" alt="">
-            </a>
-            <a href="#modal-hapus" data-toggle="modal" data-id="{{ $item->id }}" class="mb-0 btn btn-sm btn-danger hapus" style="position: absolute; top: 0; left: 0; z-index: 1; left:15px">
-                <i class="fas fa-trash" title="Hapus" data-toggle="tooltip"></i>
-            </a>
-        </div>
+    @forelse ($galleries as $item)
+        @if ($item['jenis'] == 1)
+            <div class="col-lg-4 col-md-6 mb-3 animate-up">
+                <a href="{{ url(Storage::url($item['gambar'])) }}" data-fancybox data-caption="{{ $item['caption'] }}">
+                    <img class="mw-100" src="{{ url(Storage::url($item['gambar'])) }}" alt="">
+                </a>
+                <a href="#modal-hapus" data-toggle="modal" data-id="{{ $item['id'] }}" class="mb-0 btn btn-sm btn-danger hapus" style="position: absolute; top: 0; left: 0; z-index: 1; left:15px">
+                    <i class="fas fa-trash" title="Hapus" data-toggle="tooltip"></i>
+                </a>
+            </div>
+        @else
+            <div class="col-lg-4 col-md-6 mb-3 animate-up">
+                <a href="https://www.youtube.com/watch?v={{ $item['id'] }}" data-fancybox data-caption="{{ $item['caption'] }}">
+                    <i class="fas fa-play fa-2x" style="position: absolute; top:45%; left:48%;"></i>
+                    <img class="mw-100" src="{{ $item['gambar'] }}" alt="">
+                </a>
+            </div>
+        @endif
     @empty
         <div class="col">
             <div class="single-service bg-white rounded shadow">
@@ -56,6 +69,46 @@
             </div>
         </div>
     @endforelse
+</div>
+
+<div class="modal fade" id="video-modal" tabindex="-1" role="dialog" aria-labelledby="video-modal" aria-hidden="true">
+    <div class="row fixed-top m-3">
+        <div class="col-lg-6"></div>
+        <div class="col-lg-6">
+            <div class="notifikasi"></div>
+        </div>
+    </div>
+    <div class="modal-dialog modal-dialog-centered modal-" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-delete">Pengaturan Video</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body pt-0">
+                <form class="d-inline" action="{{ route("video.update") }}" method="POST" >
+                    @csrf @method('patch')
+                    <div class="form-group">
+                        <label class="form-control-label">Channel ID Youtube</label>
+                        <input type="text" name="channel_id" id="channel_id" class="form-control" value="{{ $desa->channel_id }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">API KEY</label>
+                        <input type="text" name="api_key" id="api_key" class="form-control" value="{{ $desa->api_key }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+                <form class="d-inline" action="{{ route("video.store") }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-success"><i class="fas fa-sync"></i> Sync</button>
+                </form>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Batal</button>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="tambah-gambar" tabindex="-1" role="dialog" aria-labelledby="tambah-gambar" aria-hidden="true">
