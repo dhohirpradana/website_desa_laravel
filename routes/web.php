@@ -56,4 +56,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/tambah-slider', 'GalleryController@create')->name('slider.create');
     Route::get('/slider', 'GalleryController@indexSlider')->name('slider.index');
 
+    Route::post('/video', 'VideoController@store')->name('video.store');
+    Route::patch('/video/update', 'VideoController@update')->name('video.update');
 });

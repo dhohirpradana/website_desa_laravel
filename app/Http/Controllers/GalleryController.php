@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Desa;
 use App\Gallery;
+use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -17,8 +18,38 @@ class GalleryController extends Controller
      */
     public function index()
     {
+        $desa = Desa::find(1);
         $gallery = Gallery::where('slider', null)->get();
-        return view('gallery.index', compact('gallery'));
+        $videos = Video::all();
+        $galleries = array();
+
+        foreach ($gallery as $key => $value) {
+            $gambar = [
+                'gambar'    => $value->gallery,
+                'id'        => $value->id,
+                'caption'   => $value->caption,
+                'jenis'     => 1,
+                'created_at'=> strtotime($value->created_at),
+            ];
+            array_push($galleries, $gambar);
+        }
+
+        foreach ($videos as $key => $value) {
+            $gambar = [
+                'gambar'    => $value->gambar,
+                'id'        => $value->video_id,
+                'caption'   => $value->caption,
+                'jenis'     => 2,
+                'created_at'=> strtotime($value->published_at),
+            ];
+            array_push($galleries, $gambar);
+        }
+
+        usort($galleries, function($a, $b) {
+            return $a['created_at'] < $b['created_at'];
+        });
+
+        return view('gallery.index', compact('galleries','desa'));
     }
 
     /**
@@ -29,9 +60,37 @@ class GalleryController extends Controller
     public function gallery()
     {
         $desa = Desa::find(1);
-
         $gallery = Gallery::where('slider', null)->get();
-        return view('gallery.gallery', compact('gallery','desa'));
+        $videos = Video::all();
+        $galleries = array();
+
+        foreach ($gallery as $key => $value) {
+            $gambar = [
+                'gambar'    => $value->gallery,
+                'id'        => $value->id,
+                'caption'   => $value->caption,
+                'jenis'     => 1,
+                'created_at'=> strtotime($value->created_at),
+            ];
+            array_push($galleries, $gambar);
+        }
+
+        foreach ($videos as $key => $value) {
+            $gambar = [
+                'gambar'    => $value->gambar,
+                'id'        => $value->video_id,
+                'caption'   => $value->caption,
+                'jenis'     => 2,
+                'created_at'=> strtotime($value->published_at),
+            ];
+            array_push($galleries, $gambar);
+        }
+
+        usort($galleries, function($a, $b) {
+            return $a['created_at'] < $b['created_at'];
+        });
+
+        return view('gallery.gallery', compact('galleries','desa'));
     }
 
     /**
