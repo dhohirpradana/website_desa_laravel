@@ -141,6 +141,11 @@ Profil Desa
             $('#input-logo').click();
         });
 
+        $(document).on("submit","form", function () {
+            $(this).children("button:submit").attr('disabled','disabled');
+            $(this).children("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+        });
+
         $('#input-logo').on('change', function () {
             if (this.files && this.files[0]) {
                 let formData = new FormData();

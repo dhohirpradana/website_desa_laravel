@@ -134,6 +134,12 @@
                 token: "ee6fab19c5a04ac1a32a645abde4613a",
                 application: "argon-dashboard-free"
             });
+        document.addEventListener("keydown", function(event) {
+            if (event.keyCode == 27) {
+                $('.alert-dismissible').remove();
+                $(".modal").modal('hide');
+            }
+        });
 
         $(document).on("change", "input", function () {
             $(this).removeClass('is-invalid');
