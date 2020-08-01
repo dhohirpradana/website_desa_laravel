@@ -55,3 +55,14 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        $(document).on("submit","form", function () {
+            $(this).find("button:submit").attr('disabled','disabled');
+            $(this).find("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+        });
+    });
+</script>
+@endpush

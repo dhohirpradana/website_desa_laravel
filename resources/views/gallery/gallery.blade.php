@@ -27,7 +27,7 @@
         @else
             <div class="col-lg-4 col-md-6 mb-3 animate-up">
                 <a href="https://www.youtube.com/watch?v={{ $item['id'] }}" data-fancybox data-caption="{{ $item['caption'] }}">
-                    <i class="fas fa-play fa-2x" style="position: absolute; top:45%; left:48%;"></i>
+                    <i class="fas fa-play fa-2x" style="position: absolute; top:43%; left:46%;"></i>
                     <img class="mw-100" src="{{ $item['gambar'] }}" alt="">
                 </a>
             </div>

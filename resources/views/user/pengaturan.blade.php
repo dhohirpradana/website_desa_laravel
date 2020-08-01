@@ -85,12 +85,21 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">PERBARUI</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">PERBARUI</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        $(document).on("submit","form", function () {
+            $(this).children("button:submit").attr('disabled','disabled');
+            $(this).children("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+        });
+    });
+</script>
+@endpush

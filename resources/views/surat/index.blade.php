@@ -109,6 +109,11 @@
             $('#nama-hapus').html('Apakah Anda yakin ingin menghapus ' + $(this).data('nama') + '???');
             $('#form-hapus').attr('action', $("meta[name='base-url']").attr('content') + '/surat/' + $(this).data('id'));
         });
+
+        $(document).on("submit","form", function () {
+            $(this).children("button:submit").attr('disabled','disabled');
+            $(this).children("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+        });
     });
 </script>
 @endpush

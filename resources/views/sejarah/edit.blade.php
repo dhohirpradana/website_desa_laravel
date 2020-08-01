@@ -95,6 +95,11 @@
         }
     }
     $(document).ready(function () {
+        $(document).on("submit","form", function () {
+            $(this).children("button:submit").attr('disabled','disabled');
+            $(this).children("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+        });
+
         $("textarea").summernote({
             dialogsInBody: true,
             placeholder: 'Silahkan isi konten',

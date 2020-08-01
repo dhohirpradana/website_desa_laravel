@@ -57,7 +57,7 @@
         @else
             <div class="col-lg-4 col-md-6 mb-3 animate-up">
                 <a href="https://www.youtube.com/watch?v={{ $item['id'] }}" data-fancybox data-caption="{{ $item['caption'] }}">
-                    <i class="fas fa-play fa-2x" style="position: absolute; top:45%; left:48%;"></i>
+                    <i class="fas fa-play fa-2x" style="position: absolute; top:43%; left:46%;"></i>
                     <img class="mw-100" src="{{ $item['gambar'] }}" alt="">
                 </a>
             </div>
@@ -135,6 +135,7 @@
                         <div class="text-center">
                             <img onclick="$(this).siblings('.images').click()" class="mw-100 upload-image" style="max-height: 300px" src="{{ asset('storage/upload.jpg') }}" alt="">
                             <input accept="image/*" onchange="uploadImage(this)" type="file" name="gambar" class="images" style="display: none">
+                            <span class="invalid-feedback font-weight-bold"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -203,6 +204,15 @@
             $('#form-hapus').attr('action', $("meta[name='base-url']").attr('content') + '/gallery/' + $(this).data('id'));
         });
 
+        $("button[data-dismiss='modal']").click(function () {
+            $('.alert-dismissible').remove();
+        });
+
+        $(document).on("submit","form", function () {
+            $(this).find("button:submit").attr('disabled','disabled');
+            $(this).find("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+        });
+
         $(document).on('submit', '.form' ,function(){
             let form = this;
             $(".notifikasi").html('');
@@ -215,12 +225,12 @@
                 cache: false,
                 processData: false,
                 beforeSend: function(data){
-                    $(form).children('button:submit').attr('disabled','disabled');
-                    $(form).children('button:submit').html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+                    $(form).find('button:submit').attr('disabled','disabled');
+                    $(form).find('button:submit').html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
                 },
                 success: function(data){
-                    $(form).children('button:submit').html('SIMPAN');
-                    $(form).children('button:submit').removeAttr('disabled');
+                    $(form).find('button:submit').html('SIMPAN');
+                    $(form).find('button:submit').removeAttr('disabled');
                     $(".notifikasi").html(`
                         <div class="alert alert-success alert-dismissible fade show">
                             <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
@@ -236,27 +246,23 @@
                 },
                 error: function (data) {
                     console.clear();
-                    $(form).children('button:submit').html('SIMPAN');
-                    $(form).children('button:submit').removeAttr('disabled');
-                    $(".notifikasi").html(`
+                    $(form).find('button:submit').html('SIMPAN');
+                    $(form).find('button:submit').removeAttr('disabled');
+                    let text = `
                         <div class="alert alert-danger alert-dismissible fade show">
                             <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
                             <span class="alert-text">
-                                <ul id="pesanError">
-                                </ul>
+                                <ul id="pesanError">`;
+                    $.each(data.responseJSON.errors, function (i, e) {
+                        text += `   <li>${e}</li>`;
+                    });
+                    text += `   </ul>
                             </span>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                        </div>
-                    `);
-                    $.each(data.responseJSON.errors, function (i, e) {
-                        $('#pesanError').append(`<li>`+e+`</li>`);
-                        if (!$(form).find("[name='" + i + "']").hasClass('is-invalid')) {
-                            $(form).find("[name='" + i + "']").addClass('is-invalid');
-                            $(form).find("[name='" + i + "']").focus();
-                        }
-                    });
+                        </div>`;
+                    $(".notifikasi").html(text);
                 }
             });
         });
