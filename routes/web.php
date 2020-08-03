@@ -17,9 +17,9 @@ Route::get('/', 'HomeController@index')->name('home.index');
 Route::get('/beranda', 'HomeController@index')->name('beranda');
 Route::get('/sejarah', 'SejarahController@sejarah')->name('sejarah');
 Route::get('/gallery', 'GalleryController@gallery')->name('gallery');
-Route::get('/buat-surat/{id}/{slug}', 'SuratController@buat')->name('buat-surat');
+Route::get('/buat-surat/{id}/{slug}', 'CetakSuratController@create')->name('buat-surat');
 Route::get('/panduan', 'HomeController@panduan')->name('panduan');
-Route::post('/buat-surat/{id}', 'SuratController@show')->name('buat-surat.download');
+Route::post('/cetak-surat/{id}/{slug}', 'CetakSuratController@store')->name('cetak-surat.store');
 
 Route::group(['middleware' => ['web', 'guest']], function () {
 
@@ -58,4 +58,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::post('/video', 'VideoController@store')->name('video.store');
     Route::patch('/video/update', 'VideoController@update')->name('video.update');
+
+    Route::get('/surat-harian', 'HomeController@suratHarian')->name('surat-harian');
+    Route::get('/surat-bulanan', 'HomeController@suratBulanan')->name('surat-bulanan');
+    Route::get('/surat-tahunan', 'HomeController@suratTahunan')->name('surat-tahunan');
+    Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 });

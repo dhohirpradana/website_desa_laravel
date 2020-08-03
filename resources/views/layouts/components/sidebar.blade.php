@@ -61,6 +61,12 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('dashboard') }}">
+                    <i class="fas fa-tachometer-alt text-blue"></i>
+                    <span class="nav-link-inner--text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('beranda') }}">
                     <i class="fas fa-home text-cyan"></i>
                     <span class="nav-link-inner--text">Beranda</span>

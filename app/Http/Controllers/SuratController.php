@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Desa;
+use App\CetakSurat;
 use App\IsiSurat;
 use App\Surat;
-use Barryvdh\DomPDF\Facade as PDF;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class SuratController extends Controller
 {
@@ -131,23 +127,19 @@ class SuratController extends Controller
      * @param  \App\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, Surat $surat)
     {
-        $request->validate([
-            'isian.*'  => ['required']
-        ]);
-
-        $desa = Desa::find(1);
-        $surat = Surat::find($id);
-        $image = (string) Image::make(public_path(Storage::url($desa->logo)))->encode('jpg');
-        $logo = (string) Image::make($image)->encode('data-url');
-        $tanggal = tgl(date('Y-m-d'));
-        $pdf = PDF::loadView('surat.show', compact('surat', 'desa', 'request', 'logo', 'tanggal'))->setPaper(array(0,0,609.449,935.433));
-        if ($surat->tampilkan == 1) {
-            $surat->jumlah_cetak = $surat->jumlah_cetak + 1;
+        $cetakSurat = CetakSurat::where('surat_id',$surat->id)->orderBy('id', 'desc')->paginate(25);
+        if ($request->cari) {
+            $cetakSurat = CetakSurat::where('surat_id',$surat->id)
+            ->whereHas('detailCetak', function ($detailCetak) use ($request) {
+                $detailCetak->where("isian", "like", "%{$request->cari}%");
+            })
+            ->orderBy('id', 'desc')->paginate(25);
         }
-        $surat->save();
-        return $pdf->stream($surat->nama . '.pdf');
+        $cetakSurat->appends($request->only('cari'));
+
+        return view('surat.show', compact('surat','cetakSurat'));
     }
 
     /**
@@ -257,16 +249,5 @@ class SuratController extends Controller
     {
         $surat->delete();
         return redirect()->back()->with('success', 'Surat berhasil dihapus');
-    }
-
-    public function buat(Request $request, $id, $slug)
-    {
-        $surat = Surat::find($id);
-
-        if ($slug != Str::slug($surat->nama)) {
-            return abort(404, 'Halaman Tidak Ditemukan');
-        }
-
-        return view('surat.buat', compact('surat'));
     }
 }
