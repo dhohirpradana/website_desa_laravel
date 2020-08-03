@@ -43,7 +43,7 @@
     @forelse ($surat as $item)
         <div class="col-lg-4 col-md-6">
             <div class="single-service bg-white rounded shadow">
-                <a href="{{ route('buat-surat', ['id' => $item->id,'slug' => Str::slug($item->nama)]) }}">
+                <a href="{{ route('surat.show', $item) }}">
                     <i class="fas {{ $item->icon }} ikon fa-5x mb-3"></i>
                     <h4>{{ $item->nama }}</h4>
                 </a>

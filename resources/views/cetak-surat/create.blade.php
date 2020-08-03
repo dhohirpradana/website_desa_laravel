@@ -32,7 +32,7 @@ Buat Surat {{ $surat->nama }}
         <div class="text-center mb-4">
             <p>{{ $surat->deskripsi }}</p>
         </div>
-        <form role="form" action="{{ route('buat-surat.download', $surat) }}" method="POST">
+        <form role="form" action="{{ route('cetak-surat.store', ['id' => $surat->id, 'slug' => Str::slug($surat->nama)]) }}" method="POST">
             @csrf
             @foreach ($surat->isiSurat as $key => $isiSurat)
                 @if ($isiSurat->isian == 1)
