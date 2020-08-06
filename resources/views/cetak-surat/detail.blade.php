@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ $surat->nama }}</title>
+    <link rel="icon" href="{{ url(Storage::url($desa->logo)) }}" type="image/png">
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="margin:1cm">
+        <div style="height:100px;width:100%" class="mb-5">
+            <div style="height:90px;width:90px;float:left" class="">
+                <img class="mw-100" src="{{ $logo }}" alt="">
+            </div>
+            <div class="text-center lh-20px">
+                <span style="font-size: 14pt" class="font-weight-bold">PEMERINTAHAN KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</span><br>
+                <span style="font-size: 14pt" class="font-weight-bold">KECAMATAN {{ Str::upper($desa->nama_kecamatan) }}</span><br>
+                <span style="font-size: 14pt" class="font-weight-bold">DESA {{ Str::upper($desa->nama_desa) }}</span><br>
+                <div style="font-size: 11pt; font-style: italic">
+                    {{ $desa->alamat }}
+                </div>
+            </div>
+            <hr style="border-top: 5px double #000000;">
+        </div>
+
+        @if ($surat->perihal == 1)
+            @php
+                $perihal = array();
+                foreach ($surat->isiSurat->where('perihal',1) as $isiSurat) {
+                    array_push($perihal, $isiSurat->isi);
+                }
+            @endphp
+            <div style="width: 50%" class="float-left">
+                <br>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Nomor</td>
+                            <td>:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sifat</td>
+                            <td>: {{ $perihal[0] }}</td>
+                        </tr>
+                        <tr>
+                            <td>Lampiran</td>
+                            <td>: {{ $perihal[1] }}</td>
+                        </tr>
+                        <tr>
+                            <td>Perihal</td>
+                            <td>: {{ $perihal[2] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-left: 50%; width: 50%" class="text-center float-right">
+                <p style="margin-bottom: 55px">{{ $desa->nama_desa }}, {{ $tanggal }}<br>Kepada {{ $perihal[3] }}</p>
+                <p>Di - {{ $perihal[4] }}</p>
+            </div>
+        @else
+            <div class="text-center mt-5 mb-3">
+                <b style="text-decoration: underline;">{{ Str::upper($surat->nama) }}</b><br>
+                Nomor : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}
+            </div>
+        @endif
+
+        @php
+            $data_kades = true;
+            $tabel = true;
+            $i = 0;
+        @endphp
+
+        @foreach ($surat->isiSurat->where('perihal', 0) as $key => $isiSurat)
+            @php
+                $string = $isiSurat->isi;
+                $pattern = "/\{[0-9A-Za-z\s\(\)]+\}/";
+                preg_match_all($pattern, $string, $matches);
+                $hasil = $string;
+
+                foreach ($matches[0] as $k => $value) {
+                    $hasil = str_replace($value, $cetakSurat->detailCetak[$i]->isian, $hasil);
+                    $i++;
+                }
+
+                try {
+                    if ($surat->isiSurat[$key + 1]->isian == 1 || $data_kades == true && $surat->data_kades == 1) {
+                        if ($isiSurat->paragraf == 1) {
+                            echo '<div class="text-justify" style="text-indent: 50px">'. $hasil .'</div>';
+                        } elseif ($isiSurat->kalimat == 1) {
+                            echo '<div class="text-justify">'. $hasil .'</div>';
+                        }
+                    } else {
+                        if ($isiSurat->paragraf == 1) {
+                            echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
+                        } elseif ($isiSurat->kalimat == 1) {
+                            echo '<p class="text-justify">'. $hasil .'</p>';
+                        }
+                    }
+                } catch (\Throwable $th) {
+                    if ($isiSurat->paragraf == 1) {
+                        echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
+                    } elseif ($isiSurat->kalimat == 1) {
+                        echo '<p class="text-justify">'. $hasil .'</p>';
+                    }
+                }
+            @endphp
+
+            @if ($data_kades && $surat->data_kades == 1)
+                <table class="mb-3 ml-5">
+                    <tbody>
+                        <tr>
+                            <td width="160px" valign="top">Nama</td>
+                            <td width="10px" valign="top">:</td>
+                            <td class="text-justify" width="10cm" valign="top">{{ $desa->nama_kepala_desa }}</td>
+                        </tr>
+                        <tr>
+                            <td width="160px" valign="top">Jabatan</td>
+                            <td width="10px" valign="top">:</td>
+                            <td class="text-justify" width="10cm" valign="top">Kepala Desa</td>
+                        </tr>
+                        <tr>
+                            <td width="160px" valign="top">Alamat</td>
+                            <td width="10px" valign="top">:</td>
+                            <td class="text-justify" width="10cm" valign="top">{{ $desa->alamat_kepala_desa }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                @php
+                    $data_kades = false;
+                @endphp
+            @endif
+
+            @if ($isiSurat->isian == 1)
+                @if ($tabel)
+                    <table class="mb-3 ml-5">
+                        <tbody>
+                    @php
+                        $tabel = false;
+                    @endphp
+                @endif
+
+                <tr>
+                    <td width="160px" valign="top">{{ $isiSurat->isi }}</td>
+                    <td width="10px" valign="top">:</td>
+                    <td class="text-justify" width="10cm" valign="top">{{ $cetakSurat->detailCetak[$i]->isian }}</td>
+                </tr>
+
+                @php
+                    $i++;
+                @endphp
+                @if ($surat->isiSurat[$key + 1]->isian != 1)
+                        </tbody>
+                    </table>
+                    @php
+                        $tabel = true;
+                    @endphp
+                @endif
+            @endif
+        @endforeach
+        <div>
+            @if ($surat->tanda_tangan_bersangkutan == 1)
+                <div style="width: 50%" class="float-left text-center">
+                    <br>
+                    <p style="margin-bottom: 100px">
+                        Yang Bersangkutan
+                    </p>
+                    <p style="" class="bold underline">
+                        {{ $cetakSurat->detailCetak[count($cetakSurat->detailCetak) - 1]->isian }}
+                    </p>
+                </div>
+            @endif
+            <div style="margin-left: 50%; width: 50%" class="text-center float-right">
+                <p style="margin-bottom: 100px">
+                    {{ $desa->nama_desa }}, {{ $tanggal }}  <br>
+                    Kepala Desa {{ $desa->nama_desa }}
+                </p>
+                <p style="" class="bold underline">
+                    {{ $desa->nama_kepala_desa }}
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

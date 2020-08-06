@@ -45,8 +45,30 @@
 
 @section('content')
 @include('layouts.components.alert')
+<div class="card shadow mb-3">
+    <div class="card-header">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
+            <h2 class="mb-0">Grafik Cetak Surat</h2>
+            <form action="">
+                <input type="number" name="tahun" id="tahun" class="form-control" value="{{ date('Y') }}">
+            </form>
+        </div>
+    </div>
+    <div class="card-body">
+        <canvas id="chart-hari" class="chart-canvas"></canvas>
+    </div>
+</div>
 <div class="card">
-    <div class="card-header font-weight-bold">Hasil Cetak</div>
+    <div class="card-header">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
+            <div class="mb-3">
+                <h2 class="mb-0">Hasil Cetak</h2>
+            </div>
+            <div class="mb-3">
+                <h2 class="mb-0">Total : {{ count($cetakSurat) }}</h2>
+            </div>
+        </div>
+    </div>
     <div class="card-body">
         <div class="table-responsive mb-3">
             <table class="table table-bordered table-hover table-striped">
@@ -76,7 +98,11 @@
                                 @endforeach
                             @endif
                         @endforeach
+                        @if ($surat->tanda_tangan_bersangkutan == 1)
+                            <th class="text-center">Yang Bersangkutan</th>
+                        @endif
                         <th class="text-center">Tanggal Cetak</th>
+                        <th class="text-center">Opsi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,6 +112,7 @@
                                 <td>{{ $DetailCetak->isian }}</td>
                             @endforeach
                             <td>{{ date('d/m/Y H:i' ,strtotime($item->created_at)) }}</td>
+                            <td><a href="{{ route('cetakSurat.show', $item->id) }}" class="btn btn-sm btn-success" title="Detail Cetak" data-toggle="tooltip"><i class="fas fa-print"></i></a></td>
                         </tr>
                     @empty
                         <tr>
@@ -101,9 +128,30 @@
 @endsection
 
 @push('scripts')
+<script src="{{ asset('js/plugins/chart.js/dist/Chart.min.js') }}"></script>
+
 <script>
+    const ctx = document.getElementById('chart-hari').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {}
+    });
+
     $(document).ready(function(){
         $(".pagination").addClass("justify-content-center");
+
+        $.get("{{ route('chart-surat',$surat->id) }}", function (response) {
+            chart.data = response;
+            chart.update();
+        });
+
+        $("#tahun").change(function () {
+            let form = this;
+            $.get("{{ route('chart-surat',$surat->id) }}", {'tahun': $(this).val()}, function (response) {
+                chart.data = response;
+                chart.update();
+            });
+        });
     });
 </script>
 @endpush
