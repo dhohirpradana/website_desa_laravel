@@ -250,4 +250,34 @@ class SuratController extends Controller
         $surat->delete();
         return redirect()->back()->with('success', 'Surat berhasil dihapus');
     }
+
+    public function chartSurat(Request $request, $id)
+    {
+        if ($request->tahun) {
+            $cetakSurat = CetakSurat::where('surat_id',$id)->whereYear('created_at',$request->tahun)->get();
+        } else {
+            $cetakSurat = CetakSurat::where('surat_id',$id)->get();
+        }
+
+        $arr = array();
+        $i = 1;
+        foreach ($cetakSurat as $key => $value) {
+            if (array_key_exists(date_format($value->created_at, "F"),$arr)) {
+                $i++;
+                $arr[date_format($value->created_at, "F")] = $i;
+            } else {
+                $i = 1;
+                $arr[date_format($value->created_at, "F")] = $i;
+            }
+        }
+
+        return response()->json([
+            "labels" => array_keys($arr),
+            "datasets" => [[
+                "label" => "Total Cetak Surat",
+                "data" => array_values($arr),
+                "backgroundColor" => 'rgb(' . rand(0,255) . ',' . rand(0,255) . ',' . rand(0,255) . ')',
+            ]],
+        ]);
+    }
 }

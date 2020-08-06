@@ -31,7 +31,7 @@
     <div class="card-header">
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
             <div class="mb-3">
-                <h2 class="mb-0">Statistik Cetak Surat Harian</h2>
+                <h2 class="mb-0">Grafik Cetak Surat Harian</h2>
             </div>
             <div class="mb-3">
                 <form id="form-tanggal" action="javascript:;" method="GET">
@@ -48,7 +48,7 @@
     <div class="card-header font-weight-bold">
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
             <div class="mb-3">
-                <h2 class="mb-0">Statistik Cetak Surat Bulanan</h2>
+                <h2 class="mb-0">Grafik Cetak Surat Bulanan</h2>
             </div>
             <div class="mb-3">
                 <form id="form-bulan" action="javascript:;" method="GET">
@@ -65,7 +65,7 @@
     <div class="card-header font-weight-bold">
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
             <div class="mb-3">
-                <h2 class="mb-0">Statistik Cetak Surat Tahunan</h2>
+                <h2 class="mb-0">Grafik Cetak Surat Tahunan</h2>
             </div>
             <div class="mb-3">
                 <form id="form-tahun" action="javascript:;" method="GET">
@@ -87,7 +87,7 @@
     let chart_harian = new Chart(chartHarian, {
         type: "bar",
         data: {
-            labels: ['Grafik Cetak Surat Tahunan'],
+            labels: ['Grafik Cetak Surat Harian'],
             datasets: {}
         },
         options: {
@@ -112,7 +112,7 @@
     let chart_bulanan = new Chart(chartBulanan, {
         type: "bar",
         data: {
-            labels: ['Grafik Cetak Surat Tahunan'],
+            labels: ['Grafik Cetak Surat Bulanan'],
             datasets: {}
         },
         options: {
@@ -194,9 +194,9 @@
             });
         });
 
-        $("#form-tahun").submit(function () {
+        $("#tahun").change(function () {
             let form = this;
-            $.get("{{ route('surat-tahunan') }}", {'tahun': $(this).find('[name="tahun"]').val()}, function (response) {
+            $.get("{{ route('surat-tahunan') }}", {'tahun': $(this).val()}, function (response) {
                 chart_tahunan.data.datasets = response;
                 chart_tahunan.update();
             });

@@ -15,16 +15,6 @@ use Illuminate\Http\Request;
 class CetakSuratController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -87,40 +77,12 @@ class CetakSuratController extends Controller
      */
     public function show(CetakSurat $cetakSurat)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\CetakSurat  $cetakSurat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CetakSurat $cetakSurat)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CetakSurat  $cetakSurat
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, CetakSurat $cetakSurat)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\CetakSurat  $cetakSurat
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CetakSurat $cetakSurat)
-    {
-        //
+        $desa = Desa::find(1);
+        $surat = Surat::find($cetakSurat->surat_id);
+        $image = (string) Image::make(public_path(Storage::url($desa->logo)))->encode('jpg');
+        $logo = (string) Image::make($image)->encode('data-url');
+        $tanggal = tgl(date('Y-m-d', strtotime($cetakSurat->created_at)));
+        $pdf = PDF::loadView('cetak-surat.detail', compact('surat', 'desa', 'cetakSurat', 'logo', 'tanggal'))->setPaper(array(0,0,609.449,935.433));
+        return $pdf->stream($surat->nama . '.pdf');
     }
 }
