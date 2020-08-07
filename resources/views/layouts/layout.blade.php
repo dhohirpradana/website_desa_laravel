@@ -93,6 +93,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link nav-link-icon" href="{{ route('berita') }}">
+                                <i class="fas fa-newspaper"></i>
+                                <span class="nav-link-inner--text">Berita</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link nav-link-icon" href="{{ route('gallery') }}">
                                 <i class="fas fa-images"></i>
                                 <span class="nav-link-inner--text">Gallery</span>
@@ -121,6 +127,10 @@
                                     <a href="{{ route('sejarah.index') }}" class="dropdown-item font-weight-bold">
                                         <i class="fas fa-atlas text-success"></i>
                                         <span class="nav-link-inner--text">Kelola Sejarah</span>
+                                    </a>
+                                    <a href="{{ route('berita.index') }}" class="dropdown-item font-weight-bold">
+                                        <i class="fas fa-newspaper text-cyan"></i>
+                                        <span class="nav-link-inner--text">Kelola Berita</span>
                                     </a>
                                     <a class="dropdown-item font-weight-bold" href="{{ route('gallery.index') }}">
                                         <i class="fas fa-images text-orange"></i>

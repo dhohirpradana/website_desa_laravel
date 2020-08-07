@@ -88,6 +88,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link @if (Request::segment(1) == 'kelola-berita' || Request::segment(1) == 'tambah-berita' || Request::segment(1) == 'berita') active @endif" href="{{ route('berita.index') }}">
+                    <i class="fas fa-newspaper text-cyan"></i>
+                    <span class="nav-link-inner--text">Kelola Berita</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'gallery') active @endif" href="{{ route('gallery.index') }}">
                     <i class="fas fa-images text-orange"></i>
                     <span class="nav-link-inner--text">Kelola Gallery</span>
