@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home.index');
 Route::get('/beranda', 'HomeController@index')->name('beranda');
 Route::get('/sejarah', 'SejarahController@sejarah')->name('sejarah');
+Route::get('/sejarah/{sejarah}/{slug}', 'SejarahController@show')->name('sejarah.show');
+Route::get('/berita', 'BeritaController@berita')->name('berita');
+Route::get('/berita/{berita}/{slug}', 'BeritaController@show')->name('berita.show');
 Route::get('/gallery', 'GalleryController@gallery')->name('gallery');
 Route::get('/buat-surat/{id}/{slug}', 'CetakSuratController@create')->name('buat-surat');
 Route::get('/panduan', 'HomeController@panduan')->name('panduan');
@@ -45,8 +48,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get('/kelola-sejarah', 'SejarahController@index')->name('sejarah.index');
     Route::get('/tambah-sejarah', 'SejarahController@create')->name('sejarah.create');
-    Route::resource('/sejarah', 'SejarahController')->except('create','show','index');
-    Route::get('/sejarah/{sejarah}/{slug}', 'SejarahController@show')->name('sejarah.show');
+    Route::get('/edit-sejarah/{sejarah}', 'SejarahController@edit')->name('sejarah.edit');
+    Route::resource('/sejarah', 'SejarahController')->except('create','show','index','edit');
+
+    Route::get('/kelola-berita', 'BeritaController@index')->name('berita.index');
+    Route::get('/tambah-berita', 'BeritaController@create')->name('berita.create');
+    Route::get('/edit-berita/{berita}', 'BeritaController@edit')->name('berita.edit');
+    Route::resource('/berita', 'BeritaController')->except('create','show','index','edit');
 
     Route::resource('/isiSurat', 'IsiSuratController')->except('index', 'create', 'edit', 'show');
 
