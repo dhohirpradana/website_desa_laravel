@@ -27,8 +27,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="base-url" content="{{ url('') }}">
 
+    <meta name="description" content="Website Resmi Pemerintah Desa Arjasa Kecamatan Arjasa Kabupaten Jember Jawa Timur">
+    <meta name="author" content="Maulana Kevin Pradana">
+    <meta name="keywords" content="desa arjasa,arjasa jember,arjasa,desa,desa.id">
+
     <title>
-        {{ config('app.name') }} - @yield('title')
+        Desa {{ $desa->nama_desa }} - @yield('title')
     </title>
 
     <!-- Favicon -->
@@ -53,7 +57,7 @@
         <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
             <div class="container px-4">
                 <a class="navbar-brand" href="{{ url('') }}">
-                    <h1 class="text-white"><b>{{ config('app.name') }}</b></h1>
+                    <h1 class="text-white"><b>Desa {{ $desa->nama_desa }}</b></h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +69,7 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ url('') }}">
-                                    <h1 class="text-primary"><b>{{ config('app.name') }}</b></h1>
+                                    <h1 class="text-primary"><b>Desa {{ $desa->nama_desa }}</b></h1>
                                 </a>
                             </div>
                             <div class="col-6 collapse-close">
@@ -192,7 +196,7 @@
                     <div class="col-xl-6">
                         <div class="copyright text-center text-xl-left text-muted">
                             © {{ date('Y') }} <a href="{{ url('') }}" class="font-weight-bold ml-1"
-                                target="_blank">{{ config('app.name') }}</a>
+                                target="_blank">Desa {{ $desa->nama_desa }}</a>
                         </div>
                     </div>
                 </div>

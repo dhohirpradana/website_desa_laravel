@@ -38,7 +38,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-6 border-bottom">
                         <h2 class="text-white">LAYANAN</h2>
-                        <p class="text-white">Dengan menggunakan layanan online website {{ config('app.name') }}, masyarakat dapat dengan mudah membuat beberapa surat keterangan berikut ini secara online.</p>
+                        <p class="text-white">Dengan menggunakan layanan online website Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah membuat beberapa surat keterangan berikut ini secara online.</p>
                     </div>
                 </div>
             </div>

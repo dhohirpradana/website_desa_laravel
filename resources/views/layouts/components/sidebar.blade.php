@@ -6,7 +6,7 @@
     </button>
     <!-- Brand -->
     <a class="navbar-brand pt-0" href="{{ route('beranda') }}">
-        <h1 class="text-primary font-weight-900">{{ config('app.name') }}</h1>
+        <h1 class="text-primary font-weight-900 text-uppercase">Desa {{ $desa->nama_desa }}</h1>
     </a>
     <!-- User -->
     <ul class="nav align-items-center d-md-none">
@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="col-6 collapse-brand">
                     <a href="{{ route('beranda') }}">
-                        <h1 class="text-primary"><b>{{ config('app.name') }}</b></h1>
+                        <h1 class="text-primary"><b>Desa {{ $desa->nama_desa }}</b></h1>
                     </a>
                 </div>
                 <div class="col-6 collapse-close">

@@ -28,7 +28,7 @@
     <meta name="base-url" content="{{ url('') }}">
 
     <title>
-        {{ config('app.name') }} - @yield('title')
+        Desa {{ $desa->nama_desa }} - @yield('title')
     </title>
 
     <!-- Favicon -->
@@ -111,7 +111,7 @@
                 <div class="row align-items-center justify-content-xl-between">
                     <div class="col-xl-6">
                         <div class="copyright text-center text-xl-left text-muted">
-                            &copy; {{ date('Y') }} <a href="{{ config('app.url') }}" class="font-weight-bold ml-1" target="_blank">{{ config('app.name')}}</a>
+                            &copy; {{ date('Y') }} <a href="{{ config('app.url') }}" class="font-weight-bold ml-1" target="_blank">Desa {{ $desa->nama_desa }}</a>
                         </div>
                     </div>
                 </div>
