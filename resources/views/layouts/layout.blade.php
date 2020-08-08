@@ -29,7 +29,7 @@
 
     <meta name="description" content="Website Resmi Pemerintah Desa Arjasa Kecamatan Arjasa Kabupaten Jember Jawa Timur">
     <meta name="author" content="Maulana Kevin Pradana">
-    <meta name="keywords" content="desa arjasa,arjasa jember,arjasa,desa,desa.id">
+    <meta name="keywords" content="desa arjasa,arjasa jember,arjasa,desa,desa.id,arjasa arjasa jember,desa di kecamatan arjasa jember,desa arjasa jember,daerah arjasa">
 
     <title>
         Desa {{ $desa->nama_desa }} - @yield('title')
