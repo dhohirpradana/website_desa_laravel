@@ -85,4 +85,34 @@ class CetakSuratController extends Controller
         $pdf = PDF::loadView('cetak-surat.detail', compact('surat', 'desa', 'cetakSurat', 'logo', 'tanggal'))->setPaper(array(0,0,609.449,935.433));
         return $pdf->stream($surat->nama . '.pdf');
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\CetakSurat  $cetakSurat
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, CetakSurat $cetakSurat)
+    {
+        $data = $request->validate([
+            'nomor' => ['required'],
+        ]);
+
+        $cetakSurat->update($data);
+
+        return back()->with('success','Nomor surat berhasil diperbarui');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\CetakSurat  $cetakSurat
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(CetakSurat $cetakSurat)
+    {
+        $cetakSurat->delete();
+        return back()->with('success','Detail surat berhasil dihapus');
+    }
 }
