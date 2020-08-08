@@ -145,6 +145,6 @@ class SejarahController extends Controller
     public function destroy(Sejarah $sejarah)
     {
         $sejarah->delete();
-        return back()->with('success','Sejarah berhasil diperbarui');
+        return back()->with('success','Sejarah berhasil dihapus');
     }
 }

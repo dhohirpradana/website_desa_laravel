@@ -259,15 +259,46 @@ class SuratController extends Controller
             $cetakSurat = CetakSurat::where('surat_id',$id)->get();
         }
 
-        $arr = array();
-        $i = 1;
-        foreach ($cetakSurat as $key => $value) {
-            if (array_key_exists(date_format($value->created_at, "F"),$arr)) {
-                $i++;
-                $arr[date_format($value->created_at, "F")] = $i;
-            } else {
-                $i = 1;
-                $arr[date_format($value->created_at, "F")] = $i;
+        $arr = array(
+            'Januari'   => 0,
+            'Februari'  => 0,
+            'Maret'     => 0,
+            'April'     => 0,
+            'Mei'       => 0,
+            'Juni'      => 0,
+            'Juli'      => 0,
+            'Agustus'   => 0,
+            'September' => 0,
+            'Oktober'   => 0,
+            'November'  => 0,
+            'Desember'  => 0,
+        );
+
+        foreach ($cetakSurat as $value) {
+            if (date('m', strtotime($value->created_at)) == 1) {
+                $arr['Januari'] = $arr['Januari'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 2) {
+                $arr['Februari'] = $arr['Februari'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 3) {
+                $arr['Maret'] = $arr['Maret'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 4) {
+                $arr['April'] = $arr['April'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 5) {
+                $arr['Mei'] = $arr['Mei'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 6) {
+                $arr['Juni'] = $arr['Juni'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 7) {
+                $arr['Juli'] = $arr['Juli'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 8) {
+                $arr['Agustus'] = $arr['Agustus'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 9) {
+                $arr['September'] = $arr['September'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 10) {
+                $arr['Oktober'] = $arr['Oktober'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 11) {
+                $arr['November'] = $arr['November'] + 1;
+            } else if (date('m', strtotime($value->created_at)) == 12) {
+                $arr['Desember'] = $arr['Desember'] + 1;
             }
         }
 

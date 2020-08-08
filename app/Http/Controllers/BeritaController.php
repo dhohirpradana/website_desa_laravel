@@ -145,6 +145,6 @@ class BeritaController extends Controller
     public function destroy(Berita $berita)
     {
         $berita->delete();
-        return back()->with('success','Berita berhasil diperbarui');
+        return back()->with('success','Berita berhasil dihapus');
     }
 }

@@ -48,7 +48,7 @@
 <div class="card shadow mb-3">
     <div class="card-header">
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
-            <h2 class="mb-0">Grafik Cetak Surat</h2>
+            <h2 class="mb-0">Grafik Cetak {{ $surat->nama }}</h2>
             <form action="">
                 <input type="number" name="tahun" id="tahun" class="form-control" value="{{ date('Y') }}">
             </form>
@@ -74,6 +74,7 @@
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                     <tr>
+                        <th>Nomor Surat</th>
                         @php
                             $i = 0;
                         @endphp
@@ -108,21 +109,86 @@
                 <tbody>
                     @forelse ($cetakSurat as $item)
                         <tr>
+                            <td>{{ $item->nomor ? $item->nomor : "-" }}</td>
                             @foreach ($item->DetailCetak as $DetailCetak)
                                 <td>{{ $DetailCetak->isian }}</td>
                             @endforeach
                             <td>{{ date('d/m/Y H:i' ,strtotime($item->created_at)) }}</td>
-                            <td><a href="{{ route('cetakSurat.show', $item->id) }}" class="btn btn-sm btn-success" title="Detail Cetak" data-toggle="tooltip"><i class="fas fa-print"></i></a></td>
+                            <td>
+                                <a target="_blank" href="{{ route('cetakSurat.show', $item->id) }}" class="btn btn-sm btn-success" title="Detail Cetak" data-toggle="tooltip"><i class="fas fa-print"></i></a>
+                                <a href="#modal-nomor" data-toggle="modal" data-id="{{ $item->id }}" data-nomor="{{ $item->nomor }}" class="btn btn-sm btn-primary update" title="{{ $item->nomor ? "Ubah nomor" : "Tambah nomor" }}"><i class="fas fa-edit"></i> {{ $item->nomor ? "Ubah nomor" : "Tambah nomor" }}</a>
+                                <a class="btn btn-sm btn-danger hapus" data-id="{{ $item->id }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ $i + 1 }}" class="text-center">Data Tidak Tersedia</td>
+                            <td colspan="{{ $surat->tanda_tangan_bersangkutan ? $i + 4 : $i + 3 }}" class="text-center">Data Tidak Tersedia</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
         {{ $cetakSurat->links() }}
+    </div>
+</div>
+
+<div class="modal fade" id="modal-nomor" tabindex="-1" role="dialog" aria-labelledby="modal-nomor" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-delete">NOMOR SURAT</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="form-update" action="" class="d-inline" method="POST" >
+                    @csrf @method('patch')
+                    <div class="form-group">
+                        <input type="text" name="nomor" id="nomor" class="form-control" placeholder="Nomor surat">
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-hapus" tabindex="-1" role="dialog" aria-labelledby="modal-hapus" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content bg-gradient-danger">
+
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-delete">Hapus Detail Surat?</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="py-3 text-center">
+                    <i class="ni ni-bell-55 ni-3x"></i>
+                    <h4 class="heading mt-4">Perhatian!!</h4>
+                    <p>Menghapus detail surat akan menghapus semua data yang dimilikinya</p>
+                    <p><strong>Apakah anda yakin ingin menghapus detail cetak surat ini ?</strong></p>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <form id="form-hapus" action="" method="POST" >
+                    @csrf @method('delete')
+                    <button type="submit" class="btn btn-white">Yakin</button>
+                </form>
+                <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal">Tidak</button>
+            </div>
+
+        </div>
     </div>
 </div>
 @endsection
@@ -138,6 +204,19 @@
     });
 
     $(document).ready(function(){
+        $('.hapus').on('click', function(){
+            $('#form-hapus').attr('action', $("meta[name='base-url']").attr('content') + '/cetakSurat/' + $(this).data('id'));
+        });
+
+        $('.update').on('click', function(){
+            $('#form-update').attr('action', $("meta[name='base-url']").attr('content') + '/cetakSurat/' + $(this).data('id'));
+            $("#nomor").val($(this).data('nomor'));
+        });
+
+        $('button:submit').click(function () {
+            $(this).html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+        });
+
         $(".pagination").addClass("justify-content-center");
 
         $.get("{{ route('chart-surat',$surat->id) }}", function (response) {
