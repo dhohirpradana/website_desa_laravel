@@ -27,7 +27,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="base-url" content="{{ url('') }}">
 
-    <meta name="description" content="Website Resmi Pemerintah Desa Arjasa Kecamatan Arjasa Kabupaten Jember Jawa Timur">
+    <meta name="description" content="Website Resmi Pemerintah Desa Arjasa, Kecamatan Arjasa, Kabupaten Jember, Provinsi Jawa Timur. Melayani pembuatan surat keterangan secara online untuk warga Desa Arjasa">
     <meta name="author" content="Maulana Kevin Pradana">
     <meta name="keywords" content="desa arjasa,arjasa jember,arjasa,desa,desa.id,arjasa arjasa jember,desa di kecamatan arjasa jember,desa arjasa jember,daerah arjasa">
 
