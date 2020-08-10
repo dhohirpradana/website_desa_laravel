@@ -19,7 +19,7 @@
 @if ($berita->gambar)
     <div class="row mb-5">
         <div class="col-md text-center">
-            <img class="mw-100" src="{{ url(Storage::url($berita->gambar)) }}" alt="">
+            <img class="mw-100" src="{{ url(Storage::url($berita->gambar)) }}" alt="Gambar Berita {{ $berita->judul }}">
         </div>
     </div>
 @endif

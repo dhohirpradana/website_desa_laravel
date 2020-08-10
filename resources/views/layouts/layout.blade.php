@@ -27,7 +27,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="base-url" content="{{ url('') }}">
 
-    <meta name="description" content="Website Resmi Pemerintah Desa Arjasa, Kecamatan Arjasa, Kabupaten Jember, Provinsi Jawa Timur. Melayani pembuatan surat keterangan secara online untuk warga Desa Arjasa">
+    <!-- SEO Management-->
+    <meta name="description" content="Website Resmi Pemerintah Desa Arjasa, Kecamatan Arjasa, Kabupaten Jember, Provinsi Jawa Timur. Melayani pembuatan surat keterangan secara online">
     <meta name="author" content="Maulana Kevin Pradana">
     <meta name="keywords" content="desa arjasa,arjasa jember,arjasa,desa,desa.id,arjasa arjasa jember,desa di kecamatan arjasa jember,desa arjasa jember,daerah arjasa">
 
@@ -57,7 +58,7 @@
         <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
             <div class="container px-4">
                 <a class="navbar-brand" href="{{ url('') }}">
-                    <h1 class="text-white"><b>Desa {{ $desa->nama_desa }}</b></h1>
+                    <h2 class="h1 text-white"><b>Desa {{ $desa->nama_desa }}</b></h2>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +70,7 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ url('') }}">
-                                    <h1 class="text-primary"><b>Desa {{ $desa->nama_desa }}</b></h1>
+                                    <h2 class="h1 text-primary"><b>Desa {{ $desa->nama_desa }}</b></h2>
                                 </a>
                             </div>
                             <div class="col-6 collapse-close">
@@ -197,6 +198,12 @@
                         <div class="copyright text-center text-xl-left text-muted">
                             © {{ date('Y') }} <a href="{{ url('') }}" class="font-weight-bold ml-1"
                                 target="_blank">Desa {{ $desa->nama_desa }}</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="copyright text-center text-xl-right text-muted">
+                            Powered By <a href="https://github.com/maulanakevinp/simapeda" class="font-weight-bold ml-1"
+                                target="_blank">SIMAPEDA</a>
                         </div>
                     </div>
                 </div>

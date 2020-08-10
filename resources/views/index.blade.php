@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Beranda')
+@section('title', 'Beranda | Website Resmi Pemerintah Desa '. $desa->nama_desa)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
@@ -15,7 +15,7 @@
 @endsection
 
 @section('header')
-<h2 class="text-white text-sm text-muted">SELAMAT DATANG DI LAYANAN ONLINE</h2>
+<h1 class="text-white text-sm text-muted">SELAMAT DATANG DI LAYANAN ONLINE</h1>
 <h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
 @endsection
 
@@ -23,9 +23,9 @@
 <div class="row">
     <div class="col-md">
         <div id="owl-one" class="owl-carousel owl-theme" style="z-index: 0">
-            @foreach($gallery as $item)
+            @foreach($gallery as $key => $item)
                 <a href="{{ asset(Storage::url($item->gallery)) }}" data-fancybox>
-                    <img src="{{ asset(Storage::url($item->gallery)) }}" class="mw-100">
+                    <img src="{{ asset(Storage::url($item->gallery)) }}" class="mw-100" alt="Slide Show {{ $key }}">
                 </a>
             @endforeach
         </div>

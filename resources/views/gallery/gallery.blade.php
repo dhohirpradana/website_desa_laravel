@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Gallery')
+@section('title', 'Gallery | Website Resmi Pemerintah Desa '. $desa->nama_desa)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">
@@ -11,7 +11,7 @@
 @endsection
 
 @section('header')
-<h2 class="text-white text-sm text-muted">GALLERY</h2>
+<h1 class="text-white text-sm text-muted">GALLERY</h1>
 <h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
 @endsection
 

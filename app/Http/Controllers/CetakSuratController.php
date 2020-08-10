@@ -22,12 +22,12 @@ class CetakSuratController extends Controller
     public function create(Request $request, $id, $slug)
     {
         $surat = Surat::find($id);
-
+        $desa = Desa::find(1);
         if ($slug != Str::slug($surat->nama)) {
             return abort(404, 'Halaman Tidak Ditemukan');
         }
 
-        return view('cetak-surat.create', compact('surat'));
+        return view('cetak-surat.create', compact('surat','desa'));
     }
 
 

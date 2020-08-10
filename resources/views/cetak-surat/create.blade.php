@@ -5,8 +5,8 @@ Buat Surat {{ $surat->nama }}
 @endsection
 
 @section('header')
-    <h1 class="text-white">Buat Surat</h1>
-    <p class="text-lead text-light">{{ $surat->nama }}</p>
+<h1 class="text-sm text-uppercase text-white text-muted">Buat Surat {{ $surat->nama }}</h1>
+<h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
 @endsection
 
 @section('content')

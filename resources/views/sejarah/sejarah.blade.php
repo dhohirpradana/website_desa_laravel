@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Sejarah')
+@section('title', 'Sejarah | Website Resmi Pemerintah Desa '. $desa->nama_desa)
 
 @section('styles')
 <style>
@@ -10,7 +10,7 @@
 @endsection
 
 @section('header')
-<h2 class="text-white text-sm text-muted">SEJARAH</h2>
+<h1 class="text-white text-sm text-muted">SEJARAH</h1>
 <h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
 @endsection
 

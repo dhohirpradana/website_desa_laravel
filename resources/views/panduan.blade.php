@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Beranda')
+@section('title', 'Panduan | Website Resmi Pemerintah Desa '. $desa->nama_desa)
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
@@ -15,7 +15,7 @@
 @endsection
 
 @section('header')
-<h2 class="text-white text-sm text-muted">PANDUAN PENGGUNAAN APLIKASI SIMAPEDA</h2>
+<h1 class="text-white text-sm text-muted">PANDUAN PENGGUNAAN APLIKASI SIMAPEDA</h1>
 <h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
 @endsection
 
