@@ -1,7 +1,8 @@
 @extends('layouts.layout')
+@section('title', 'Desa ' . $desa->nama_desa . ' - Buat ' . $surat->nama)
 
-@section('title')
-Desa {{ $desa->nama_desa }} - Buat {{ $surat->nama }}
+@section('styles')
+<meta name="description" content="Buat {{ $surat->nama }} di Website Desa {{ $desa->nama_desa }}, Kecamatan {{ $desa->nama_kecamatan }}, Kabupaten {{ $desa->nama_kabupaten }}">
 @endsection
 
 @section('header')

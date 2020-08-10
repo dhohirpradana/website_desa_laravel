@@ -5,7 +5,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Brand -->
-    <a class="navbar-brand pt-0" href="{{ route('beranda') }}">
+    <a class="navbar-brand pt-0" href="{{ route('home.index') }}">
         <h1 class="text-primary font-weight-900 text-uppercase">Desa {{ $desa->nama_desa }}</h1>
     </a>
     <!-- User -->
@@ -42,7 +42,7 @@
         <div class="navbar-collapse-header d-md-none">
             <div class="row">
                 <div class="col-6 collapse-brand">
-                    <a href="{{ route('beranda') }}">
+                    <a href="{{ route('home.index') }}">
                         <h1 class="text-primary"><b>Desa {{ $desa->nama_desa }}</b></h1>
                     </a>
                 </div>
@@ -67,7 +67,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('beranda') }}">
+                <a class="nav-link" href="{{ route('home.index') }}">
                     <i class="fas fa-home text-cyan"></i>
                     <span class="nav-link-inner--text">Beranda</span>
                 </a>

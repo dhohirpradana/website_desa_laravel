@@ -2,6 +2,8 @@
 @section('title', 'Website Resmi Pemerintah Desa '. $desa->nama_desa .' - Panduan')
 
 @section('styles')
+<meta name="description" content="Website Resmi Pemerintah Desa {{ $desa->nama_desa }}, Kecamatan {{ $desa->nama_kecamatan }}, Kabupaten {{ $desa->nama_kabupaten }}. Panduan pembuatan surat keterangan secara online">
+
 <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">
