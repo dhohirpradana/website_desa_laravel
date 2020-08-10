@@ -28,13 +28,10 @@
     <meta name="base-url" content="{{ url('') }}">
 
     <!-- SEO Management-->
-    <meta name="description" content="Website Resmi Pemerintah Desa Arjasa, Kecamatan Arjasa, Kabupaten Jember, Provinsi Jawa Timur. Melayani pembuatan surat keterangan secara online">
     <meta name="author" content="Maulana Kevin Pradana">
     <meta name="keywords" content="desa arjasa,arjasa jember,arjasa,desa,desa.id,arjasa arjasa jember,desa di kecamatan arjasa jember,desa arjasa jember,daerah arjasa">
 
-    <title>
-        Desa {{ $desa->nama_desa }} - @yield('title')
-    </title>
+    <title>@yield('title')</title>
 
     <!-- Favicon -->
     <link href="{{ asset(Storage::url($desa->logo)) }}" rel="icon" type="image/png">
@@ -70,7 +67,7 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ url('') }}">
-                                    <h2 class="h1 text-primary"><b>Desa {{ $desa->nama_desa }}</b></h2>
+                                    <h3 class="h1 text-primary"><b>Desa {{ $desa->nama_desa }}</b></h3>
                                 </a>
                             </div>
                             <div class="col-6 collapse-close">

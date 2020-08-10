@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-Buat Surat {{ $surat->nama }}
+Desa {{ $desa->nama_desa }} - Buat {{ $surat->nama }}
 @endsection
 
 @section('header')

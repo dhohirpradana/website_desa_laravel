@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Berita | Website Resmi Pemerintah Desa '. $desa->nama_desa)
+@section('title', 'Website Resmi Pemerintah Desa '. $desa->nama_desa . ' - Berita')
 
 @section('styles')
 <style>

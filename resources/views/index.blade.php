@@ -1,7 +1,9 @@
 @extends('layouts.layout')
-@section('title', 'Beranda | Website Resmi Pemerintah Desa '. $desa->nama_desa)
+@section('title', 'Website Resmi Pemerintah Desa '. $desa->nama_desa  .' - Beranda')
 
 @section('styles')
+<meta name="description" content="Website Resmi Pemerintah Desa Arjasa, Kecamatan Arjasa, Kabupaten Jember, Provinsi Jawa Timur. Melayani pembuatan surat keterangan secara online">
+
 <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">

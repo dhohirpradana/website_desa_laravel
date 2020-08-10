@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Gallery | Website Resmi Pemerintah Desa '. $desa->nama_desa)
+@section('title', 'Website Resmi Pemerintah Desa '. $desa->nama_desa . ' - Gallery')
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">

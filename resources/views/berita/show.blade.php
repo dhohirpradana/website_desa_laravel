@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Berita ' . $berita->judul)
+@section('title', 'Desa ' . $desa->nama_desa . ' - Berita ' . $berita->judul)
 
 @section('styles')
 <style>

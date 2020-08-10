@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Panduan | Website Resmi Pemerintah Desa '. $desa->nama_desa)
+@section('title', 'Website Resmi Pemerintah Desa '. $desa->nama_desa .' - Panduan')
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">

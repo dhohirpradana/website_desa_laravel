@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home.index');
-Route::get('/beranda', 'HomeController@index')->name('beranda');
 Route::get('/sejarah', 'SejarahController@sejarah')->name('sejarah');
 Route::get('/sejarah/{sejarah}/{slug}', 'SejarahController@show')->name('sejarah.show');
 Route::get('/berita', 'BeritaController@berita')->name('berita');
