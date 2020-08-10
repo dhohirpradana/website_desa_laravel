@@ -2,6 +2,8 @@
 @section('title', 'Desa ' . $desa->nama_desa . ' - Berita ' . $berita->judul)
 
 @section('styles')
+<meta name="description" content="Berita {{ $berita->judul }} Desa {{ $desa->nama_desa }}, Kecamatan {{ $desa->nama_kecamatan }}, Kabupaten {{ $desa->nama_kabupaten }}.">
+
 <style>
     .animate-up:hover {
         top: -5px;
