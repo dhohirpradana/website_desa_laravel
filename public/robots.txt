@@ -1,2 +1,10 @@
 User-agent: *
 Disallow:
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+sitemap: https://arjasa.web.id/sitemap.xml
