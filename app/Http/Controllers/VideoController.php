@@ -37,13 +37,15 @@ class VideoController extends Controller
                 $reload = false;
             }
 
-            for ($i=1; $i < count($youtubeList['items']) ; $i++) {
-                Video::create([
-                    'gambar'        => $youtubeList['items'][$i]['snippet']['thumbnails']['high']['url'],
-                    'video_id'      => $youtubeList['items'][$i]['id']['videoId'],
-                    'caption'       => $youtubeList['items'][$i]['snippet']['title'],
-                    'published_at'  => date('Y-m-d H:i:s',strtotime($youtubeList['items'][$i]['snippet']['publishedAt'])),
-                ]);
+            foreach ($youtubeList['items'] as $key => $value) {
+                if (array_key_exists('videoId',$value['id'])) {
+                    Video::create([
+                        'gambar'        => $value['snippet']['thumbnails']['high']['url'],
+                        'video_id'      => $value['id']['videoId'],
+                        'caption'       => $value['snippet']['title'],
+                        'published_at'  => date('Y-m-d H:i:s',strtotime($value['snippet']['publishedAt'])),
+                    ]);
+                }
             }
 
             while ($reload) {
@@ -55,13 +57,15 @@ class VideoController extends Controller
                     $reload = false;
                 }
 
-                for ($i=0; $i < count($youtubeList['items']) ; $i++) {
-                    Video::create([
-                        'gambar'        => $youtubeList['items'][$i]['snippet']['thumbnails']['high']['url'],
-                        'video_id'      => $youtubeList['items'][$i]['id']['videoId'],
-                        'caption'       => $youtubeList['items'][$i]['snippet']['title'],
-                        'published_at'  => date('Y-m-d H:i:s',strtotime($youtubeList['items'][$i]['snippet']['publishedAt'])),
-                    ]);
+                foreach ($youtubeList['items'] as $key => $value) {
+                    if (array_key_exists('videoId',$value['id'])) {
+                        Video::create([
+                            'gambar'        => $value['snippet']['thumbnails']['high']['url'],
+                            'video_id'      => $value['id']['videoId'],
+                            'caption'       => $value['snippet']['title'],
+                            'published_at'  => date('Y-m-d H:i:s',strtotime($value['snippet']['publishedAt'])),
+                        ]);
+                    }
                 }
             }
 
