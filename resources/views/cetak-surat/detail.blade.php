@@ -48,7 +48,7 @@
                     <tbody>
                         <tr>
                             <td>Nomor</td>
-                            <td>:{!! $cetakSurat->nomor ? $cetakSurat->nomor : str_repeat('&nbsp;', 10) . " / " . str_repeat('&nbsp;', 10) . " / " . str_repeat('&nbsp;', 10) . " / " . Terbilang::roman(date('m', strtotime($cetakSurat->created_at))) . " / " . date('Y', strtotime($cetakSurat->created_at)) !!}</td>
+                            <td>:{!! $cetakSurat->nomor ? ' 140 / ' . $cetakSurat->nomor . ' / 20.2003 /' . Terbilang::roman(date('m', strtotime($cetakSurat->created_at))) . " / " . date('Y', strtotime($cetakSurat->created_at)) :  " 140 / " . str_repeat('&nbsp;', 10) . " / 20.2003 / " . Terbilang::roman(date('m', strtotime($cetakSurat->created_at))) . " / " . date('Y', strtotime($cetakSurat->created_at)) !!}</td>
                         </tr>
                         <tr>
                             <td>Sifat</td>
@@ -72,7 +72,7 @@
         @else
             <div class="text-center mt-5 mb-3">
                 <b style="text-decoration: underline;">{{ Str::upper($surat->nama) }}</b><br>
-                Nomor : {!! $cetakSurat->nomor ? $cetakSurat->nomor : str_repeat('&nbsp;', 10) . " / " . str_repeat('&nbsp;', 10) . " / " . str_repeat('&nbsp;', 10) . " / "  . Terbilang::roman(date('m', strtotime($cetakSurat->created_at))) . " / " . date('Y', strtotime($cetakSurat->created_at)) !!}
+                Nomor : {!! $cetakSurat->nomor ? ' 140 / ' . $cetakSurat->nomor . ' / 20.2003 /' . Terbilang::roman(date('m', strtotime($cetakSurat->created_at))) . " / " . date('Y', strtotime($cetakSurat->created_at)) :  " 140 / " . str_repeat('&nbsp;', 10) . " / 20.2003 / " . Terbilang::roman(date('m', strtotime($cetakSurat->created_at))) . " / " . date('Y', strtotime($cetakSurat->created_at)) !!}
             </div>
         @endif
 

@@ -48,7 +48,7 @@
                     <tbody>
                         <tr>
                             <td>Nomor</td>
-                            <td>:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}</td>
+                            <td>: 140 / {{ str_repeat('&nbsp;', 5) }} / 20.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}</td>
                         </tr>
                         <tr>
                             <td>Sifat</td>
@@ -72,7 +72,7 @@
         @else
             <div class="text-center mt-5 mb-3">
                 <b style="text-decoration: underline;">{{ Str::upper($surat->nama) }}</b><br>
-                Nomor : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}
+                Nomor : 140 / {{ str_repeat('&nbsp;', 5) }} / 20.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}
             </div>
         @endif
 
