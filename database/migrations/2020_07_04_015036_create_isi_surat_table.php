@@ -17,11 +17,11 @@ class CreateIsiSuratTable extends Migration
             $table->id();
             $table->unsignedBigInteger('surat_id');
             $table->text('isi');
-            $table->boolean('paragraf')->default(0);;
-            $table->boolean('kalimat')->default(0);;
-            $table->boolean('isian')->default(0);;
-            $table->boolean('perihal')->default(0);;
-            $table->boolean('tampilkan')->default(0);;
+            $table->boolean('paragraf')->default(0);
+            $table->boolean('kalimat')->default(0);
+            $table->boolean('isian')->default(0);
+            $table->boolean('perihal')->default(0);
+            $table->boolean('tampilkan')->default(0);
             $table->timestamps();
 
             $table->foreign('surat_id')->references('id')->on('surat')->onUpdate('cascade')->onDelete('cascade');

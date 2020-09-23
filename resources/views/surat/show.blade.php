@@ -79,7 +79,7 @@
                             $i = 0;
                         @endphp
                         @foreach ($surat->isiSurat as $isiSurat)
-                            @if ($isiSurat->isian == 1)
+                            @if ($isiSurat->jenis_isi == 3)
                                 @php
                                     $i++;
                                 @endphp

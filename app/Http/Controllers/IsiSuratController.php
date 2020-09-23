@@ -27,36 +27,16 @@ class IsiSuratController extends Controller
             ]);
         }
 
-        if ($request->status == 1) {
-
-            IsiSurat::create([
-                'surat_id'  => $request->surat_id,
-                'isi'       => $request->isian,
-                'paragraf'  => 1,
-                'tampilkan' => $request->tampilkan ? 1 : 0,
-            ]);
-
-        } elseif ($request->status == 2) {
-
-            IsiSurat::create([
-                'surat_id'  => $request->surat_id,
-                'isi'       => $request->isian,
-                'kalimat'   => 1,
-                'tampilkan' => $request->tampilkan ? 1 : 0,
-            ]);
-
-        } elseif ($request->status == 3) {
-
-            IsiSurat::create([
-                'surat_id'  => $request->surat_id,
-                'isi'       => $request->isian,
-                'isian'     => 1,
-            ]);
-
-        }
+        $isiSurat = IsiSurat::create([
+            'surat_id'  => $request->surat_id,
+            'isi'       => $request->isian,
+            'jenis_isi' => $request->jenis_isi,
+            'tampilkan' => $request->tampilkan ? 1 : 0,
+        ]);
 
         return response()->json([
-            'success'   => true
+            'success'   => true,
+            'data'      => $isiSurat
         ]);
     }
 

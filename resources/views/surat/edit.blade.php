@@ -53,7 +53,7 @@
                 <form id="form" autocomplete="off" action="javascript:;" method="post">
                     @csrf @method('patch')
                     <input type="hidden" class="form-control form-control-alternative" name="isian[]" value="isian">
-                    <input type="hidden" name="status[]" value="2">
+                    <input type="hidden" name="jenis_isi[]" value="2">
                     <h6 class="heading-small text-muted">Detail Surat</h6>
                     <div class="pl-lg-4">
                         <div class="row">
@@ -867,7 +867,7 @@
                         @if ($surat->perihal == 1)
                             @php
                                 $perihal = array();
-                                foreach ($surat->isiSurat->where('perihal',1) as $isiSurat) {
+                                foreach ($surat->isiSurat->where('jenis_isi',4) as $isiSurat) {
                                     array_push($perihal, $isiSurat->isi);
                                 }
                             @endphp
@@ -877,36 +877,36 @@
                                         <div class="form-group">
                                             <label class="form-control-label">Sifat</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[0] }}">
-                                            <input type="hidden" name="status[]" value="4">
+                                            <input type="hidden" name="jenis_isi[]" value="4">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label">Lampiran</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[1] }}">
-                                            <input type="hidden" name="status[]" value="4">
+                                            <input type="hidden" name="jenis_isi[]" value="4">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label">Perihal</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[2] }}">
-                                            <input type="hidden" name="status[]" value="4">
+                                            <input type="hidden" name="jenis_isi[]" value="4">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-control-label">Kepada</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[3] }}">
-                                            <input type="hidden" name="status[]" value="4">
+                                            <input type="hidden" name="jenis_isi[]" value="4">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label">Di</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="{{ $perihal[4] }}">
-                                            <input type="hidden" name="status[]" value="4">
+                                            <input type="hidden" name="jenis_isi[]" value="4">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         @endif
                         @foreach ($surat->isiSurat as $isiSurat)
-                            @if ($isiSurat->paragraf == 1)
+                            @if ($isiSurat->jenis_isi == 1)
                                 <div class="form-group">
                                     <label class="form-control-label">Paragraf</label> <a href="{{ url('img/bantuan-paragraf.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                                     <div class="input-group input-group-alternative mb-3">
@@ -924,7 +924,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if ($isiSurat->kalimat == 1)
+                            @if ($isiSurat->jenis_isi == 2)
                                 <div class="form-group">
                                     <label class="form-control-label">Kalimat</label> <a href="{{ url('img/bantuan-kalimat.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                                     <div class="input-group input-group-alternative mb-3">
@@ -942,10 +942,28 @@
                                     </div>
                                 </div>
                             @endif
-                            @if ($isiSurat->isian == 1)
+                            @if ($isiSurat->jenis_isi == 3)
                                 <div class="form-group">
                                     <label class="form-control-label">Isian</label>
                                     <div class="input-group input-group-alternative mb-3">
+                                        <input type="text" class="form-control" name="isian[]" value="{{ $isiSurat->isi }}">
+                                        <input type="hidden" name="id" value="{{ $isiSurat->id }}">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-outline-danger delete" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="btn btn-outline-primary update" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($isiSurat->jenis_isi == 5)
+                                <div class="form-group">
+                                    <label class="form-control-label">Sub Judul</label> <a href="{{ url('img/bantuan-kalimat.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
+                                    <div class="input-group input-group-alternative mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan kalimat ini pada form buat surat" @if($isiSurat->tampilkan == 1) checked @endif>
+                                            </div>
+                                        </div>
                                         <input type="text" class="form-control" name="isian[]" value="{{ $isiSurat->isi }}">
                                         <input type="hidden" name="id" value="{{ $isiSurat->id }}">
                                         <div class="input-group-append">
@@ -978,6 +996,7 @@
                         <button type="button" id="paragraf" class="btn btn-sm btn-slack mt-2">Paragraf</button>
                         <button type="button" id="kalimat" class="btn btn-sm btn-slack mt-2">Kalimat</button>
                         <button type="button" id="isi" class="btn btn-sm btn-slack mt-2">Isian</button>
+                        <button type="button" id="sub-judul" class="btn btn-sm btn-slack mt-2">Sub Judul</button>
                         <a href="{{ url('img/bantuan-paragraf-kalimat-isian.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     </div>
                     <div class="form-group mt-3">
@@ -1005,29 +1024,29 @@
                                 <div class="form-group">
                                     <label class="form-control-label">Sifat</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label">Lampiran</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label">Perihal</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-control-label">Kepada</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label">Di</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                 </div>
                             </div>
                         </div>
@@ -1050,7 +1069,7 @@
                         </div>
                         <textarea class="form-control" name="isian[]"></textarea>
                         <input type="hidden" name="surat_id" value="{{ $surat->id }}">
-                        <input type="hidden" name="status[]" value="1">
+                        <input type="hidden" name="jenis_isi[]" value="1">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
     				        <button type="button" class="btn btn-outline-primary tambah" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
@@ -1073,7 +1092,7 @@
                         </div>
                         <input type="text" class="form-control" name="isian[]">
                         <input type="hidden" name="surat_id" value="{{ $surat->id }}">
-                        <input type="hidden" name="status[]" value="2">
+                        <input type="hidden" name="jenis_isi[]" value="2">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
     				        <button type="button" class="btn btn-outline-primary tambah" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
@@ -1091,7 +1110,30 @@
                     <div class="input-group input-group-alternative mb-3">
                         <input type="text" class="form-control" name="isian[]">
                         <input type="hidden" name="surat_id" value="{{ $surat->id }}">
-                        <input type="hidden" name="status[]" value="3">
+                        <input type="hidden" name="jenis_isi[]" value="3">
+                        <div class="input-group-append">
+    				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+    				        <button type="button" class="btn btn-outline-primary tambah" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `);
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $("#sub-judul").click(function(){
+            $("#isian").append(`
+                <div class="form-group">
+                    <label class="form-control-label">Sub Judul</label> <a href="{{ url('img/bantuan-kalimat.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
+                    <div class="input-group input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan kalimat ini pada form buat surat">
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" name="isian[]">
+                        <input type="hidden" name="surat_id" value="{{ $surat->id }}">
+                        <input type="hidden" name="jenis_isi[]" value="5">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
     				        <button type="button" class="btn btn-outline-primary tambah" data-toggle="tooltip" title="Simpan"><i class="fas fa-save"></i></button>
@@ -1119,33 +1161,12 @@
                     $("#simpan").html('SIMPAN');
                     $("#simpan").removeAttr('disabled');
                     if (result.success) {
-                        $(".notifikasi").html(`
-                            <div class="alert alert-success alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
-                                <span class="alert-text">
-                                    Surat berhasil diperbarui
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `);
+                        alertSuccess("Surat berhasil diperbarui");
                         setTimeout(() => {
                             $(".notifikasi").html('');
                         }, 3000);
                     } else {
-                        $(".notifikasi").html(`
-                            <div class="alert alert-danger alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
-                                <span class="alert-text">
-                                    <ul id="pesanError">
-                                    </ul>
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `);
+                        alertError();
                         $.each(result.message, function (i, e) {
                             $('#pesanError').append(`<li>`+e+`</li>`);
                         });
@@ -1171,7 +1192,7 @@
             let simpan      = $(this);
             let surat_id    = $(this).parent().siblings('input[name="surat_id"]').val();
             let isian       = $(this).parent().siblings('[name="isian[]"]').val();
-            let status      = $(this).parent().siblings('input[name="status[]"]').val();
+            let jenis_isi   = $(this).parent().siblings('input[name="jenis_isi[]"]').val();
             let tampilkan   = $(this).parent().siblings('.input-group-prepend').children('.input-group-text').children('input[name="tampilkan[]"]');
             if ($(tampilkan).is(':checked')) {
                 tampilkan = 1;
@@ -1185,7 +1206,7 @@
                     _token      : $("meta[name='csrf-token']").attr('content'),
                     isian       : isian,
                     surat_id    : surat_id,
-                    status      : status,
+                    jenis_isi   : jenis_isi,
                     tampilkan   : tampilkan,
                 },
                 beforeSend: function () {
@@ -1200,33 +1221,12 @@
                     $(simpan).siblings('.hapus').removeClass('hapus');
                     $(simpan).siblings('.hapus').addClass('delete');
                     if (result.success) {
-                        $('.notifikasi').html(`
-                            <div class="alert alert-success alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
-                                <span class="alert-text">
-                                    Surat berhasil diperbarui
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `);
+                        alertSuccess("Surat berhasil diperbarui");
                         setTimeout(() => {
                             $(".notifikasi").html('');
                         }, 3000);
                     } else {
-                        $('.notifikasi').html(`
-                            <div class="alert alert-danger alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
-                                <span class="alert-text">
-                                    <ul id="pesanError">
-                                    </ul>
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `);
+                        alertError();
                         $.each(result.message, function (i, e) {
                             $('#pesanError').append(`<li>`+e+`</li>`);
                         });
@@ -1257,17 +1257,7 @@
                     $(hapus).html('<i class="fas fa-trash"></i>');
                     $(hapus).removeAttr('disabled');
                     if (result.success) {
-                        $('.notifikasi').html(`
-                            <div class="alert alert-success alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
-                                <span class="alert-text">
-                                    Surat berhasil diperbarui
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `);
+                        alertSuccess("Surat berhasil diperbarui");
 
                         $(hapus).parent('div').parent('div').parent('div').remove();
 
@@ -1275,18 +1265,7 @@
                             $(".notifikasi").html('');
                         }, 3000);
                     } else {
-                        $('.notifikasi').html(`
-                            <div class="alert alert-danger alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
-                                <span class="alert-text">
-                                    <ul id="pesanError">
-                                    </ul>
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `);
+                        alertError();
                         $.each(result.message, function (i, e) {
                             $('#pesanError').append(`<li>`+e+`</li>`);
                         });
@@ -1326,33 +1305,12 @@
                     $(simpan).html('<i class="fas fa-save"></i>');
                     $(simpan).removeAttr('disabled');
                     if (result.success) {
-                        $('.notifikasi').html(`
-                            <div class="alert alert-success alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
-                                <span class="alert-text">
-                                    Surat berhasil diperbarui
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `);
+                        alertSuccess("Surat berhasil diperbarui");
                         setTimeout(() => {
                             $(".notifikasi").html('');
                         }, 3000);
                     } else {
-                        $('.notifikasi').html(`
-                            <div class="alert alert-danger alert-dismissible fade show">
-                                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
-                                <span class="alert-text">
-                                    <ul id="pesanError">
-                                    </ul>
-                                </span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        `);
+                        alertError();
                         $.each(result.message, function (i, e) {
                             $('#pesanError').append(`<li>`+e+`</li>`);
                         });
@@ -1364,5 +1322,34 @@
             });
         });
     });
+
+    function alertSuccess (pesan) {
+        $('.notifikasi').html(`
+            <div class="alert alert-success alert-dismissible fade show">
+                <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
+                <span class="alert-text">
+                    ${pesan}
+                </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `);
+    }
+
+    function alertError () {
+        $('.notifikasi').html(`
+            <div class="alert alert-danger alert-dismissible fade show">
+                <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
+                <span class="alert-text">
+                    <ul id="pesanError">
+                    </ul>
+                </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `);
+    }
 </script>
 @endpush

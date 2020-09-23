@@ -87,33 +87,12 @@ class SuratController extends Controller
                 $tampilkan = 0;
             }
 
-            if ($request->status[$i] == 1) {
-                IsiSurat::create([
-                    'surat_id'  => $surat->id,
-                    'isi'       => $request->isian[$i],
-                    'paragraf'  => 1,
-                    'tampilkan' => $tampilkan,
-                ]);
-            } elseif ($request->status[$i] == 2) {
-                IsiSurat::create([
-                    'surat_id'  => $surat->id,
-                    'isi'       => $request->isian[$i],
-                    'kalimat'   => 1,
-                    'tampilkan' => $tampilkan,
-                ]);
-            } elseif ($request->status[$i] == 3) {
-                IsiSurat::create([
-                    'surat_id'  => $surat->id,
-                    'isi'       => $request->isian[$i],
-                    'isian'     => 1,
-                ]);
-            } elseif ($request->status[$i] == 4) {
-                IsiSurat::create([
-                    'surat_id'  => $surat->id,
-                    'isi'       => $request->isian[$i],
-                    'perihal'   => 1,
-                ]);
-            }
+            IsiSurat::create([
+                'surat_id'  => $surat->id,
+                'isi'       => $request->isian[$i],
+                'jenis_isi' => $request->jenis_isi[$i],
+                'tampilkan' => $tampilkan,
+            ]);
         }
 
         return response()->json([
@@ -188,9 +167,9 @@ class SuratController extends Controller
 
         if ($request->perihal) {
             $dataSurat['perihal'] = 1;
-            if ($surat->isiSurat->where('perihal',1)->first()) {
+            if ($surat->isiSurat->where('jenis_isi',4)->first()) {
                 $i = 1;
-                foreach ($surat->isiSurat->where('perihal',1) as $isiSurat) {
+                foreach ($surat->isiSurat->where('jenis_isi',4) as $isiSurat) {
                     $isiSurat->update([
                         'isi'  => $request->isian[$i],
                     ]);
@@ -206,8 +185,8 @@ class SuratController extends Controller
                 }
             }
         } else {
-            if ($surat->isiSurat->where('perihal',1)->first()) {
-                foreach ($surat->isiSurat->where('perihal',1) as $isiSurat) {
+            if ($surat->isiSurat->where('jenis_isi',4)->first()) {
+                foreach ($surat->isiSurat->where('jenis_isi',4) as $isiSurat) {
                     $isiSurat->delete();
                 }
             }

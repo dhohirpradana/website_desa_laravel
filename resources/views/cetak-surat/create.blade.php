@@ -36,7 +36,7 @@
         <form role="form" action="{{ route('cetak-surat.store', ['id' => $surat->id, 'slug' => Str::slug($surat->nama)]) }}" method="POST">
             @csrf
             @foreach ($surat->isiSurat as $key => $isiSurat)
-                @if ($isiSurat->isian == 1)
+                @if ($isiSurat->jenis_isi == 3)
                     <div class="form-group mb-3">
                         <label for="{{ $isiSurat->isi .''.$key }}" class="form-control-label">{{ $isiSurat->isi }}</label>
                         <input required id="{{ $isiSurat->isi .''.$key }}" class="form-control form-control-alternative" name="isian[]" autofocus placeholder="Masukkan {{ $isiSurat->isi }}">

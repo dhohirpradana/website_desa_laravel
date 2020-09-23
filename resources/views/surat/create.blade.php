@@ -53,7 +53,7 @@
                 <form id="form" autocomplete="off" action="javascript:;" method="post">
                     @csrf
                     <input type="hidden" class="form-control form-control-alternative" name="isian[]" value="isian">
-                    <input type="hidden" name="status[]" value="2">
+                    <input type="hidden" name="jenis_isi[]" value="2">
                     <input type="hidden" name="tampilkan[]" value="0">
                     <h6 class="heading-small text-muted">Detail Surat</h6>
                     <div class="pl-lg-4">
@@ -886,6 +886,7 @@
                         <button type="button" id="paragraf" class="btn btn-sm btn-slack mt-2">Paragraf</button>
                         <button type="button" id="kalimat" class="btn btn-sm btn-slack mt-2">Kalimat</button>
                         <button type="button" id="isi" class="btn btn-sm btn-slack mt-2">Isian</button>
+                        <button type="button" id="sub-judul" class="btn btn-sm btn-slack mt-2">Sub Judul</button>
                         <a href="{{ url('img/bantuan-paragraf-kalimat-isian.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     </div>
                     <div class="form-group mt-3">
@@ -911,19 +912,19 @@
                                 <div class="form-group">
                                     <label class="form-control-label">Sifat</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                     <input type="hidden" name="tampilkan[]" value="0">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label">Lampiran</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                     <input type="hidden" name="tampilkan[]" value="0">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label">Perihal</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                     <input type="hidden" name="tampilkan[]" value="0">
                                 </div>
                             </div>
@@ -931,13 +932,13 @@
                                 <div class="form-group">
                                     <label class="form-control-label">Kepada</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                     <input type="hidden" name="tampilkan[]" value="0">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label">Di</label>
                                     <input class="form-control form-control-alternative" name="isian[]">
-                                    <input type="hidden" name="status[]" value="4">
+                                    <input type="hidden" name="jenis_isi[]" value="4">
                                     <input type="hidden" name="tampilkan[]" value="0">
                                 </div>
                             </div>
@@ -964,7 +965,7 @@
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-                    <input type="hidden" name="status[]" value="1">
+                    <input type="hidden" name="jenis_isi[]" value="1">
                 </div>
             `);
             $('[data-toggle="tooltip"]').tooltip();
@@ -985,7 +986,7 @@
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-                    <input type="hidden" name="status[]" value="2">
+                    <input type="hidden" name="jenis_isi[]" value="2">
                 </div>
             `);
             $('[data-toggle="tooltip"]').tooltip();
@@ -1001,8 +1002,29 @@
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-                    <input type="hidden" name="status[]" value="3">
+                    <input type="hidden" name="jenis_isi[]" value="3">
                     <input type="hidden" name="tampilkan[]" value="0">
+                </div>
+            `);
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $("#sub-judul").click(function(){
+            $("#isian").append(`
+                <div class="form-group">
+                    <label class="form-control-label">Sub Judul</label> <a href="{{ url('img/bantuan-kalimat.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
+                    <div class="input-group input-group-alternative mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan kalimat ini pada form buat surat">
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" name="isian[]">
+                        <div class="input-group-append">
+    				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="jenis_isi[]" value="5">
                 </div>
             `);
             $('[data-toggle="tooltip"]').tooltip();

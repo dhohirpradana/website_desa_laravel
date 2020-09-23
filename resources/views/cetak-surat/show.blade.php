@@ -38,7 +38,7 @@
         @if ($surat->perihal == 1)
             @php
                 $perihal = array();
-                foreach ($surat->isiSurat->where('perihal',1) as $isiSurat) {
+                foreach ($surat->isiSurat->where('jenis_isi', 4) as $isiSurat) {
                     array_push($perihal, $isiSurat->isi);
                 }
             @endphp
@@ -48,7 +48,7 @@
                     <tbody>
                         <tr>
                             <td>Nomor</td>
-                            <td>: 140 / {{ str_repeat('&nbsp;', 5) }} / 20.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}</td>
+                            <td>: 140 / {!! str_repeat('&nbsp;', 10) !!} / 20.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}</td>
                         </tr>
                         <tr>
                             <td>Sifat</td>
@@ -72,7 +72,7 @@
         @else
             <div class="text-center mt-5 mb-3">
                 <b style="text-decoration: underline;">{{ Str::upper($surat->nama) }}</b><br>
-                Nomor : 140 / {{ str_repeat('&nbsp;', 5) }} / 20.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}
+                Nomor : 140 / {!! str_repeat('&nbsp;', 10) !!} / 20.2003 / {{ Terbilang::roman(date('m')) }} / {{ date('Y') }}
             </div>
         @endif
 
@@ -82,7 +82,7 @@
             $i = 0;
         @endphp
 
-        @foreach ($surat->isiSurat->where('perihal', 0) as $key => $isiSurat)
+        @foreach ($surat->isiSurat->where('jenis_isi', '!=', 4) as $key => $isiSurat)
             @php
                 $string = $isiSurat->isi;
                 $pattern = "/\{[0-9A-Za-z\s\(\)]+\}/";
@@ -95,24 +95,30 @@
                 }
 
                 try {
-                    if ($surat->isiSurat[$key + 1]->isian == 1 || $data_kades == true && $surat->data_kades == 1) {
-                        if ($isiSurat->paragraf == 1) {
+                    if ($surat->isiSurat[$key + 1]->jenis_isi == 3 || $data_kades == true && $surat->data_kades == 1) {
+                        if ($isiSurat->jenis_isi == 1) {
                             echo '<div class="text-justify" style="text-indent: 50px">'. $hasil .'</div>';
-                        } elseif ($isiSurat->kalimat == 1) {
+                        } elseif ($isiSurat->jenis_isi == 2) {
                             echo '<div class="text-justify">'. $hasil .'</div>';
+                        } elseif ($isiSurat->jenis_isi == 5) {
+                            echo '<div class="font-weight-bold text-center" style="text-decoration: underline;">'. $hasil .'</div>';
                         }
                     } else {
-                        if ($isiSurat->paragraf == 1) {
+                        if ($isiSurat->jenis_isi == 1) {
                             echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
-                        } elseif ($isiSurat->kalimat == 1) {
+                        } elseif ($isiSurat->jenis_isi == 2) {
                             echo '<p class="text-justify">'. $hasil .'</p>';
+                        } elseif ($isiSurat->jenis_isi == 5) {
+                            echo '<p class="font-weight-bold text-center" style="text-decoration: underline;">'. $hasil .'</p>';
                         }
                     }
                 } catch (\Throwable $th) {
-                    if ($isiSurat->paragraf == 1) {
+                    if ($isiSurat->jenis_isi == 1) {
                         echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
-                    } elseif ($isiSurat->kalimat == 1) {
+                    } elseif ($isiSurat->jenis_isi == 2) {
                         echo '<p class="text-justify">'. $hasil .'</p>';
+                    } elseif ($isiSurat->jenis_isi == 5) {
+                        echo '<p class="font-weight-bold text-center" style="text-decoration: underline;">'. $hasil .'</p>';
                     }
                 }
             @endphp
@@ -143,7 +149,7 @@
                 @endphp
             @endif
 
-            @if ($isiSurat->isian == 1)
+            @if ($isiSurat->jenis_isi == 3)
                 @if ($tabel)
                     <table class="mb-3 ml-5">
                         <tbody>
@@ -161,7 +167,7 @@
                 @php
                     $i++;
                 @endphp
-                @if ($surat->isiSurat[$key + 1]->isian != 1)
+                @if ($surat->isiSurat[$key + 1]->jenis_isi != 3)
                         </tbody>
                     </table>
                     @php
