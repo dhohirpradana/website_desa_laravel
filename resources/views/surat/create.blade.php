@@ -53,7 +53,7 @@
                 <form id="form" autocomplete="off" action="javascript:;" method="post">
                     @csrf
                     <input type="hidden" class="form-control form-control-alternative" name="isian[]" value="isian">
-                    <input type="hidden" name="jenis_isi[]" value="2">
+                    <input type="hidden" name="jenis_isi[]" value="0">
                     <input type="hidden" name="tampilkan[]" value="0">
                     <h6 class="heading-small text-muted">Detail Surat</h6>
                     <div class="pl-lg-4">
@@ -173,7 +173,8 @@
                     <div class="input-group input-group-alternative mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan paragraf ini pada form buat surat">
+                                <input type="checkbox" name="tampil[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan paragraf ini pada form buat surat">
+                                <input type="hidden" name="tampilkan[]" value="0">
                             </div>
                         </div>
                         <textarea class="form-control" name="isian[]"></textarea>
@@ -197,7 +198,8 @@
                     <div class="input-group input-group-alternative mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan kalimat ini pada form buat surat">
+                                <input type="checkbox" name="tampil[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan kalimat ini pada form buat surat">
+                                <input type="hidden" name="tampilkan[]" value="0">
                             </div>
                         </div>
                         <input type="text" class="form-control" name="isian[]">
@@ -241,7 +243,8 @@
                     <div class="input-group input-group-alternative mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" name="tampilkan[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan kalimat ini pada form buat surat">
+                                <input type="checkbox" name="tampil[]" value="1" data-toggle="tooltip" title="Centang untuk menampilkan kalimat ini pada form buat surat">
+                                <input type="hidden" name="tampilkan[]" value="0">
                             </div>
                         </div>
                         <input type="text" class="form-control" name="isian[]">
@@ -282,6 +285,11 @@
 
         $(document).on("change","input:checkbox", function (event) {
             $(this).attr('checked', $(this).prop('checked'));
+            if ($(this).prop('checked')){
+                $(this).siblings('input[name="tampilkan[]"]').attr('value','1');
+            } else {
+                $(this).siblings('input[name="tampilkan[]"]').attr('value','0');
+            }
         });
 
         $(document).on("change","input", function (event) {

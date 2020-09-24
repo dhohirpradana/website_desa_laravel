@@ -36,7 +36,6 @@
 </div>
 @endsection
 
-
 @section('content')
 @include('layouts.components.alert')
 <div class="row mt-4 justify-content-center">
