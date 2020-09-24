@@ -115,9 +115,10 @@
 @push('scripts')
 <script src="{{ asset('js/jquery.fancybox.js') }}"></script>
 <script>
+    let urutan = 1;
     $(document).ready(function(){
         $(".ikon").val("fa-file-text-o");
-        
+
         $("#perihal").change(function(){
             if ($(this).prop('checked') == true) {
                 $("#isian").prepend(`
@@ -167,7 +168,7 @@
 
         $("#paragraf").click(function(){
             $("#isian").append(`
-                <div class="form-group">
+                <div class="form-group urutan-${urutan}" data-urutan="${urutan}">
                     <label class="form-control-label">Paragraf</label> <a href="{{ url('img/bantuan-paragraf.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     <div class="input-group input-group-alternative mb-3">
                         <div class="input-group-prepend">
@@ -178,17 +179,20 @@
                         <textarea class="form-control" name="isian[]"></textarea>
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+    				        <button type="button" class="btn btn-outline-success atas" data-toggle="tooltip" title="Pindah Ke Atas"><i class="fas fa-arrow-up"></i></button>
+    				        <button type="button" class="btn btn-outline-success bawah" data-toggle="tooltip" title="Pindah Ke Bawah"><i class="fas fa-arrow-down"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="jenis_isi[]" value="1">
                 </div>
             `);
             $('[data-toggle="tooltip"]').tooltip();
+            urutan++;
         });
 
         $("#kalimat").click(function(){
             $("#isian").append(`
-                <div class="form-group">
+                <div class="form-group urutan-${urutan}" data-urutan="${urutan}">
                     <label class="form-control-label">Kalimat</label> <a href="{{ url('img/bantuan-kalimat.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     <div class="input-group input-group-alternative mb-3">
                         <div class="input-group-prepend">
@@ -199,22 +203,27 @@
                         <input type="text" class="form-control" name="isian[]">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+                            <button type="button" class="btn btn-outline-success atas" data-toggle="tooltip" title="Pindah Ke Atas"><i class="fas fa-arrow-up"></i></button>
+    				        <button type="button" class="btn btn-outline-success bawah" data-toggle="tooltip" title="Pindah Ke Bawah"><i class="fas fa-arrow-down"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="jenis_isi[]" value="2">
                 </div>
             `);
             $('[data-toggle="tooltip"]').tooltip();
+            urutan++;
         });
 
         $("#isi").click(function(){
             $("#isian").append(`
-                <div class="form-group">
+                <div class="form-group urutan-${urutan}" data-urutan="${urutan}">
                     <label class="form-control-label">Isian</label>
                     <div class="input-group input-group-alternative mb-3">
                         <input type="text" class="form-control" name="isian[]">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+                            <button type="button" class="btn btn-outline-success atas" data-toggle="tooltip" title="Pindah Ke Atas"><i class="fas fa-arrow-up"></i></button>
+    				        <button type="button" class="btn btn-outline-success bawah" data-toggle="tooltip" title="Pindah Ke Bawah"><i class="fas fa-arrow-down"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="jenis_isi[]" value="3">
@@ -222,11 +231,12 @@
                 </div>
             `);
             $('[data-toggle="tooltip"]').tooltip();
+            urutan++;
         });
 
         $("#sub-judul").click(function(){
             $("#isian").append(`
-                <div class="form-group">
+                <div class="form-group urutan-${urutan}" data-urutan="${urutan}">
                     <label class="form-control-label">Sub Judul</label> <a href="{{ url('img/bantuan-kalimat.png') }}" data-fancybox><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
                     <div class="input-group input-group-alternative mb-3">
                         <div class="input-group-prepend">
@@ -237,12 +247,49 @@
                         <input type="text" class="form-control" name="isian[]">
                         <div class="input-group-append">
     				        <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
+                            <button type="button" class="btn btn-outline-success atas" data-toggle="tooltip" title="Pindah Ke Atas"><i class="fas fa-arrow-up"></i></button>
+    				        <button type="button" class="btn btn-outline-success bawah" data-toggle="tooltip" title="Pindah Ke Bawah"><i class="fas fa-arrow-down"></i></button>
                         </div>
                     </div>
                     <input type="hidden" name="jenis_isi[]" value="5">
                 </div>
             `);
             $('[data-toggle="tooltip"]').tooltip();
+            urutan++;
+        });
+
+        $(document).on("click", ".atas", function () {
+            $(this).tooltip('hide');
+            const urutan = $(this).parent('div').parent('div').parent('div').data('urutan') - 1;
+            const before = $(this).parent('div').parent('div').parent('div').siblings('.urutan-' + urutan);
+            const current = $(this).parent('div').parent('div').parent('div');
+            const dataBefore = $(before).html();
+            const dataCurrent = $(current).html();
+            $(current).html(dataBefore);
+            $(before).html(dataCurrent);
+        });
+
+        $(document).on("click", ".bawah", function () {
+            $(this).tooltip('hide');
+            const urutan = $(this).parent('div').parent('div').parent('div').data('urutan') + 1;
+            const after = $(this).parent('div').parent('div').parent('div').siblings('.urutan-' + urutan);
+            const current = $(this).parent('div').parent('div').parent('div');
+            const dataAfter = $(after).html();
+            const dataCurrent = $(current).html();
+            $(current).html(dataAfter);
+            $(after).html(dataCurrent);
+        });
+
+        $(document).on("change","input:checkbox", function (event) {
+            $(this).attr('checked', $(this).prop('checked'));
+        });
+
+        $(document).on("change","input", function (event) {
+            $(this).attr('value', this.value);
+        });
+
+        $(document).on("change","textarea", function (event) {
+            $(this).html(event.target.value);
         });
 
         $(document).on("click", ".hapus", function () {
@@ -255,10 +302,11 @@
         });
 
         $('#form').on('submit',function(){
+            const form = new FormData(this);
             $.ajax({
                 url: "{{ route('surat.store') }}",
                 type: 'POST',
-                data: new FormData(this),
+                data: form,
                 dataType: 'json',
                 contentType: false,
                 cache: false,
