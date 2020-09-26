@@ -73,7 +73,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
     Route::get('/tambah-penduduk', 'PendudukController@create')->name('penduduk.create');
-    Route::resource('penduduk', 'PendudukController')->except('create');
+    Route::resource('penduduk', 'PendudukController')->except('create','show');
 
     Route::get('/chart-surat/{id}', 'SuratController@chartSurat')->name('chart-surat');
 });
