@@ -39,11 +39,7 @@ class SuratController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nama'      => ['required', 'max:64'],
-            'icon'      => ['required', 'max:64'],
-            'isian.*'   => ['required']
-        ]);
+        $validator = $this->validationSurat($request);
 
         if ($validator->fails()) {
             return response()->json([
@@ -52,41 +48,15 @@ class SuratController extends Controller
             ]);
         }
 
-        $dataSurat = [
-            'nama'      => $request->nama,
-            'icon'      => $request->icon,
-            'deskripsi' => $request->deskripsi,
-        ];
-
-        if ($request->perihal) {
-            $dataSurat['perihal'] = 1;
-        }
-
-        if ($request->tanda_tangan_bersangkutan) {
-            $dataSurat['tanda_tangan_bersangkutan'] = 1;
-        }
-
-        if ($request->data_kades) {
-            $dataSurat['data_kades'] = 1;
-        }
-
-        if ($request->tampilkan_surat) {
-            $dataSurat['tampilkan'] = 1;
-        }
+        $dataSurat = $this->dataSurat($request);
 
         $surat = Surat::create($dataSurat);
 
-        for ($i = 1; $i < count($request->isian); $i++) {
-            IsiSurat::create([
-                'surat_id'  => $surat->id,
-                'isi'       => $request->isian[$i],
-                'jenis_isi' => $request->jenis_isi[$i],
-                'tampilkan' => $request->tampilkan[$i],
-            ]);
-        }
+        $this->createIsiSurat($request, $surat);
 
         return response()->json([
             'success'   => true,
+            'message'   => 'Surat berhasil ditambahkan'
         ]);
     }
 
@@ -131,11 +101,7 @@ class SuratController extends Controller
      */
     public function update(Request $request, Surat $surat)
     {
-        $validator = Validator::make($request->all(), [
-            'nama'      => ['required', 'max:64'],
-            'icon'      => ['required', 'max:64'],
-            'isian.*'   => ['required']
-        ]);
+        $validator = $this->validationSurat($request);
 
         if ($validator->fails()) {
             return response()->json([
@@ -144,44 +110,17 @@ class SuratController extends Controller
             ]);
         }
 
-        $dataSurat = [
-            'nama'      => $request->nama,
-            'icon'      => $request->icon,
-            'deskripsi' => $request->deskripsi,
-        ];
-
-       
-        if ($request->perihal) {
-            $dataSurat['perihal'] = 1;
-        }
-
-        if ($request->tanda_tangan_bersangkutan) {
-            $dataSurat['tanda_tangan_bersangkutan'] = 1;
-        }
-
-        if ($request->data_kades) {
-            $dataSurat['data_kades'] = 1;
-        }
-
-        if ($request->tampilkan_surat) {
-            $dataSurat['tampilkan'] = 1;
-        }
+        $dataSurat = $this->dataSurat($request);
 
         $surat->update($dataSurat);
 
         IsiSurat::where('surat_id',$surat->id)->delete();
 
-        for ($i = 1; $i < count($request->isian); $i++) {
-            IsiSurat::create([
-                'surat_id'  => $surat->id,
-                'isi'       => $request->isian[$i],
-                'jenis_isi' => $request->jenis_isi[$i],
-                'tampilkan' => $request->tampilkan[$i],
-            ]);
-        }
+        $this->createIsiSurat($request, $surat);
 
         return response()->json([
             'success'   => true,
+            'message'   => 'Surat berhasil diperbarui'
         ]);
     }
 
@@ -255,6 +194,54 @@ class SuratController extends Controller
                 "data" => array_values($arr),
                 "backgroundColor" => 'rgb(' . rand(0,255) . ',' . rand(0,255) . ',' . rand(0,255) . ')',
             ]],
+        ]);
+    }
+
+    public function createIsiSurat($request, $surat)
+    {
+        for ($i = 1; $i < count($request->isian); $i++) {
+            IsiSurat::create([
+                'surat_id'  => $surat->id,
+                'isi'       => $request->isian[$i],
+                'jenis_isi' => $request->jenis_isi[$i],
+                'tampilkan' => $request->tampilkan[$i],
+            ]);
+        }
+    }
+
+    public function dataSurat($request)
+    {
+        $dataSurat = [
+            'nama'      => $request->nama,
+            'icon'      => $request->icon,
+            'deskripsi' => $request->deskripsi,
+        ];
+
+        if ($request->perihal) {
+            $dataSurat['perihal'] = 1;
+        }
+
+        if ($request->tanda_tangan_bersangkutan) {
+            $dataSurat['tanda_tangan_bersangkutan'] = 1;
+        }
+
+        if ($request->data_kades) {
+            $dataSurat['data_kades'] = 1;
+        }
+
+        if ($request->tampilkan_surat) {
+            $dataSurat['tampilkan'] = 1;
+        }
+
+        return $dataSurat;
+    }
+
+    public function validationSurat($request)
+    {
+        return Validator::make($request->all(), [
+            'nama'      => ['required', 'max:64'],
+            'icon'      => ['required', 'max:64'],
+            'isian.*'   => ['required']
         ]);
     }
 }

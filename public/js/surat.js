@@ -51,7 +51,8 @@ document.addEventListener("keyup", function(event) {
 
 $('form').on('submit', function(event) {
     event.preventDefault();
-    url = $(this).attr('action');
+    const url = $(this).attr('action');
+    const redirect = $(this).data('redirect');
     $.ajax({
         url: url,
         type: 'POST',
@@ -72,6 +73,9 @@ $('form').on('submit', function(event) {
                 setTimeout(() => {
                     $(".notifikasi").html('');
                 }, 3000);
+                if (redirect) {
+                    location.href = redirect;
+                }
             } else {
                 alertError();
                 $.each(result.message, function (i, e) {
@@ -187,6 +191,7 @@ $("#isi").click(function(){
             <div class="input-group input-group-alternative mb-3">
                 <input type="text" class="form-control" name="isian[]">
                 <input type="hidden" name="jenis_isi[]" value="3">
+                <input type="hidden" name="tampilkan[]" value="0">
                 <div class="input-group-append">
                     <button type="button" class="btn btn-outline-danger hapus" data-toggle="tooltip" title="Hapus"><i class="fas fa-trash"></i></button>
                     <button type="button" class="btn btn-outline-success atas" data-toggle="tooltip" title="Pindah Ke Atas"><i class="fas fa-arrow-up"></i></button>

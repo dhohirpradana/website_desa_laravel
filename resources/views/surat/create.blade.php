@@ -45,7 +45,7 @@
                 <h3 class="mb-0">Tambah Surat</h3>
             </div>
             <div class="card-body">
-                <form autocomplete="off" action="{{ route("surat.store") }}" method="post">
+                <form autocomplete="off" action="{{ route("surat.store") }}" method="post" data-redirect="{{ route('surat.index') }}">
                     @csrf
                     <input type="hidden" class="form-control form-control-alternative" name="isian[]" value="isian">
                     <input type="hidden" id="urutan" value="1">
@@ -74,7 +74,26 @@
                     </div>
                     <h6 class="heading-small text-muted mt-4">Isian</h6>
                     <div class="pl-lg-4" id="isian"></div>
-                    @include('surat.alat')
+                    <h6 class="heading-small text-muted">Alat</h6>
+                    <div class="pl-lg-4">
+                        @include('surat.button-alat')
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="tampilkan_surat" name="tampilkan_surat" value="1">
+                            <label class="custom-control-label" for="tampilkan_surat">Tampilkan surat ini untuk warga yang ingin mencetak surat keterangan ini</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="perihal" name="perihal" value="1">
+                            <label class="custom-control-label" for="perihal">Perihal</label> <a href="{{ url('img/bantuan-perihal.png') }}" data-fancybox data-caption="Akan menampilkan surat seperti ini"><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="data_kades" name="data_kades" value="1">
+                            <label class="custom-control-label" for="data_kades">Data Kades</label> <a href="{{ url('img/bantuan-data-kades.png') }}" data-fancybox data-caption="Akan menampilkan data kepala desa"><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="tanda_tangan_bersangkutan" name="tanda_tangan_bersangkutan" value="1">
+                            <label class="custom-control-label" for="tanda_tangan_bersangkutan">Tanda tangan bersangkutan</label> <a href="{{ url('img/bantuan-tanda-tangan-bersangkutan.png') }}" data-fancybox data-caption="Akan menampilkan tanda tangan yang bersangkutan"><i class="fas fa-question-circle text-blue" title="Bantuan" data-toggle="tooltip"></i></a>
+                        </div>
+                    </div>
                     <div class="form-group mt-3">
                         <button type="submit" class="btn btn-primary btn-block" id="simpan">SIMPAN</button>
                     </div>
