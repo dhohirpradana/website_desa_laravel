@@ -1,6 +1,7 @@
 <div class="row fixed-top m-3">
     <div class="col-lg-6"></div>
     <div class="col-lg-6">
+        <div class="notifikasi"></div>
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>

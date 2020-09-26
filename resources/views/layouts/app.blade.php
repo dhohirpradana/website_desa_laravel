@@ -129,30 +129,14 @@
     <script src="{{ asset('/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
     <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
     <script>
+        const baseURL = $('meta[name="base-url"]').attr('content');
         window.TrackJS &&
             TrackJS.install({
                 token: "ee6fab19c5a04ac1a32a645abde4613a",
                 application: "argon-dashboard-free"
             });
-        document.addEventListener("keydown", function(event) {
-            if (event.keyCode == 27) {
-                $('.alert-dismissible').remove();
-                $(".modal").modal('hide');
-            }
-        });
-
-        $(document).on("change", "input", function () {
-            $(this).removeClass('is-invalid');
-            $(this).siblings('.invalid-feedback').remove();
-            $('.alert-dismissible').remove();
-        });
-
-        $(document).on("change", "textarea", function () {
-            $(this).removeClass('is-invalid');
-            $(this).siblings('.invalid-feedback').remove();
-            $('.alert-dismissible').remove();
-        });
     </script>
+    <script src="{{ asset('/js/script.js') }}"></script>
     @stack('scripts')
 </body>
 
