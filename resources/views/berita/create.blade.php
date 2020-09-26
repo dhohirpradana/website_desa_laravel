@@ -42,12 +42,6 @@
 
 @section('content')
 @include('layouts.components.alert')
-<div class="row fixed-top m-3">
-    <div class="col-lg-6"></div>
-    <div class="col-lg-6">
-        <div class="notifikasi"></div>
-    </div>
-</div>
 <div class="row">
     <div class="col">
         <div class="card bg-secondary shadow h-100">

@@ -50,7 +50,7 @@
                 <a href="{{ url(Storage::url($item['gambar'])) }}" data-fancybox data-caption="{{ $item['caption'] }}">
                     <img class="mw-100" src="{{ url(Storage::url($item['gambar'])) }}" alt="">
                 </a>
-                <a href="#modal-hapus" data-toggle="modal" data-id="{{ $item['id'] }}" class="mb-0 btn btn-sm btn-danger hapus" style="position: absolute; top: 0; left: 0; z-index: 1; left:15px">
+                <a href="#modal-hapus" data-toggle="modal" data-action="{{ route('gallery.destroy',$item['id']) }}" class="mb-0 btn btn-sm btn-danger hapus-data" style="position: absolute; top: 0; left: 0; z-index: 1; left:15px">
                     <i class="fas fa-trash" title="Hapus" data-toggle="tooltip"></i>
                 </a>
             </div>
@@ -148,7 +148,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
@@ -200,17 +199,8 @@
     }
 
     $(document).ready(function(){
-        $('.hapus').on('click', function(){
-            $('#form-hapus').attr('action', $("meta[name='base-url']").attr('content') + '/gallery/' + $(this).data('id'));
-        });
-
         $("button[data-dismiss='modal']").click(function () {
             $('.alert-dismissible').remove();
-        });
-
-        $(document).on("submit","form", function () {
-            $(this).find("button:submit").attr('disabled','disabled');
-            $(this).find("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
         });
 
         $(document).on('submit', '.form' ,function(){

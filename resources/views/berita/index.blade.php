@@ -58,7 +58,7 @@
                         <p class="text-sm text-muted"><i class="fas fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</p>
                     </a>
                     <a href="{{ route('berita.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
-                    <a class="btn btn-sm btn-danger hapus" data-nama="{{ $item->judul }}" data-id="{{ $item->id }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
+                    <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->judul }}" data-action="{{ route('berita.destroy',$item) }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
                 </div>
             </div>
         </div>
@@ -105,18 +105,3 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    $(document).ready(function(){
-        $('.hapus').on('click', function(){
-            $('#nama-hapus').html('Apakah Anda yakin ingin menghapus ' + $(this).data('nama') + '???');
-            $('#form-hapus').attr('action', $("meta[name='base-url']").attr('content') + '/berita/' + $(this).data('id'));
-        });
-        $(document).on("submit","form", function () {
-            $(this).children("button:submit").attr('disabled','disabled');
-            $(this).children("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
-        });
-    });
-</script>
-@endpush

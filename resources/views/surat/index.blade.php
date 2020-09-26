@@ -54,7 +54,7 @@
                     <p class="font-weight-bold">(Belum ditampilkan)</p>
                 @endif
                 <a href="{{ route('surat.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
-                <a class="btn btn-sm btn-danger hapus" data-nama="{{ $item->nama }}" data-id="{{ $item->id }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
+                <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->nama }}" data-action="{{ route('surat.destroy', $item) }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
             </div>
         </div>
     @empty
@@ -100,19 +100,3 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    $(document).ready(function(){
-        $('.hapus').on('click', function(){
-            $('#nama-hapus').html('Apakah Anda yakin ingin menghapus ' + $(this).data('nama') + '???');
-            $('#form-hapus').attr('action', $("meta[name='base-url']").attr('content') + '/surat/' + $(this).data('id'));
-        });
-
-        $(document).on("submit","form", function () {
-            $(this).children("button:submit").attr('disabled','disabled');
-            $(this).children("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
-        });
-    });
-</script>
-@endpush

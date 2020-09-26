@@ -76,9 +76,15 @@
         <hr class="my-3">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link @if (Request::segment(1) == 'surat') active @endif" href="{{ route('surat.index') }}">
+                <a class="nav-link @if (Request::segment(1) == 'penduduk' || Request::segment(1) == 'tambah-penduduk') active @endif" href="{{ route('penduduk.index') }}">
+                    <i class="fas fa-users text-info"></i>
+                    <span class="nav-link-inner--text">Kelola Penduduk</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if (Request::segment(1) == 'surat' || Request::segment(1) == 'tambah-surat') active @endif" href="{{ route('surat.index') }}">
                     <i class="ni ni-single-copy-04 text-primary"></i>
-                    <span class="nav-link-inner--text">Surat</span>
+                    <span class="nav-link-inner--text">Kelola Surat</span>
                 </a>
             </li>
             <li class="nav-item">

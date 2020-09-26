@@ -24,6 +24,16 @@ $(document).on("click", "input[type='checkbox']", function () {
     $(this).attr('checked', $(this).prop('checked'));
 });
 
+$(document).on('click', '.hapus-data', function(){
+    $('#nama-hapus').html('Apakah Anda yakin ingin menghapus ' + $(this).data('nama') + '???');
+    $('#form-hapus').attr('action', $(this).data('action'));
+});
+
+$(document).on("submit","form", function () {
+    $(this).find("button:submit").attr('disabled','disabled');
+    $(this).find("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+});
+
 function alertSuccess (pesan) {
     $('.notifikasi').html(`
         <div class="alert alert-success alert-dismissible fade show">
