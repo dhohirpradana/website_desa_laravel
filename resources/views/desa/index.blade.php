@@ -35,7 +35,7 @@ Profil Desa
                 <div class="col-lg-3 order-lg-2">
                     <div class="card-profile-image">
                         <a href="{{ asset(Storage::url($desa->logo)) }}" data-fancybox>
-                            <img id="logo" src="{{ asset(Storage::url($desa->logo)) }}" alt="{{ asset(Storage::url($desa->logo)) }}" class="rounded-circle" style="max-height: 150px; max-width: 200px">
+                            <img id="logo" src="{{ asset(Storage::url($desa->logo)) }}" alt="{{ asset(Storage::url($desa->logo)) }}" class="rounded-circle" style="height: 150px; width: 150px; object-fit: cover">
                         </a>
                     </div>
                 </div>

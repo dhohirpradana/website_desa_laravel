@@ -19,7 +19,7 @@
             <div class="col">
                 <div class="card shadow h-100">
                     <div class="card-header border-0">
-                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-between text-center text-md-left">
                             <div class="mb-3">
                                 <h2 class="mb-0">Surat</h2>
                                 <p class="mb-0 text-sm">Kelola Surat {{ config('app.name') }}</p>
