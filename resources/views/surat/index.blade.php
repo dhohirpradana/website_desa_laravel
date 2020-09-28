@@ -9,6 +9,16 @@
     .ikon {
         font-family: fontAwesome;
     }
+    @media(max-width:767px){
+        .cari-none {
+            display: block;
+        }
+    }
+    @media(min-width:768px){
+        .cari-none {
+            display: none;
+        }
+    }
 </style>
 @endsection
 
@@ -28,6 +38,16 @@
                                 <a href="{{ route('surat.create') }}" class="btn btn-success" title="Tambah"><i class="fas fa-plus"></i> Tambah Surat</a>
                             </div>
                         </div>
+                        <form class="navbar-search mt-3 cari-none">
+                            <div class="form-group mb-0">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="Cari ...." type="text" name="cari" value="{{ request('cari') }}">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -43,7 +63,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
-            <input class="form-control" placeholder="Cari ...." type="text" name="cari" id="cari" value="{{ request('cari') }}">
+            <input class="form-control" placeholder="Cari ...." type="text" name="cari" value="{{ request('cari') }}">
         </div>
     </div>
 </form>
@@ -117,7 +137,7 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
-        $("#cari").on("keyup", function() {
+        $('[name="cari"]').on("keyup", function() {
             var value = $(this).val().toLowerCase();
             $("#card .surats").filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)

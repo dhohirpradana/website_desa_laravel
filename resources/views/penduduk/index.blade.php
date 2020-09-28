@@ -9,8 +9,15 @@
     .ikon {
         font-family: fontAwesome;
     }
-    .animate-up:hover {
-        top: -5px;
+    @media(max-width:767px){
+        .cari-none {
+            display: block;
+        }
+    }
+    @media(min-width:768px){
+        .cari-none {
+            display: none;
+        }
     }
 </style>
 @endsection
@@ -30,6 +37,16 @@
                             <div class="mb-3">
                                 <a href="{{ route('penduduk.create') }}" class="btn btn-success" title="Tambah"><i class="fas fa-plus"></i> Tambah Penduduk</a>
                             </div>
+                            <form class="navbar-search mt-3 cari-none" action="{{ URL::current() }}" method="GET">
+                                <div class="form-group mb-0">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                        </div>
+                                        <input class="form-control" placeholder="Cari ...." type="text" name="cari" value="{{ request('cari') }}">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
