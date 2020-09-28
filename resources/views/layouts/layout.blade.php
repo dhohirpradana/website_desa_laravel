@@ -122,6 +122,14 @@
                                         <i class="fas fa-tachometer-alt text-blue"></i>
                                         <span class="nav-link-inner--text">Dashboard</span>
                                     </a>
+                                    <a class="dropdown-item font-weight-bold" href="{{ route('penduduk.index') }}">
+                                        <i class="fas fa-users text-info"></i>
+                                        <span class="nav-link-inner--text">Kelola Penduduk</span>
+                                    </a>
+                                    <a class="dropdown-item font-weight-bold" href="{{ route('dusun.index') }}">
+                                        <i class="fas fa-map-marker-alt text-yellow"></i>
+                                        <span class="nav-link-inner--text">Kelola Dusun</span>
+                                    </a>
                                     <a class="dropdown-item font-weight-bold" href="{{ route('surat.index') }}">
                                         <i class="ni ni-single-copy-04 text-primary"></i>
                                         <span class="nav-link-inner--text">Kelola Surat</span>
