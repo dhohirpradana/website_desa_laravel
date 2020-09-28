@@ -36,11 +36,24 @@
 </div>
 @endsection
 
+@section('form-search')
+<form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+    <div class="form-group mb-0">
+        <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input class="form-control" placeholder="Cari ...." type="text" name="cari" id="cari" value="{{ request('cari') }}">
+        </div>
+    </div>
+</form>
+@endsection
+
 @section('content')
 @include('layouts.components.alert')
-<div class="row mt-4 justify-content-center">
+<div id="card" class="row mt-4 justify-content-center">
     @forelse ($surat as $item)
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-4 col-md-6 surats">
             <div class="single-service bg-white rounded shadow">
                 <a href="{{ route('surat.show', $item) }}">
                     <i class="fas {{ $item->icon }} ikon fa-5x mb-3"></i>
@@ -100,3 +113,16 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function(){
+        $("#cari").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#card .surats").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+@endpush

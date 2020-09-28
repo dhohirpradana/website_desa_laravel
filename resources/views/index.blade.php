@@ -46,9 +46,21 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4 justify-content-center">
+    <div id="card" class="row mt-4 justify-content-center">
+        <div class="col-12 mb-3">
+            <form class="navbar-search">
+                <div class="form-group mb-0">
+                    <div class="input-group input-group-alternative">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        </div>
+                        <input class="form-control" placeholder="Cari Surat ...." type="text" name="cari" id="cari" value="{{ request('cari') }}">
+                    </div>
+                </div>
+            </form>
+        </div>
         @forelse ($surat as $item)
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 surats">
                 <div class="single-service bg-white rounded shadow p-3">
                     <a href="{{ route('buat-surat', ['id' => $item->id,'slug' => Str::slug($item->nama)]) }}">
                         <i class="fas {{ $item->icon }} ikon fa-5x mb-3"></i>
@@ -91,6 +103,13 @@
                     items: 1
                 }
             }
+        });
+
+        $("#cari").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#card .surats").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
     });
 
