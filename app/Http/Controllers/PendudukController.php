@@ -76,9 +76,6 @@ class PendudukController extends Controller
     public function store(PendudukRequest $request)
     {
         $data = $request->validated();
-
-        $data['detail_dusun_id'] = DetailDusun::where('dusun_id', $request->dusun)->where('rw', $request->rw)->where('rt', $request->rt)->first();
-
         Penduduk::create($data);
         return redirect()->route('penduduk.index')->with('success','Penduduk berhasil ditambahkan');
     }
@@ -125,9 +122,6 @@ class PendudukController extends Controller
     public function update(PendudukRequest $request, Penduduk $penduduk)
     {
         $data = $request->validated();
-
-        $data['detail_dusun_id'] = DetailDusun::where('dusun_id', $request->dusun)->where('rw', $request->rw)->where('rt', $request->rt)->first();
-
         $penduduk->update($data);
         return redirect()->back()->with('success','Penduduk berhasil diperbarui');
     }

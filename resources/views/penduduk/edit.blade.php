@@ -183,24 +183,15 @@
                             <select class="form-control @error('dusun') is-invalid @enderror" name="dusun" id="dusun">
                                 <option value="">Pilih Dusun</option>
                                 @foreach ($dusun as $item)
-                                    <option value="{{ $item->id }}" {{ old('dusun', $penduduk->dusun) == $item->id ? 'selected' : ''  }}>{{ $item->nama }}</option>
+                                    <option value="{{ $item->id }}" {{ old('dusun', $penduduk->detailDusun ? $penduduk->detailDusun->dusun_id : "") == $item->id ? 'selected' : ''  }}>{{ $item->nama }}</option>
                                 @endforeach
                             </select>
                             @error('dusun')<span class="invalid-feedback font-weight-bold">{{ $message }}</span>@enderror
                         </div>
                         <div class="form-group col-lg-4 col-md-6">
-                            <label class="form-control-label" for="rw">RW</label>
-                            <select class="form-control @error('rw') is-invalid @enderror" name="rw" id="rw">
-                                <option value="">Pilih RW</option>
-                            </select>
-                            @error('rw')<span class="invalid-feedback font-weight-bold">{{ $message }}</span>@enderror
-                        </div>
-                        <div class="form-group col-lg-4 col-md-6">
-                            <label class="form-control-label" for="rt">RT</label>
-                            <select class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt">
-                                <option value="">Pilih RT</option>
-                            </select>
-                            @error('rt')<span class="invalid-feedback font-weight-bold">{{ $message }}</span>@enderror
+                            <label class="form-control-label" for="detail_dusun_id">RT/RW</label>
+                            <select class="form-control @error('detail_dusun_id') is-invalid @enderror" name="detail_dusun_id" id="detail_dusun_id"></select>
+                            @error('detail_dusun_id')<span class="invalid-feedback font-weight-bold">{{ $message }}</span>@enderror
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block" id="simpan">SIMPAN</button>
@@ -218,6 +209,43 @@
         $('#pekerjaan_id').select2({
             placeholder: "Pilih Pekerjaan",
             allowClear: true
+        });
+
+        if ($("#dusun").val() != "") {
+            $.ajax({
+                url: baseURL + '/detailDusun?id=' + $("#dusun").val(),
+                method: 'get',
+                beforeSend: function () {
+                    $('#detail_dusun_id').html(`<option value="">Loading ...</option>`);
+                },
+                success: function (response) {
+                    console.log('oke');
+                    $('#detail_dusun_id').html(`<option value="">Pilih RT/RW</option>`);
+                    $.each(response, function (i,e) {
+                        $('#detail_dusun_id').append(`<option value="${e.id}">${e.rt}/${e.rw}</option>`);
+                    });
+
+                    $("#detail_dusun_id").val("{{ $penduduk->detail_dusun_id }}");
+                }
+            });
+        } else {
+            $('#detail_dusun_id').html(`<option value="">Pilih RT/RW</option>`);
+        }
+
+        $("#dusun").change(function () {
+            $.ajax({
+                url: baseURL + '/detailDusun?id=' + $(this).val(),
+                method: 'get',
+                beforeSend: function () {
+                    $('#detail_dusun_id').html(`<option value="">Loading ...</option>`);
+                },
+                success: function (response) {
+                    $('#detail_dusun_id').html(`<option value="">Pilih RT/RW</option>`);
+                    $.each(response, function (i,e) {
+                        $('#detail_dusun_id').append(`<option value="${e.id}">${e.rt}/${e.rw}</option>`);
+                    });
+                }
+            });
         });
     });
 </script>

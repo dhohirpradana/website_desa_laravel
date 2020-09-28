@@ -112,12 +112,6 @@
 </div>
 
 <div class="modal fade" id="tambah-gambar" tabindex="-1" role="dialog" aria-labelledby="tambah-gambar" aria-hidden="true">
-    <div class="row fixed-top m-3">
-        <div class="col-lg-6"></div>
-        <div class="col-lg-6">
-            <div class="notifikasi"></div>
-        </div>
-    </div>
     <div class="modal-dialog modal-dialog-centered modal-" role="document">
         <div class="modal-content">
             <div class="modal-header">

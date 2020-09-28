@@ -48,8 +48,7 @@ class PendudukRequest extends FormRequest
         ];
 
         if ($this->dusun) {
-            $rules['rw'] = ['required'];
-            $rules['rt'] = ['required'];
+            $rules['detail_dusun_id'] = ['required'];
         }
 
         return $rules;
@@ -59,6 +58,7 @@ class PendudukRequest extends FormRequest
     {
         return [
             'agama_id.required' => 'agama wajib diisi',
+            'detail_dusun_id.required' => 'RT/RW wajib diisi',
             'status_perkawinan_id.required' => 'status perkawinan wajib diisi',
             'status_hubungan_dalam_keluarga_id.required' => 'status hubungan dalam keluarga wajib diisi',
         ];

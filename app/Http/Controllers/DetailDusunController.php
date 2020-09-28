@@ -10,21 +10,13 @@ class DetailDusunController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $detailDusun = DetailDusun::where('dusun_id', $request->id)->get();
+        return response()->json($detailDusun);
     }
 
     /**
@@ -35,7 +27,18 @@ class DetailDusunController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'rw'        => ['required','string','max:3'],
+            'rt'        => ['required','string','max:3'],
+            'dusun_id'  => ['required','numeric'],
+        ]);
+
+        $detailDusun = DetailDusun::create($data);
+        return response()->json([
+            'success'   => true,
+            'message'   => 'Detail dusun berhasil ditambahkan',
+            'data'      => $detailDusun
+        ]);
     }
 
     /**
@@ -46,18 +49,7 @@ class DetailDusunController extends Controller
      */
     public function show(DetailDusun $detailDusun)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\DetailDusun  $detailDusun
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(DetailDusun $detailDusun)
-    {
-        //
+        return response()->json($detailDusun);
     }
 
     /**
@@ -69,7 +61,17 @@ class DetailDusunController extends Controller
      */
     public function update(Request $request, DetailDusun $detailDusun)
     {
-        //
+        $data = $request->validate([
+            'rw'        => ['required','string','max:3'],
+            'rt'        => ['required','string','max:3'],
+        ]);
+
+        $detailDusun->update($data);
+        return response()->json([
+            'success'   => true,
+            'message'   => 'Detail dusun berhasil diperbarui',
+            'data'      => $detailDusun
+        ]);
     }
 
     /**
@@ -80,6 +82,7 @@ class DetailDusunController extends Controller
      */
     public function destroy(DetailDusun $detailDusun)
     {
-        //
+        $detailDusun->delete();
+        return redirect()->back()->with('success', 'Detail dusun berhasil diperbarui');
     }
 }

@@ -31,7 +31,7 @@ $(document).on('click', '.hapus-data', function(){
 
 $(document).on("submit","form", function () {
     $(this).find("button:submit").attr('disabled','disabled');
-    $(this).find("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
+    $(this).find("button:submit").html(`<img height="20px" src="${baseURL}/storage/loading.gif" alt=""> Loading ...`);
 });
 
 function alertSuccess (pesan) {

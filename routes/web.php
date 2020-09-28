@@ -75,5 +75,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/tambah-penduduk', 'PendudukController@create')->name('penduduk.create');
     Route::resource('penduduk', 'PendudukController')->except('create','show');
 
+    Route::get('/tambah-dusun', 'DusunController@create')->name('dusun.create');
+    Route::resource('dusun', 'DusunController')->except('create','show');
+    Route::resource('detailDusun', 'DetailDusunController')->except('create','edit');
+
     Route::get('/chart-surat/{id}', 'SuratController@chartSurat')->name('chart-surat');
 });

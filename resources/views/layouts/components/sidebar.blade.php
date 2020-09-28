@@ -82,6 +82,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link @if (Request::segment(1) == 'dusun' || Request::segment(1) == 'tambah-dusun') active @endif" href="{{ route('dusun.index') }}">
+                    <i class="fas fa-map-marker-alt text-yellow"></i>
+                    <span class="nav-link-inner--text">Kelola Dusun</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'surat' || Request::segment(1) == 'tambah-surat') active @endif" href="{{ route('surat.index') }}">
                     <i class="ni ni-single-copy-04 text-primary"></i>
                     <span class="nav-link-inner--text">Kelola Surat</span>

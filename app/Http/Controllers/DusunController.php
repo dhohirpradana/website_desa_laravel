@@ -14,7 +14,7 @@ class DusunController extends Controller
      */
     public function index()
     {
-        //
+        return view('dusun.index', ['dusun' => Dusun::latest()->get()]);
     }
 
     /**
@@ -24,7 +24,7 @@ class DusunController extends Controller
      */
     public function create()
     {
-        //
+        return view('dusun.create');
     }
 
     /**
@@ -35,7 +35,12 @@ class DusunController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nama' => ['required','string','max:16']
+        ]);
+
+        $dusun = Dusun::create($data);
+        return redirect()->route('dusun.edit',$dusun)->with('success','Dusun berhasil ditambahkan');
     }
 
     /**
@@ -46,7 +51,7 @@ class DusunController extends Controller
      */
     public function show(Dusun $dusun)
     {
-        //
+        return view('dusun.show', compact('dusun'));
     }
 
     /**
@@ -57,7 +62,7 @@ class DusunController extends Controller
      */
     public function edit(Dusun $dusun)
     {
-        //
+        return view('dusun.edit', compact('dusun'));
     }
 
     /**
@@ -69,7 +74,12 @@ class DusunController extends Controller
      */
     public function update(Request $request, Dusun $dusun)
     {
-        //
+        $data = $request->validate([
+            'nama' => ['required','string','max:16']
+        ]);
+
+        $dusun->update($data);
+        return redirect()->back()->with('success','Dusun berhasil diperbarui');
     }
 
     /**
@@ -80,6 +90,7 @@ class DusunController extends Controller
      */
     public function destroy(Dusun $dusun)
     {
-        //
+        $dusun->delete();
+        return redirect()->route('dusun.index')->with('success','Dusun berhasil dihapus');
     }
 }

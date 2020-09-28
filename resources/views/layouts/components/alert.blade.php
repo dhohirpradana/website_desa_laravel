@@ -1,4 +1,4 @@
-<div class="row fixed-top m-3">
+<div class="row fixed-top m-3" style="z-index: 99999999999999999">
     <div class="col-lg-6"></div>
     <div class="col-lg-6">
         <div class="notifikasi"></div>
