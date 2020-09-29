@@ -40,11 +40,11 @@ class PendudukRequest extends FormRequest
             'kewarganegaraan'                   => ['required','numeric'],
             'nomor_paspor'                      => ['nullable','numeric'],
             'nomor_kitas_atau_kitap'            => ['nullable','numeric'],
-            'nik_ayah'                          => ['required','digits:16'],
-            'nik_ibu'                           => ['required','digits:16'],
-            'nama_ayah'                         => ['required','string','max:64'],
-            'nama_ibu'                          => ['required','string','max:64'],
-            'alamat'                            => ['required','string','max:191'],
+            'nik_ayah'                          => ['nullable','digits:16'],
+            'nik_ibu'                           => ['nullable','digits:16'],
+            'nama_ayah'                         => ['nullable','string','max:64'],
+            'nama_ibu'                          => ['nullable','string','max:64'],
+            'alamat'                            => ['nullable','string','max:191'],
         ];
 
         if ($this->dusun) {
