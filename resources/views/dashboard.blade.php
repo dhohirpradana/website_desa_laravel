@@ -14,8 +14,6 @@
                                 <h2 class="mb-0">Dashboard</h2>
                                 <p class="mb-0 text-sm">Kelola Dashboard {{ config('app.name') }}</p>
                             </div>
-                            <div class="mb-3">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -26,7 +24,6 @@
 @endsection
 
 @section('content')
-@include('layouts.components.alert')
 <div class="card shadow mb-3">
     <div class="card-header">
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">

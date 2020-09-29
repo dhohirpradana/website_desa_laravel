@@ -79,5 +79,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('dusun', 'DusunController')->except('create','show');
     Route::resource('detailDusun', 'DetailDusunController')->except('create','edit');
 
+    Route::get('/grafik/pekerjaan', 'GrafikController@pekerjaan')->name('grafik.pekerjaan');
+    Route::get('/grafik/pendidikan', 'GrafikController@pendidikan')->name('grafik.pendidikan');
+    Route::get('/grafik/agama', 'GrafikController@agama')->name('grafik.agama');
+    Route::get('/grafik/usia', 'GrafikController@usia')->name('grafik.usia');
+    Route::get('/grafik/golongan-darah', 'GrafikController@darah')->name('grafik.darah');
+    Route::get('/grafik/status-perkawinan', 'GrafikController@perkawinan')->name('grafik.perkawinan');
+    Route::get('/grafik/jenis-kelamin', 'GrafikController@kelamin')->name('grafik.kelamin');
+
     Route::get('/chart-surat/{id}', 'SuratController@chartSurat')->name('chart-surat');
 });

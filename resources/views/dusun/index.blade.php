@@ -9,9 +9,6 @@
     .ikon {
         font-family: fontAwesome;
     }
-    .animate-up:hover {
-        top: -5px;
-    }
 </style>
 @endsection
 

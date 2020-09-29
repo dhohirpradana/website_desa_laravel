@@ -78,13 +78,58 @@
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'penduduk' || Request::segment(1) == 'tambah-penduduk') active @endif" href="{{ route('penduduk.index') }}">
                     <i class="fas fa-users text-info"></i>
-                    <span class="nav-link-inner--text">Kelola Penduduk</span>
+                    <span class="nav-link-inner--text">Kelola Penduduk</span><span class="badge badge-success ml-1">new</span>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#grafik" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
+                    <i class="ni ni-chart-pie-35 text-orange"></i>
+                    <span class="nav-link-text">Grafik</span><span class="badge badge-success ml-1">new</span>
+                </a>
+                <div class="collapse @if (Request::segment(1) == 'grafik') show @endif" id="grafik">
+                    <ul class="nav nav-sm flex-column">
+                        <li class="nav-item">
+                            <a href="{{ route('grafik.pekerjaan') }}" class="nav-link @if (Request::segment(2) == 'pekerjaan') active @endif">
+                                <span class="sidenav-normal"> Pekerjaan </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('grafik.pendidikan') }}" class="nav-link @if (Request::segment(2) == 'pendidikan') active @endif">
+                                <span class="sidenav-normal"> Pendidikan </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('grafik.agama') }}" class="nav-link @if (Request::segment(2) == 'agama') active @endif">
+                                <span class="sidenav-normal"> Agama </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('grafik.usia') }}" class="nav-link @if (Request::segment(2) == 'usia') active @endif">
+                                <span class="sidenav-normal"> Usia </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('grafik.darah') }}" class="nav-link @if (Request::segment(2) == 'golongan-darah') active @endif">
+                                <span class="sidenav-normal"> Golongan Darah </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('grafik.perkawinan') }}" class="nav-link @if (Request::segment(2) == 'status-perkawinan') active @endif">
+                                <span class="sidenav-normal"> Perkawinan </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('grafik.kelamin') }}" class="nav-link @if (Request::segment(2) == 'jenis-kelamin') active @endif">
+                                <span class="sidenav-normal"> Jenis Kelamin </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'dusun' || Request::segment(1) == 'tambah-dusun') active @endif" href="{{ route('dusun.index') }}">
                     <i class="fas fa-map-marker-alt text-yellow"></i>
-                    <span class="nav-link-inner--text">Kelola Dusun</span>
+                    <span class="nav-link-inner--text">Kelola Dusun</span><span class="badge badge-success ml-1">new</span>
                 </a>
             </li>
             <li class="nav-item">
