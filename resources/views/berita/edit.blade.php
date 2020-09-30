@@ -49,7 +49,7 @@
                 <h3 class="mb-0">Edit Berita</h3>
             </div>
             <div class="card-body">
-                <form autocomplete="off" action="{{ route('berita.update', $berita) }}" method="post" enctype="multipart/form-data">
+                <form autocomplete="off" action="{{ route('berita.update', ["beritum" => $berita]) }}" method="post" enctype="multipart/form-data">
                     @csrf @method('patch')
                     <div class="form-group">
                         <label class="form-control-label">Gambar</label>
@@ -88,12 +88,8 @@
             reader.readAsDataURL(inputFile.files[0]);
         }
     }
-    $(document).ready(function () {
-        $(document).on("submit","form", function () {
-            $(this).children("button:submit").attr('disabled','disabled');
-            $(this).children("button:submit").html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
-        });
 
+    $(document).ready(function () {
         $("textarea").summernote({
             dialogsInBody: true,
             placeholder: 'Silahkan isi konten',

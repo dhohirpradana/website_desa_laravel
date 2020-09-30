@@ -113,10 +113,10 @@ class BeritaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Berita  $berita
+     * @param  \App\Berita  $beritum
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Berita $berita)
+    public function update(Request $request, Berita $beritum)
     {
         $data = $request->validate([
             'judul'     => ['required','string','max:191'],
@@ -125,13 +125,13 @@ class BeritaController extends Controller
         ]);
 
         if ($request->gambar) {
-            if ($berita->gambar) {
-                File::delete(storage_path('app/' . $berita->gambar));
+            if ($beritum->gambar) {
+                File::delete(storage_path('app/' . $beritum->gambar));
             }
             $data['gambar'] = $request->gambar->store('public/gallery');
         }
 
-        $berita->update($data);
+        $beritum->update($data);
 
         return back()->with('success','Berita berhasil diperbarui');
     }
@@ -139,12 +139,12 @@ class BeritaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Berita  $berita
+     * @param  \App\Berita  $beritum
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Berita $berita)
+    public function destroy(Berita $beritum)
     {
-        $berita->delete();
+        $beritum->delete();
         return back()->with('success','Berita berhasil dihapus');
     }
 }
