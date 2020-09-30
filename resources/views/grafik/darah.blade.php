@@ -46,6 +46,11 @@
                     enabled: true,
                     format: '{point.name}: {point.y:f} Jiwa'
                 }
+            },
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                showInLegend: true
             }
         },
 
@@ -58,6 +63,8 @@
             {
                 name: "Golongan Darah",
                 colorByPoint: true,
+                shadow:1,
+                border:1,
                 data: {!! json_encode($data) !!}
             }
         ]

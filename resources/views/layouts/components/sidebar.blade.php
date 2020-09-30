@@ -84,7 +84,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#grafik" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
                     <i class="ni ni-chart-pie-35 text-orange"></i>
-                    <span class="nav-link-text">Grafik</span><span class="badge badge-success ml-1">new</span>
+                    <span class="nav-link-text">Statistik Penduduk</span><span class="badge badge-success ml-1">new</span>
                 </a>
                 <div class="collapse @if (Request::segment(1) == 'grafik') show @endif" id="grafik">
                     <ul class="nav nav-sm flex-column">

@@ -25,7 +25,11 @@ class GrafikController extends Controller
             ];
         }
 
-        return view('grafik.pekerjaan',compact('data'));
+        if (url()->current() == route('grafik.pekerjaan')) {
+            return view('grafik.pekerjaan',compact('data'));
+        } else {
+            return view('statistik-penduduk.pekerjaan',compact('data'));
+        }
     }
 
     public function pendidikan()
@@ -40,7 +44,11 @@ class GrafikController extends Controller
             ];
         }
 
-        return view('grafik.pendidikan',compact('data'));
+        if (url()->current() == route('grafik.pendidikan')) {
+            return view('grafik.pendidikan',compact('data'));
+        } else {
+            return view('statistik-penduduk.pendidikan',compact('data'));
+        }
     }
 
     public function agama()
@@ -55,7 +63,11 @@ class GrafikController extends Controller
             ];
         }
 
-        return view('grafik.agama',compact('data'));
+        if (url()->current() == route('grafik.agama')) {
+            return view('grafik.agama',compact('data'));
+        } else {
+            return view('statistik-penduduk.agama',compact('data'));
+        }
     }
 
     public function usia()
@@ -100,7 +112,11 @@ class GrafikController extends Controller
             $age0, $age1, $age2, $age3, $age4, $age5, $age6, $age7, $age8, $age9, $age10, $age11, $age12
         ];
 
-        return view('grafik.usia',compact('data','kategori'));
+        if (url()->current() == route('grafik.usia')) {
+            return view('grafik.usia',compact('kategori','data'));
+        } else {
+            return view('statistik-penduduk.usia',compact('kategori','data'));
+        }
     }
 
     public function darah()
@@ -115,7 +131,11 @@ class GrafikController extends Controller
             ];
         }
 
-        return view('grafik.darah',compact('data'));
+        if (url()->current() == route('grafik.darah')) {
+            return view('grafik.darah',compact('data'));
+        } else {
+            return view('statistik-penduduk.darah',compact('data'));
+        }
     }
 
     public function perkawinan()
@@ -130,7 +150,11 @@ class GrafikController extends Controller
             ];
         }
 
-        return view('grafik.perkawinan',compact('data'));
+        if (url()->current() == route('grafik.perkawinan')) {
+            return view('grafik.perkawinan',compact('data'));
+        } else {
+            return view('statistik-penduduk.perkawinan',compact('data'));
+        }
     }
 
     public function kelamin()
@@ -138,6 +162,10 @@ class GrafikController extends Controller
         $laki = Penduduk::whereJenisKelamin(1)->count();
         $perempuan = Penduduk::whereJenisKelamin(2)->count();
 
-        return view('grafik.jenis-kelamin',compact('laki','perempuan'));
+        if (url()->current() == route('grafik.kelamin')) {
+            return view('grafik.jenis-kelamin',compact('laki','perempuan'));
+        } else {
+            return view('statistik-penduduk.jenis-kelamin',compact('laki','perempuan'));
+        }
     }
 }

@@ -105,6 +105,33 @@
                                 <i class="fas fa-images"></i>
                                 <span class="nav-link-inner--text">Gallery</span>
                             </a>
+                        </li><li class="nav-item dropdown">
+                            <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-chart-pie"></i> <span class="nav-link-inner--text">Statistik Penduduk</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
+                                <a href="{{ route('statistik-penduduk.pekerjaan') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'pekerjaan') active @endif">
+                                    <span class="nav-link-inner--text"> Pekerjaan </span>
+                                </a>
+                                <a href="{{ route('statistik-penduduk.pendidikan') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'pendidikan') active @endif">
+                                    <span class="nav-link-inner--text"> Pendidikan </span>
+                                </a>
+                                <a href="{{ route('statistik-penduduk.agama') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'agama') active @endif">
+                                    <span class="nav-link-inner--text"> Agama </span>
+                                </a>
+                                <a href="{{ route('statistik-penduduk.usia') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'usia') active @endif">
+                                    <span class="nav-link-inner--text"> Usia </span>
+                                </a>
+                                <a href="{{ route('statistik-penduduk.darah') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'golongan-darah') active @endif">
+                                    <span class="nav-link-inner--text"> Golongan Darah </span>
+                                </a>
+                                <a href="{{ route('statistik-penduduk.perkawinan') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'status-perkawinan') active @endif">
+                                    <span class="nav-link-inner--text"> Perkawinan </span>
+                                </a>
+                                <a href="{{ route('statistik-penduduk.kelamin') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'jenis-kelamin') active @endif">
+                                    <span class="nav-link-inner--text"> Jenis Kelamin </span>
+                                </a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-link-icon" href="{{ route('panduan') }}">

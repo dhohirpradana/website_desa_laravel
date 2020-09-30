@@ -1,26 +1,14 @@
-@extends('layouts.app')
-
-@section('title', 'Grafik Pendidikan')
+@extends('layouts.layout')
+@section('title', 'Website Resmi Pemerintah Desa '. App\Desa::find(1)->nama_desa . ' - Grafik Pendidikan')
 
 @section('styles')
+<meta name="description" content="Statistik Penduduk Berdasarkan Pendidikan Desa {{ App\Desa::find(1)->nama_desa }}, Kecamatan {{ App\Desa::find(1)->nama_kecamatan }}, Kabupaten {{ App\Desa::find(1)->nama_kabupaten }}.">
 <script src="https://code.highcharts.com/highcharts.js"></script>
 @endsection
 
-@section('content-header')
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <div class="card shadow h-100">
-                    <div class="card-header border-0">
-                        <h2 class="mb-0">Grafik Pendidikan</h2>
-                        <p class="mb-0 text-sm">Kelola Grafik Pendidikan</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@section('header')
+<h1 class="text-white text-sm text-muted">GRAFIK PENDIDIKAN</h1>
+<h2 class="text-lead text-white">DESA {{ Str::upper(App\Desa::find(1)->nama_desa) }}<br/>KABUPATEN {{ Str::upper(App\Desa::find(1)->nama_kabupaten) }}</h2>
 @endsection
 
 @section('content')

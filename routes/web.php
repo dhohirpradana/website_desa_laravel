@@ -23,6 +23,14 @@ Route::get('/buat-surat/{id}/{slug}', 'CetakSuratController@create')->name('buat
 Route::get('/panduan', 'HomeController@panduan')->name('panduan');
 Route::post('/cetak-surat/{id}/{slug}', 'CetakSuratController@store')->name('cetak-surat.store');
 
+Route::get('/statistik-penduduk/pekerjaan', 'GrafikController@pekerjaan')->name('statistik-penduduk.pekerjaan');
+Route::get('/statistik-penduduk/pendidikan', 'GrafikController@pendidikan')->name('statistik-penduduk.pendidikan');
+Route::get('/statistik-penduduk/agama', 'GrafikController@agama')->name('statistik-penduduk.agama');
+Route::get('/statistik-penduduk/usia', 'GrafikController@usia')->name('statistik-penduduk.usia');
+Route::get('/statistik-penduduk/golongan-darah', 'GrafikController@darah')->name('statistik-penduduk.darah');
+Route::get('/statistik-penduduk/status-perkawinan', 'GrafikController@perkawinan')->name('statistik-penduduk.perkawinan');
+Route::get('/statistik-penduduk/jenis-kelamin', 'GrafikController@kelamin')->name('statistik-penduduk.kelamin');
+
 Route::group(['middleware' => ['web', 'guest']], function () {
 
     Route::get('/masuk', 'AuthController@index')->name('masuk');
