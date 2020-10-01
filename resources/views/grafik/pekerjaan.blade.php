@@ -3,7 +3,9 @@
 @section('title', 'Grafik Pekerjaan')
 
 @section('styles')
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
 @endsection
 
 @section('content-header')
@@ -26,7 +28,7 @@
 @section('content')
 <div class="card shadow">
     <div class="card-body">
-        <div id="container"></div>
+        <div id="container" style="height: 400px; min-width: 320px; max-width: 600px; margin: 0 auto"></div>
     </div>
 </div>
 @endsection
@@ -35,7 +37,8 @@
 <script>
     Highcharts.chart('container', {
         chart: {
-            type: 'pie'
+            type: 'bar',
+            marginLeft: 150
         },
         title: {
             text: 'Grafik Pekerjaan'
@@ -43,27 +46,42 @@
         subtitle: {
             text: "Total Penduduk: {{ $total }} Jiwa"
         },
+        xAxis: {
+            type: 'category',
+            title: {
+            text: null
+            },
+            min: 0,
+            max: 7,
+            scrollbar: {
+                enabled: true
+            },
+            tickLength: 0
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Jumlah Penduduk',
+                align: 'high'
+            }
+        },
         plotOptions: {
-            series: {
+            bar: {
                 dataLabels: {
-                    enabled: true,
-                    format: '{point.name}: {point.y:f} Jiwa'
+                    enabled: true
                 }
             }
         },
-
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b> Jiwa<br/>'
+        legend: {
+            enabled: false
         },
-
-        series: [
-            {
-                name: "Pekerjaan",
-                colorByPoint: true,
-                data: {!! json_encode($data) !!}
-            }
-        ]
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Jumlah Penduduk',
+            data: {!! json_encode($data) !!}
+        }]
     });
 </script>
 @endpush

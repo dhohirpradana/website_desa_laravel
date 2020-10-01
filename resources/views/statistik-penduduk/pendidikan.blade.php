@@ -3,7 +3,9 @@
 
 @section('styles')
 <meta name="description" content="Statistik Penduduk Berdasarkan Pendidikan Desa {{ App\Desa::find(1)->nama_desa }}, Kecamatan {{ App\Desa::find(1)->nama_kecamatan }}, Kabupaten {{ App\Desa::find(1)->nama_kabupaten }}.">
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
 @endsection
 
 @section('header')

@@ -20,7 +20,29 @@ class HomeController extends Controller
     public function dashboard()
     {
         $surat = Surat::all();
-        return view('dashboard', compact('surat'));
+        $hari = 0;
+        $bulan = 0;
+        $tahun = 0;
+        $total = 0;
+
+        foreach ($surat as $value) {
+            if (count($value->cetakSurat) != 0) {
+                foreach ($value->cetakSurat as $cetakSurat) {
+                    if (date('Y-m-d', strtotime($cetakSurat->created_at)) == date('Y-m-d')) {
+                        $hari = $hari + 1;
+                    }
+                    if (date('Y-m', strtotime($cetakSurat->created_at)) == date('Y-m')) {
+                        $bulan = $bulan + 1;
+                    }
+                    if (date('Y', strtotime($cetakSurat->created_at)) == date('Y')) {
+                        $tahun = $tahun + 1;
+                    }
+                    $total = $total + 1;
+                }
+            }
+        }
+
+        return view('dashboard', compact('surat','hari','bulan','tahun','total'));
     }
 
     public function suratHarian(Request $request)
@@ -43,11 +65,7 @@ class HomeController extends Controller
                 }
             }
 
-            array_push($data, [
-                "label" => $value->nama,
-                "data" => [$nilai],
-                "backgroundColor" => "rgb({$r},{$g},{$b})",
-            ]);
+            array_push($data, [$value->nama,$nilai]);
         }
 
         return response()->json($data);
@@ -73,11 +91,7 @@ class HomeController extends Controller
                 }
             }
 
-            array_push($data, [
-                "label" => $value->nama,
-                "data" => [$nilai],
-                "backgroundColor" => "rgb({$r},{$g},{$b})",
-            ]);
+            array_push($data, [$value->nama,$nilai]);
         }
 
         return response()->json($data);
@@ -103,11 +117,7 @@ class HomeController extends Controller
                 }
             }
 
-            array_push($data, [
-                "label" => $value->nama,
-                "data" => [$nilai],
-                "backgroundColor" => "rgb({$r},{$g},{$b})",
-            ]);
+            array_push($data, [$value->nama,$nilai]);
         }
 
         return response()->json($data);

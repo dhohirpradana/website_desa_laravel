@@ -3,7 +3,9 @@
 @section('title', 'Grafik Golongan Darah')
 
 @section('styles')
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
 @endsection
 
 @section('content-header')
