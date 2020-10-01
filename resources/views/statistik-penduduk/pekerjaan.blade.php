@@ -28,6 +28,9 @@
         title: {
             text: 'Grafik Pekerjaan'
         },
+        subtitle: {
+            text: "Total Penduduk: {{ $total }} Jiwa"
+        },
         plotOptions: {
             series: {
                 dataLabels: {

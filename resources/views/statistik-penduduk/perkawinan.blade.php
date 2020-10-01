@@ -28,6 +28,9 @@
         title: {
             text: 'Grafik Status Perkawinan'
         },
+        subtitle: {
+            text: "Total Penduduk: {{ $total }} Jiwa"
+        },
         plotOptions: {
             series: {
                 dataLabels: {

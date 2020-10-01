@@ -17,6 +17,7 @@ class GrafikController extends Controller
     {
         $data = array();
         $pekerjaan = Pekerjaan::all();
+        $total = Penduduk::all()->count();
 
         foreach ($pekerjaan as $item) {
             $data[] = [
@@ -26,9 +27,9 @@ class GrafikController extends Controller
         }
 
         if (url()->current() == route('grafik.pekerjaan')) {
-            return view('grafik.pekerjaan',compact('data'));
+            return view('grafik.pekerjaan',compact('total','data'));
         } else {
-            return view('statistik-penduduk.pekerjaan',compact('data'));
+            return view('statistik-penduduk.pekerjaan',compact('total','data'));
         }
     }
 
@@ -36,6 +37,7 @@ class GrafikController extends Controller
     {
         $data = array();
         $pendidikan = Pendidikan::all();
+        $total = Penduduk::all()->count();
 
         foreach ($pendidikan as $item) {
             $data[] = [
@@ -45,9 +47,9 @@ class GrafikController extends Controller
         }
 
         if (url()->current() == route('grafik.pendidikan')) {
-            return view('grafik.pendidikan',compact('data'));
+            return view('grafik.pendidikan',compact('total','data'));
         } else {
-            return view('statistik-penduduk.pendidikan',compact('data'));
+            return view('statistik-penduduk.pendidikan',compact('total','data'));
         }
     }
 
@@ -55,6 +57,7 @@ class GrafikController extends Controller
     {
         $data = array();
         $agama = Agama::all();
+        $total = Penduduk::all()->count();
 
         foreach ($agama as $item) {
             $data[] = [
@@ -64,9 +67,9 @@ class GrafikController extends Controller
         }
 
         if (url()->current() == route('grafik.agama')) {
-            return view('grafik.agama',compact('data'));
+            return view('grafik.agama',compact('total','data'));
         } else {
-            return view('statistik-penduduk.agama',compact('data'));
+            return view('statistik-penduduk.agama', compact('total','data'));
         }
     }
 
@@ -76,6 +79,7 @@ class GrafikController extends Controller
         $penduduk = Penduduk::all();
         $kategori = ['0 - 4 tahun','5 - 9 tahun','10 - 14 tahun','15 - 19 tahun','20 - 24 tahun','25 - 29 tahun','30 - 34 tahun','35 - 39 tahun','40 - 44 tahun','45 - 49 tahun','50 - 54 tahun','55 - 59 tahun','>= 60 tahun'];
         $age0 = 0; $age1 = 0; $age2 = 0; $age3 = 0; $age4 = 0; $age5 = 0; $age6 = 0; $age7 = 0; $age8 = 0; $age9 = 0; $age10 = 0; $age11 = 0; $age12 = 0;
+        $total = Penduduk::all()->count();
 
         foreach ($penduduk as $penduduk) {
             $age = (int) Carbon::parse($penduduk->tanggal_lahir)->diff(Carbon::now())->format('%y');
@@ -113,9 +117,9 @@ class GrafikController extends Controller
         ];
 
         if (url()->current() == route('grafik.usia')) {
-            return view('grafik.usia',compact('kategori','data'));
+            return view('grafik.usia',compact('total','kategori','data'));
         } else {
-            return view('statistik-penduduk.usia',compact('kategori','data'));
+            return view('statistik-penduduk.usia',compact('total','kategori','data'));
         }
     }
 
@@ -123,6 +127,7 @@ class GrafikController extends Controller
     {
         $data = array();
         $darah = Darah::all();
+        $total = Penduduk::all()->count();
 
         foreach ($darah as $item) {
             $data[] = [
@@ -132,9 +137,9 @@ class GrafikController extends Controller
         }
 
         if (url()->current() == route('grafik.darah')) {
-            return view('grafik.darah',compact('data'));
+            return view('grafik.darah',compact('total','data'));
         } else {
-            return view('statistik-penduduk.darah',compact('data'));
+            return view('statistik-penduduk.darah',compact('total','data'));
         }
     }
 
@@ -142,6 +147,7 @@ class GrafikController extends Controller
     {
         $data = array();
         $perkawinan = StatusPerkawinan::all();
+        $total = Penduduk::all()->count();
 
         foreach ($perkawinan as $item) {
             $data[] = [
@@ -151,9 +157,9 @@ class GrafikController extends Controller
         }
 
         if (url()->current() == route('grafik.perkawinan')) {
-            return view('grafik.perkawinan',compact('data'));
+            return view('grafik.perkawinan',compact('total','data'));
         } else {
-            return view('statistik-penduduk.perkawinan',compact('data'));
+            return view('statistik-penduduk.perkawinan',compact('total','data'));
         }
     }
 
@@ -161,11 +167,12 @@ class GrafikController extends Controller
     {
         $laki = Penduduk::whereJenisKelamin(1)->count();
         $perempuan = Penduduk::whereJenisKelamin(2)->count();
+        $total = Penduduk::all()->count();
 
         if (url()->current() == route('grafik.kelamin')) {
-            return view('grafik.jenis-kelamin',compact('laki','perempuan'));
+            return view('grafik.jenis-kelamin',compact('total','laki','perempuan'));
         } else {
-            return view('statistik-penduduk.jenis-kelamin',compact('laki','perempuan'));
+            return view('statistik-penduduk.jenis-kelamin',compact('total','laki','perempuan'));
         }
     }
 }

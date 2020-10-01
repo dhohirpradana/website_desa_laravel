@@ -28,6 +28,9 @@
         title: {
             text: 'Grafik Usia'
         },
+        subtitle: {
+            text: "Total Penduduk: {{ $total }} Jiwa"
+        },
         xAxis: {
             categories: {!! json_encode($kategori) !!},
             crosshair: true

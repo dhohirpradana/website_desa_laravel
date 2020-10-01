@@ -40,6 +40,9 @@
         title: {
             text: 'Grafik Golongan Darah'
         },
+        subtitle: {
+            text: "Total Penduduk: {{ $total }} Jiwa"
+        },
         plotOptions: {
             series: {
                 dataLabels: {

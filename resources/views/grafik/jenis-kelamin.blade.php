@@ -40,6 +40,9 @@
         title: {
             text: 'Grafik Jenis Kelamin'
         },
+        subtitle: {
+            text: "Total Penduduk: {{ $total }} Jiwa"
+        },
         plotOptions: {
             series: {
                 dataLabels: {
