@@ -31,13 +31,13 @@
             text: 'Grafik Agama'
         },
         subtitle: {
-            text: "Total Penduduk: {{ $total }} Jiwa"
+            text: "Total Penduduk: {{ $total }}"
         },
         plotOptions: {
             series: {
                 dataLabels: {
                     enabled: true,
-                    format: '{point.name}: {point.y:f} Jiwa'
+                    format: '{point.name}: {point.y:f}'
                 }
             },
             pie: {
@@ -49,7 +49,7 @@
 
         tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b> Jiwa<br/>'
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b><br/>'
         },
 
         series: [

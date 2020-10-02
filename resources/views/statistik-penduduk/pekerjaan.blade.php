@@ -32,7 +32,7 @@
             text: 'Grafik Pekerjaan'
         },
         subtitle: {
-            text: "Total Penduduk: {{ $total }} Jiwa"
+            text: "Total Penduduk: {{ $total }}"
         },
         xAxis: {
             type: 'category',
