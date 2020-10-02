@@ -25,7 +25,7 @@
 @section('content-header')
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row mb-3">
             <div class="col">
                 <div class="card shadow h-100">
                     <div class="card-header border-0">
@@ -47,6 +47,80 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
+                <div class="card card-stats shadow h-100">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Kepala Keluarga</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ $penduduk->where('status_hubungan_dalam_keluarga_id',1)->count() }}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
+                <div class="card card-stats shadow h-100">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Total Penduduk</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ $penduduk->count() }}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
+                <div class="card card-stats shadow h-100">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Laki-laki</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ $penduduk->where('jenis_kelamin',1)->count() }}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
+                <div class="card card-stats shadow h-100">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Perempuan</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ $penduduk->where('jenis_kelamin',2)->count() }}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
