@@ -9,16 +9,6 @@
     .ikon {
         font-family: fontAwesome;
     }
-    @media(max-width:767px){
-        .cari-none {
-            display: block;
-        }
-    }
-    @media(min-width:768px){
-        .cari-none {
-            display: none;
-        }
-    }
 </style>
 @endsection
 

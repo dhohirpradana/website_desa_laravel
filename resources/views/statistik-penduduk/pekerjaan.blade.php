@@ -16,7 +16,7 @@
 @section('content')
 <div class="card shadow">
     <div class="card-body">
-        <div id="container" style="height: 400px; min-width: 320px; max-width: 600px; margin: 0 auto"></div>
+        <div id="container" style="height: 400px; margin: 0 auto"></div>
     </div>
 </div>
 @endsection

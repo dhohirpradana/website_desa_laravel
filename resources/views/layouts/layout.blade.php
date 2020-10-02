@@ -128,9 +128,6 @@
                                 <a href="{{ route('statistik-penduduk.perkawinan') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'status-perkawinan') active @endif">
                                     <span class="nav-link-inner--text"> Perkawinan </span>
                                 </a>
-                                <a href="{{ route('statistik-penduduk.kelamin') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'jenis-kelamin') active @endif">
-                                    <span class="nav-link-inner--text"> Jenis Kelamin </span>
-                                </a>
                             </div>
                         </li>
                         <li class="nav-item">

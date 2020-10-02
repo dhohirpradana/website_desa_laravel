@@ -130,3 +130,19 @@
     margin-bottom: 10px;
     font-weight: 500;
 }
+
+.pagination {
+    margin-top: 20px;
+    justify-content: center !important;
+}
+
+@media(max-width:767px){
+    .cari-none {
+        display: block;
+    }
+}
+@media(min-width:768px){
+    .cari-none {
+        display: none;
+    }
+}

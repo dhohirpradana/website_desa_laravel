@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Desa;
 use App\Gallery;
+use App\Penduduk;
 use App\Surat;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,14 @@ class HomeController extends Controller
         $hari = 0;
         $bulan = 0;
         $tahun = 0;
-        $total = 0;
+        $totalCetakSurat = 0;
+        $totalPenduduk = Penduduk::all();
+        $pekerjaan = $this->grafikPekerjaan();
+        $pendidikan = $this->grafikPendidikan();
+        $perkawinan = $this->grafikPerkawinan();
+        $agama = $this->grafikAgama();
+        $darah = $this->grafikDarah();
+        $usia = $this->grafikUsia();
 
         foreach ($surat as $value) {
             if (count($value->cetakSurat) != 0) {
@@ -37,12 +45,12 @@ class HomeController extends Controller
                     if (date('Y', strtotime($cetakSurat->created_at)) == date('Y')) {
                         $tahun = $tahun + 1;
                     }
-                    $total = $total + 1;
+                    $totalCetakSurat = $totalCetakSurat + 1;
                 }
             }
         }
 
-        return view('dashboard', compact('surat','hari','bulan','tahun','total'));
+        return view('dashboard', compact('surat','hari','bulan','tahun','totalCetakSurat','totalPenduduk','pekerjaan','pendidikan','perkawinan','agama','darah','usia'));
     }
 
     public function suratHarian(Request $request)
@@ -51,9 +59,6 @@ class HomeController extends Controller
         $surat = Surat::all();
         $data = array();
         foreach ($surat as $value) {
-            $r = rand(0,255);
-            $g = rand(0,255);
-            $b = rand(0,255);
             if (count($value->cetakSurat) == 0) {
                 $nilai = 0;
             } else {
@@ -77,9 +82,6 @@ class HomeController extends Controller
         $surat = Surat::all();
         $data = array();
         foreach ($surat as $value) {
-            $r = rand(0,255);
-            $g = rand(0,255);
-            $b = rand(0,255);
             if (count($value->cetakSurat) == 0) {
                 $nilai = 0;
             } else {
@@ -103,9 +105,6 @@ class HomeController extends Controller
         $surat = Surat::all();
         $data = array();
         foreach ($surat as $value) {
-            $r = rand(0,255);
-            $g = rand(0,255);
-            $b = rand(0,255);
             if (count($value->cetakSurat) == 0) {
                 $nilai = 0;
             } else {

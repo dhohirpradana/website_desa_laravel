@@ -4,22 +4,6 @@
 
 @section('styles')
 <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<style>
-    .ikon {
-        font-family: fontAwesome;
-    }
-    @media(max-width:767px){
-        .cari-none {
-            display: block;
-        }
-    }
-    @media(min-width:768px){
-        .cari-none {
-            display: none;
-        }
-    }
-</style>
 @endsection
 
 @section('content-header')
@@ -37,17 +21,17 @@
                             <div class="mb-3">
                                 <a href="{{ route('penduduk.create') }}" class="btn btn-success" title="Tambah"><i class="fas fa-plus"></i> Tambah Penduduk</a>
                             </div>
-                            <form class="navbar-search mt-3 cari-none" action="{{ URL::current() }}" method="GET">
-                                <div class="form-group mb-0">
-                                    <div class="input-group input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                        </div>
-                                        <input class="form-control" placeholder="Cari ...." type="text" name="cari" value="{{ request('cari') }}">
-                                    </div>
-                                </div>
-                            </form>
                         </div>
+                        <form class="navbar-search mt-3 cari-none" action="{{ URL::current() }}" method="GET">
+                            <div class="form-group mb-0">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="Cari ...." type="text" name="cari" value="{{ request('cari') }}">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -60,7 +44,7 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Kepala Keluarga</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ $penduduk->where('status_hubungan_dalam_keluarga_id',1)->count() }}</span>
+                                <span class="h2 font-weight-bold mb-0">{{ $totalPenduduk->where('status_hubungan_dalam_keluarga_id',1)->count() }}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -78,7 +62,7 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Total Penduduk</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ $penduduk->count() }}</span>
+                                <span class="h2 font-weight-bold mb-0">{{ $totalPenduduk->count() }}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -96,7 +80,7 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Laki-laki</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ $penduduk->where('jenis_kelamin',1)->count() }}</span>
+                                <span class="h2 font-weight-bold mb-0">{{ $totalPenduduk->where('jenis_kelamin',1)->count() }}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -114,7 +98,7 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Perempuan</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ $penduduk->where('jenis_kelamin',2)->count() }}</span>
+                                <span class="h2 font-weight-bold mb-0">{{ $totalPenduduk->where('jenis_kelamin',2)->count() }}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
@@ -148,7 +132,7 @@
 <div class="card shadow">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover table-striped table-bordered">
                 <thead>
                     <th>#</th>
                     <th>NIK</th>

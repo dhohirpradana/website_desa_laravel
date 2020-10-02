@@ -25,7 +25,8 @@ class PendudukController extends Controller
      */
     public function index(Request $request)
     {
-        $penduduk = Penduduk::latest()->paginate(10);
+        $penduduk = Penduduk::latest()->paginate(2);
+        $totalPenduduk = Penduduk::all();
 
         if ($request->cari) {
             $penduduk = Penduduk::where(function ($penduduk) use ($request) {
@@ -45,7 +46,7 @@ class PendudukController extends Controller
         }
 
         $penduduk->appends(request()->input())->links();
-        return view('penduduk.index', compact('penduduk'));
+        return view('penduduk.index', compact('penduduk','totalPenduduk'));
     }
 
     /**

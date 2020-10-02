@@ -29,17 +29,13 @@ Route::get('/statistik-penduduk/agama', 'GrafikController@agama')->name('statist
 Route::get('/statistik-penduduk/usia', 'GrafikController@usia')->name('statistik-penduduk.usia');
 Route::get('/statistik-penduduk/golongan-darah', 'GrafikController@darah')->name('statistik-penduduk.darah');
 Route::get('/statistik-penduduk/status-perkawinan', 'GrafikController@perkawinan')->name('statistik-penduduk.perkawinan');
-Route::get('/statistik-penduduk/jenis-kelamin', 'GrafikController@kelamin')->name('statistik-penduduk.kelamin');
 
 Route::group(['middleware' => ['web', 'guest']], function () {
-
     Route::get('/masuk', 'AuthController@index')->name('masuk');
     Route::post('/masuk', 'AuthController@masuk');
-
 });
 
 Route::group(['middleware' => ['web', 'auth']], function () {
-
     Route::post('/keluar', 'AuthController@keluar')->name('keluar');
     Route::get('/pengaturan', 'UserController@pengaturan')->name('pengaturan');
     Route::get('/profil', 'UserController@profil')->name('profil');
@@ -86,14 +82,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/tambah-dusun', 'DusunController@create')->name('dusun.create');
     Route::resource('dusun', 'DusunController')->except('create','show');
     Route::resource('detailDusun', 'DetailDusunController')->except('create','edit');
-
-    Route::get('/grafik/pekerjaan', 'GrafikController@pekerjaan')->name('grafik.pekerjaan');
-    Route::get('/grafik/pendidikan', 'GrafikController@pendidikan')->name('grafik.pendidikan');
-    Route::get('/grafik/agama', 'GrafikController@agama')->name('grafik.agama');
-    Route::get('/grafik/usia', 'GrafikController@usia')->name('grafik.usia');
-    Route::get('/grafik/golongan-darah', 'GrafikController@darah')->name('grafik.darah');
-    Route::get('/grafik/status-perkawinan', 'GrafikController@perkawinan')->name('grafik.perkawinan');
-    Route::get('/grafik/jenis-kelamin', 'GrafikController@kelamin')->name('grafik.kelamin');
 
     Route::get('/chart-surat/{id}', 'SuratController@chartSurat')->name('chart-surat');
 });

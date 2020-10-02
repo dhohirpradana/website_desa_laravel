@@ -12,7 +12,79 @@
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xl-3 col-md-6 mb-3">
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
+                <div class="card card-stats shadow h-100">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Kepala Keluarga</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ $totalPenduduk->where('status_hubungan_dalam_keluarga_id',1)->count() }}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
+                <div class="card card-stats shadow h-100">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Total Penduduk</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ $totalPenduduk->count() }}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
+                <div class="card card-stats shadow h-100">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Laki-laki</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ $totalPenduduk->where('jenis_kelamin',1)->count() }}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
+                <div class="card card-stats shadow h-100">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Perempuan</h5>
+                                <span class="h2 font-weight-bold mb-0">{{ $totalPenduduk->where('jenis_kelamin',2)->count() }}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
                 <div class="card card-stats shadow h-100">
                     <!-- Card body -->
                     <div class="card-body">
@@ -30,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6 mb-3">
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
                 <div class="card card-stats shadow h-100">
                     <!-- Card body -->
                     <div class="card-body">
@@ -48,7 +120,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6 mb-3">
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
                 <div class="card card-stats shadow h-100">
                     <!-- Card body -->
                     <div class="card-body">
@@ -66,14 +138,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6 mb-3">
+            <div class="col-xl-3 col-md-6 col-sm-6 mb-3">
                 <div class="card card-stats shadow h-100">
                     <!-- Card body -->
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Total Cetak Surat</h5>
-                                <span class="h2 font-weight-bold mb-0">{{ $total }}</span>
+                                <span class="h2 font-weight-bold mb-0">{{ $totalCetakSurat }}</span>
                             </div>
                             <div class="col-auto">
                                 <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -154,17 +226,93 @@
             </div>
         </div>
     </div>
+    <div class="col-md-6 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <div id="chart-agama"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <div id="chart-darah"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <div id="chart-perkawinan"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <div id="chart-pendidikan"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <div id="chart-usia"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <div id="chart-pekerjaan" style="height: 400px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
 @push('scripts')
 <script>
-    let chart_tahunan = Highcharts.chart('chart-tahunan', {
+    let pie = {
+        chart: {
+            type: 'pie'
+        },
+        subtitle: {
+            text: "Total Penduduk: {{ $totalPenduduk->count() }}"
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}: {point.y:f}'
+                }
+            },
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                showInLegend: true
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b> Jiwa<br/>'
+        },
+
+        series: [
+            {
+                name: "Agama",
+                colorByPoint: true,
+                shadow:1,
+                border:1,
+                data: []
+            }
+        ]
+    }
+
+    let bar = {
         chart: {
             type: 'bar',
-        },
-        title: {
-            text: 'Grafik Cetak Surat Tahunan'
         },
         xAxis: {
             type: 'category',
@@ -201,23 +349,87 @@
         series: [{
             name: 'Jumlah Cetak',
             data: []
+        }]
+    };
+
+    let chart_agama = Highcharts.chart('chart-agama', pie);
+    chart_agama.title.textSetter("Grafik Agama");
+    chart_agama.series[0].setData({!! json_encode($agama) !!});
+
+    let chart_darah = Highcharts.chart('chart-darah', pie);
+    chart_darah.title.textSetter("Grafik Darah");
+    chart_darah.series[0].setData({!! json_encode($darah) !!});
+
+    let chart_pendidikan = Highcharts.chart('chart-pendidikan', pie);
+    chart_pendidikan.title.textSetter("Grafik Pendidikan");
+    chart_pendidikan.series[0].setData({!! json_encode($pendidikan) !!});
+
+    let chart_perkawinan = Highcharts.chart('chart-perkawinan', pie);
+    chart_perkawinan.title.textSetter("Grafik Perkawinan");
+    chart_perkawinan.series[0].setData({!! json_encode($perkawinan) !!});
+
+    Highcharts.chart('chart-usia', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Grafik Usia'
+        },
+        subtitle: {
+            text: 'Total Penduduk : {{ $totalPenduduk->count() }}'
+        },
+        xAxis: {
+            categories: {!! json_encode($usia['kategori']) !!},
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Jumlah Penduduk'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b> {point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: "Laki - laki",
+            data: {!! json_encode($usia['laki']) !!}
+
+        }, {
+            name: "Perempuan",
+            data: {!! json_encode($usia['perempuan']) !!}
         }]
     });
 
-    let chart_harian = Highcharts.chart('chart-harian', {
+    let chart_pekerjaan = Highcharts.chart('chart-pekerjaan', {
         chart: {
             type: 'bar',
+            marginLeft: 150
         },
         title: {
-            text: 'Grafik Cetak Surat Harian'
+            text: 'Grafik Pekerjaan'
+        },
+        subtitle: {
+            text: "Total Penduduk: {{ $totalPenduduk->count() }}"
         },
         xAxis: {
             type: 'category',
             title: {
-                text: null
+            text: null
             },
             min: 0,
-            max: 4,
+            max: 7,
             scrollbar: {
                 enabled: true
             },
@@ -226,7 +438,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Jumlah Cetak',
+                text: 'Jumlah Penduduk',
                 align: 'high'
             }
         },
@@ -244,55 +456,20 @@
             enabled: false
         },
         series: [{
-            name: 'Jumlah Cetak',
-            data: []
+            name: 'Jumlah Penduduk',
+            data: {!! json_encode($pekerjaan) !!}
         }]
     });
 
-    let chart_bulanan = Highcharts.chart('chart-bulanan', {
-        chart: {
-            type: 'bar',
-        },
-        title: {
-            text: 'Grafik Cetak Surat Bulanan'
-        },
-        xAxis: {
-            type: 'category',
-            title: {
-                text: null
-            },
-            min: 0,
-            max: 4,
-            scrollbar: {
-                enabled: true
-            },
-            tickLength: 0
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Jumlah Cetak',
-                align: 'high'
-            }
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Jumlah Cetak',
-            data: []
-        }]
-    });
+    let chart_harian = Highcharts.chart('chart-harian', bar);
+    chart_harian.title.textSetter("Grafik Cetak Surat Harian");
+
+    let chart_bulanan = Highcharts.chart('chart-bulanan', bar);
+    chart_bulanan.title.textSetter("Grafik Cetak Surat Bulanan");
+
+    let chart_tahunan = Highcharts.chart('chart-tahunan', bar);
+    chart_tahunan.title.textSetter("Grafik Cetak Surat Tahunan");
+
 
     $(document).ready(function(){
         $(".form-control").change(function () {

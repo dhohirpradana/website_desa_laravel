@@ -31,10 +31,10 @@
             text: 'Grafik Usia'
         },
         subtitle: {
-            text: "Total Penduduk: {{ $total }} Jiwa"
+            text: 'Total Penduduk : {{ $total }}'
         },
         xAxis: {
-            categories: {!! json_encode($kategori) !!},
+            categories: {!! json_encode($data['kategori']) !!},
             crosshair: true
         },
         yAxis: {
@@ -45,6 +45,8 @@
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b> {point.y}</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
@@ -56,8 +58,12 @@
             }
         },
         series: [{
-            name: 'Jumlah Penduduk',
-            data: {!! json_encode($data) !!}
+            name: "Laki - laki",
+            data: {!! json_encode($data['laki']) !!}
+
+        }, {
+            name: "Perempuan",
+            data: {!! json_encode($data['perempuan']) !!}
         }]
     });
 </script>
