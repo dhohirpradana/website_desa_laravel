@@ -25,24 +25,30 @@ class PendudukController extends Controller
      */
     public function index(Request $request)
     {
-        $penduduk = Penduduk::latest()->paginate(2);
+        $penduduk = Penduduk::latest()->paginate(10);
         $totalPenduduk = Penduduk::all();
 
         if ($request->cari) {
-            $penduduk = Penduduk::where(function ($penduduk) use ($request) {
-                $penduduk->where('nik', 'like', "%$request->cari%");
-                $penduduk->orWhere('kk', 'like', "%$request->cari%");
-                $penduduk->orWhere('nama', 'like', "%$request->cari%");
-                $penduduk->orWhere('tempat_lahir', 'like', "%$request->cari%");
-                $penduduk->orWhere('tanggal_lahir', 'like', "%$request->cari%");
-                $penduduk->orWhere('nomor_paspor', 'like', "%$request->cari%");
-                $penduduk->orWhere('nomor_kitas_atau_kitap', 'like', "%$request->cari%");
-                $penduduk->orWhere('nik_ayah', 'like', "%$request->cari%");
-                $penduduk->orWhere('nama_ayah', 'like', "%$request->cari%");
-                $penduduk->orWhere('nik_ibu', 'like', "%$request->cari%");
-                $penduduk->orWhere('nama_ibu', 'like', "%$request->cari%");
-                $penduduk->orWhere('alamat', 'like', "%$request->cari%");
-            })->latest()->paginate(10);
+            if ($request->cari == "Laki-laki") {
+                $penduduk = Penduduk::where('jenis_kelamin',1)->latest()->paginate(10);
+            } elseif ($request->cari == "Perempuan") {
+                $penduduk = Penduduk::where('jenis_kelamin',2)->latest()->paginate(10);
+            } else {
+                $penduduk = Penduduk::where(function ($penduduk) use ($request) {
+                    $penduduk->where('nik', 'like', "%$request->cari%");
+                    $penduduk->orWhere('kk', 'like', "%$request->cari%");
+                    $penduduk->orWhere('nama', 'like', "%$request->cari%");
+                    $penduduk->orWhere('tempat_lahir', 'like', "%$request->cari%");
+                    $penduduk->orWhere('tanggal_lahir', 'like', "%$request->cari%");
+                    $penduduk->orWhere('nomor_paspor', 'like', "%$request->cari%");
+                    $penduduk->orWhere('nomor_kitas_atau_kitap', 'like', "%$request->cari%");
+                    $penduduk->orWhere('nik_ayah', 'like', "%$request->cari%");
+                    $penduduk->orWhere('nama_ayah', 'like', "%$request->cari%");
+                    $penduduk->orWhere('nik_ibu', 'like', "%$request->cari%");
+                    $penduduk->orWhere('nama_ibu', 'like', "%$request->cari%");
+                    $penduduk->orWhere('alamat', 'like', "%$request->cari%");
+                })->latest()->paginate(10);
+            }
         }
 
         $penduduk->appends(request()->input())->links();

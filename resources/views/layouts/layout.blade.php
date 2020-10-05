@@ -139,60 +139,49 @@
                         @auth
                             <li class="nav-item dropdown">
                                 <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-copy"></i> <span class="nav-link-inner--text">Menu</span>
+                                    <i class="fas fa-bars"></i> <span class="nav-link-inner--text">Menu Admin</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
                                     <a class="dropdown-item font-weight-bold" href="{{ route('dashboard') }}">
-                                        <i class="fas fa-tachometer-alt text-blue"></i>
-                                        <span class="nav-link-inner--text">Dashboard</span>
+                                        <i class="fas fa-fw fa-tachometer-alt text-blue"></i> Dashboard
                                     </a>
                                     <a class="dropdown-item font-weight-bold" href="{{ route('penduduk.index') }}">
-                                        <i class="fas fa-users text-info"></i>
-                                        <span class="nav-link-inner--text">Kelola Penduduk</span>
+                                        <i class="fas fa-fw fa-users text-info"></i> Kelola Penduduk
                                     </a>
                                     <a class="dropdown-item font-weight-bold" href="{{ route('dusun.index') }}">
-                                        <i class="fas fa-map-marker-alt text-yellow"></i>
-                                        <span class="nav-link-inner--text">Kelola Dusun</span>
+                                        <i class="fas fa-fw fa-map-marker-alt text-yellow"></i> Kelola Dusun
                                     </a>
                                     <a class="dropdown-item font-weight-bold" href="{{ route('surat.index') }}">
-                                        <i class="ni ni-single-copy-04 text-primary"></i>
-                                        <span class="nav-link-inner--text">Kelola Surat</span>
+                                        <i class="fas fa-fw fa-file-alt text-primary"></i> Kelola Surat
                                     </a>
                                     <a href="{{ route('sejarah.index') }}" class="dropdown-item font-weight-bold">
-                                        <i class="fas fa-atlas text-success"></i>
-                                        <span class="nav-link-inner--text">Kelola Sejarah</span>
+                                        <i class="fas fa-fw fa-atlas text-success"></i> Kelola Sejarah
                                     </a>
                                     <a href="{{ route('berita.index') }}" class="dropdown-item font-weight-bold">
-                                        <i class="fas fa-newspaper text-cyan"></i>
-                                        <span class="nav-link-inner--text">Kelola Berita</span>
+                                        <i class="fas fa-fw fa-newspaper text-cyan"></i> Kelola Berita
                                     </a>
                                     <a class="dropdown-item font-weight-bold" href="{{ route('gallery.index') }}">
-                                        <i class="fas fa-images text-orange"></i>
-                                        <span class="nav-link-inner--text">Kelola Gallery</span>
+                                        <i class="fas fa-fw fa-images text-orange"></i> Kelola Gallery
                                     </a>
                                     <a class="dropdown-item font-weight-bold" href="{{ route('slider.index') }}">
-                                        <i class="fas fa-images text-purple"></i>
-                                        <span class="nav-link-inner--text">Kelola Slider</span>
+                                        <i class="fas fa-fw fa-images text-purple"></i> Kelola Slider
                                     </a>
                                     <a class="dropdown-item font-weight-bold" href="{{ route('profil-desa') }}">
-                                        <i class="fas fa-users text-info"></i>
-                                        <span class="nav-link-inner--text">Profil Desa</span>
+                                        <i class="fas fa-fw fa-users text-info"></i> Profil Desa
                                     </a>
                                     <a class="dropdown-item font-weight-bold" href="{{ route('profil') }}">
-                                        <i class="ni ni-single-02 text-yellow"></i>
-                                        <span class="nav-link-inner--text">Profil Saya</span>
+                                        <i class="fas fa-fw fa-user text-yellow"></i> Profil Saya
                                     </a>
+                                    <hr class="m-0">
+                                    <a class="dropdown-item font-weight-bold" href="{{ route('keluar') }}" onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
+                                        <i class="fas fa-fw fa-sign-out-alt"></i> Keluar
+                                    </a>
+                                    <form id="form-keluar" action="{{ route('keluar') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-icon" href="{{ route('keluar') }}" onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
-                                    <i class="ni ni-user-run"></i>
-                                    <span class="nav-link-inner--text">Keluar</span>
-                                </a>
-                            </li>
-                            <form id="form-keluar" action="{{ route('keluar') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+
                         @endguest
                     </ul>
                 </div>

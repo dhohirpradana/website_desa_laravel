@@ -74,6 +74,7 @@
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                     <tr>
+                        <th class="text-center">#</th>
                         <th>Nomor Surat</th>
                         @php
                             $i = 0;
@@ -103,22 +104,21 @@
                             <th class="text-center">Yang Bersangkutan</th>
                         @endif
                         <th class="text-center">Tanggal Cetak</th>
-                        <th class="text-center">Opsi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($cetakSurat as $item)
                         <tr>
-                            <td>{{ $item->nomor ? $item->nomor : "-" }}</td>
-                            @foreach ($item->DetailCetak as $DetailCetak)
-                                <td>{{ $DetailCetak->isian }}</td>
-                            @endforeach
-                            <td>{{ date('d/m/Y H:i' ,strtotime($item->created_at)) }}</td>
                             <td>
                                 <a target="_blank" href="{{ route('cetakSurat.show', $item->id) }}" class="btn btn-sm btn-success" title="Detail Cetak" data-toggle="tooltip"><i class="fas fa-print"></i></a>
                                 <a href="#modal-nomor" data-toggle="modal" data-id="{{ $item->id }}" data-nomor="{{ $item->nomor }}" class="btn btn-sm btn-primary update" title="{{ $item->nomor ? "Ubah nomor" : "Tambah nomor" }}"><i class="fas fa-edit"></i> {{ $item->nomor ? "Ubah nomor" : "Tambah nomor" }}</a>
                                 <a class="btn btn-sm btn-danger hapus" data-id="{{ $item->id }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
                             </td>
+                            <td>{{ $item->nomor ? $item->nomor : "-" }}</td>
+                            @foreach ($item->DetailCetak as $DetailCetak)
+                                <td>{{ $DetailCetak->isian }}</td>
+                            @endforeach
+                            <td>{{ date('d/m/Y H:i' ,strtotime($item->created_at)) }}</td>
                         </tr>
                     @empty
                         <tr>
