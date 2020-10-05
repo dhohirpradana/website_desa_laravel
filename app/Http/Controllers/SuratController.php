@@ -215,6 +215,7 @@ class SuratController extends Controller
             'nama'                      => $request->nama,
             'icon'                      => $request->icon,
             'deskripsi'                 => $request->deskripsi,
+            'persyaratan'               => $request->persyaratan,
             'perihal'                   => $request->perihal,
             'data_kades'                => $request->data_kades,
             'tampilkan'                 => $request->tampilkan_surat,

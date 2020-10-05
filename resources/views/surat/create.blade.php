@@ -71,6 +71,10 @@
                             <label class="form-control-label">Deskripsi</label>
                             <textarea class="form-control form-control-alternative" name="deskripsi"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Persyaratan</label>
+                            <textarea class="form-control form-control-alternative" name="persyaratan" placeholder="Masukkan persyaratan untuk membuat surat yang ditujukan untuk warga"></textarea>
+                        </div>
                     </div>
                     <h6 class="heading-small text-muted mt-4">Isian</h6>
                     <div class="pl-lg-4" id="isian"></div>

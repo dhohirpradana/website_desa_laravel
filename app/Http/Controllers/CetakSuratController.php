@@ -61,10 +61,8 @@ class CetakSuratController extends Controller
                 ]);
             }
 
-            $surat->jumlah_cetak = CetakSurat::where('surat_id', $id)->count();
             $surat->save();
         }
-
 
         return $pdf->stream($surat->nama . '.pdf');
     }

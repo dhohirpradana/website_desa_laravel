@@ -70,8 +70,8 @@
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary my-4">Cetak</button>
-                <p>Untuk mencetak harap menggunakan kertas berukuran F4</p>
             </div>
+            <p>{!! nl2br($surat->persyaratan) !!}</p>
         </form>
     </div>
 </div>
