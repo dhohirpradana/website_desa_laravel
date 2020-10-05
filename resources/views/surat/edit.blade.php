@@ -91,16 +91,19 @@
                                             <label class="form-control-label">Sifat</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="<?php try { echo $perihal[0]; } catch (\Throwable $th){}  ?>">
                                             <input type="hidden" name="jenis_isi[]" value="4">
+                                            <input type="hidden" name="tampilkan[]" value="0">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label">Lampiran</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="<?php try { echo $perihal[1]; } catch (\Throwable $th){}  ?>">
                                             <input type="hidden" name="jenis_isi[]" value="4">
+                                            <input type="hidden" name="tampilkan[]" value="0">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label">Perihal</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="<?php try { echo $perihal[2]; } catch (\Throwable $th){}  ?>">
                                             <input type="hidden" name="jenis_isi[]" value="4">
+                                            <input type="hidden" name="tampilkan[]" value="0">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -108,11 +111,13 @@
                                             <label class="form-control-label">Kepada</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="<?php try { echo $perihal[3]; } catch (\Throwable $th){}  ?>">
                                             <input type="hidden" name="jenis_isi[]" value="4">
+                                            <input type="hidden" name="tampilkan[]" value="0">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label">Di</label>
                                             <input class="form-control form-control-alternative" name="isian[]" value="<?php try { echo $perihal[4]; } catch (\Throwable $th){}  ?>">
                                             <input type="hidden" name="jenis_isi[]" value="4">
+                                            <input type="hidden" name="tampilkan[]" value="0">
                                         </div>
                                     </div>
                                 </div>
