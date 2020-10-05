@@ -18,11 +18,12 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $desa = Desa::find(1);
+        $api_key = config('api.key');
         Video::truncate();
         $apiUrl = "https://www.googleapis.com/youtube/v3/search?";
         $part = "part=snippet";
-        $channelId = "&channelId={$desa->channel_id}";
-        $key = "&key={$desa->api_key}";
+        $channelId = "&channelId=$desa->channel_id";
+        $key = "&key=$api_key";
         $maxResults = "&maxResults=50";
         $nextPageToken = "&pageToken=";
         $reload = true;
@@ -79,15 +80,14 @@ class VideoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Video $video)
+    public function update(Request $request)
     {
         $data = $request->validate([
             'channel_id'    => ['nullable', 'string' ,'max:64'],
-            'api_key'       => ['nullable', 'string' ,'max:128']
         ]);
+
         $desa = Desa::find(1);
 
         $desa->update($data);

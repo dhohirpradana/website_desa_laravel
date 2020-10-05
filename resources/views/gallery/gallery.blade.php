@@ -5,11 +5,7 @@
 <meta name="description" content="Gallery Desa {{ $desa->nama_desa }}, Kecamatan {{ $desa->nama_kecamatan }}, Kabupaten {{ $desa->nama_kabupaten }}">
 
 <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">
-<style>
-    .animate-up:hover {
-        top: -5px;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endsection
 
 @section('header')

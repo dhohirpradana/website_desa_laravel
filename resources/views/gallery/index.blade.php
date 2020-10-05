@@ -10,9 +10,6 @@
         cursor: pointer;
         opacity: 0.7;
     }
-    .animate-up:hover{
-        top: -5px;
-    }
 </style>
 @endsection
 
@@ -93,10 +90,6 @@
                     <div class="form-group">
                         <label class="form-control-label">Channel ID Youtube</label>
                         <input type="text" name="channel_id" id="channel_id" class="form-control" value="{{ $desa->channel_id }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-control-label">API KEY</label>
-                        <input type="text" name="api_key" id="api_key" class="form-control" value="{{ $desa->api_key }}">
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
