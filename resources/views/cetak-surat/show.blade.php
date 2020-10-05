@@ -166,17 +166,18 @@
 
                 @php
                     $i++;
+                    try {
+                        if ($surat->isiSurat[$key + 1]->jenis_isi != 3) {
+                            echo "</tbody>";
+                            echo "</table>";
+                            $tabel = true;
+                        }
+                    } catch (\Throwable $th) {}
                 @endphp
-                @if ($surat->isiSurat[$key + 1]->jenis_isi != 3)
-                        </tbody>
-                    </table>
-                    @php
-                        $tabel = true;
-                    @endphp
-                @endif
             @endif
         @endforeach
-        <div>
+
+        <div class="mt-3">
             @if ($surat->tanda_tangan_bersangkutan == 1)
                 <div style="width: 50%" class="float-left text-center">
                     <br>

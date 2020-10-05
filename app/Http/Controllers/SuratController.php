@@ -212,26 +212,14 @@ class SuratController extends Controller
     public function dataSurat($request)
     {
         $dataSurat = [
-            'nama'      => $request->nama,
-            'icon'      => $request->icon,
-            'deskripsi' => $request->deskripsi,
+            'nama'                      => $request->nama,
+            'icon'                      => $request->icon,
+            'deskripsi'                 => $request->deskripsi,
+            'perihal'                   => $request->perihal,
+            'data_kades'                => $request->data_kades,
+            'tampilkan'                 => $request->tampilkan_surat,
+            'tanda_tangan_bersangkutan' => $request->tanda_tangan_bersangkutan,
         ];
-
-        if ($request->perihal) {
-            $dataSurat['perihal'] = 1;
-        }
-
-        if ($request->tanda_tangan_bersangkutan) {
-            $dataSurat['tanda_tangan_bersangkutan'] = 1;
-        }
-
-        if ($request->data_kades) {
-            $dataSurat['data_kades'] = 1;
-        }
-
-        if ($request->tampilkan_surat) {
-            $dataSurat['tampilkan'] = 1;
-        }
 
         return $dataSurat;
     }

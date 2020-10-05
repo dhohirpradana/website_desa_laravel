@@ -75,8 +75,9 @@
                 @endif
                 @if ($item->tampilkan == 0)
                     <p class="font-weight-bold">(Belum ditampilkan)</p>
+                    <a href="{{ route('buat-surat', ['id' => $item->id,'slug' => Str::slug($item->nama)]) }}" class="btn btn-sm btn-success" title="Cetak"><i class="fas fa-print"></i> Coba cetak</a>
                 @endif
-                <a href="{{ route('surat.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
+                <a href="{{ route('surat.edit', $item) }}" class="btn btn-sm btn-primary" title="Edit"><i class="fas fa-edit"></i> Edit</a>
                 <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->nama }}" data-action="{{ route('surat.destroy', $item) }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
             </div>
         </div>
