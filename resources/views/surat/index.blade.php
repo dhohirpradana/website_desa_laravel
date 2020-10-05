@@ -70,8 +70,8 @@
                     <h4>{{ $item->nama }}</h4>
                 </a>
                 <p>{{ $item->deskripsi }}</p>
-                @if ($item->jumlah_cetak > 0)
-                    <p class="text-sm text-muted">Telah dicetak sebanyak {{ $item->jumlah_cetak }}x</p>
+                @if ($item->cetakSurat->count() > 0)
+                    <p class="text-sm text-muted">Telah dicetak sebanyak {{ $item->cetakSurat->count() }}x</p>
                 @endif
                 @if ($item->tampilkan == 0)
                     <p class="font-weight-bold">(Belum ditampilkan)</p>

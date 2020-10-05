@@ -75,6 +75,17 @@ class CetakSuratController extends Controller
      * @param  \App\CetakSurat  $cetakSurat
      * @return \Illuminate\Http\Response
      */
+    public function edit(CetakSurat $cetakSurat)
+    {
+        return view('cetak-surat.edit', compact('cetakSurat'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\CetakSurat  $cetakSurat
+     * @return \Illuminate\Http\Response
+     */
     public function show(CetakSurat $cetakSurat)
     {
         $desa = Desa::find(1);
@@ -95,13 +106,23 @@ class CetakSuratController extends Controller
      */
     public function update(Request $request, CetakSurat $cetakSurat)
     {
-        $data = $request->validate([
-            'nomor' => ['required'],
+        $request->validate([
+            'nomor'     => ['nullable','numeric','min:1'],
+            'isian.*'   => ['required']
         ]);
 
-        $cetakSurat->update($data);
+        $cetakSurat->update(['nomor' => $request->nomor]);
 
-        return back()->with('success','Nomor surat berhasil diperbarui');
+        DetailCetak::where('cetak_surat_id', $cetakSurat->id)->delete();
+
+        foreach ($request->isian as $isian) {
+            DetailCetak::create([
+                'cetak_surat_id'    => $cetakSurat->id,
+                'isian'             => $isian
+            ]);
+        }
+
+        return back()->with('success','Detail cetak surat berhasil diperbarui');
     }
 
     /**

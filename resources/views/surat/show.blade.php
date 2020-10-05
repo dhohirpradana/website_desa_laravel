@@ -110,9 +110,9 @@
                     @forelse ($cetakSurat as $item)
                         <tr>
                             <td>
-                                <a target="_blank" href="{{ route('cetakSurat.show', $item->id) }}" class="btn btn-sm btn-success" title="Detail Cetak" data-toggle="tooltip"><i class="fas fa-print"></i></a>
-                                <a href="#modal-nomor" data-toggle="modal" data-id="{{ $item->id }}" data-nomor="{{ $item->nomor }}" class="btn btn-sm btn-primary update" title="{{ $item->nomor ? "Ubah nomor" : "Tambah nomor" }}"><i class="fas fa-edit"></i> {{ $item->nomor ? "Ubah nomor" : "Tambah nomor" }}</a>
-                                <a class="btn btn-sm btn-danger hapus" data-id="{{ $item->id }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
+                                <a target="_blank" href="{{ route('cetakSurat.show', $item->id) }}" class="btn btn-sm btn-success" title="Detail Cetak" data-toggle="tooltip"><i class="fas fa-print"></i> Cetak</a>
+                                <a href="{{ route('cetakSurat.edit',$item->id) }}" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"><i class="fas fa-edit"></i> Edit</a>
+                                <a class="btn btn-sm btn-danger hapus-data" data-nama="Detail cetak surat ini" data-action="{{ route('cetakSurat.destroy',$item->id) }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
                             </td>
                             <td>{{ $item->nomor ? $item->nomor : "-" }}</td>
                             @foreach ($item->DetailCetak as $DetailCetak)
@@ -129,32 +129,6 @@
             </table>
         </div>
         {{ $cetakSurat->links() }}
-    </div>
-</div>
-
-<div class="modal fade" id="modal-nomor" tabindex="-1" role="dialog" aria-labelledby="modal-nomor" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h6 class="modal-title" id="modal-title-delete">NOMOR SURAT</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <form id="form-update" action="" class="d-inline" method="POST" >
-                    @csrf @method('patch')
-                    <div class="form-group">
-                        <input type="text" name="nomor" id="nomor" class="form-control" placeholder="Nomor surat">
-                    </div>
-                    <button type="submit" class="btn btn-primary float-right">Simpan</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            </div>
-
-        </div>
     </div>
 </div>
 
@@ -175,7 +149,7 @@
                     <i class="ni ni-bell-55 ni-3x"></i>
                     <h4 class="heading mt-4">Perhatian!!</h4>
                     <p>Menghapus detail surat akan menghapus semua data yang dimilikinya</p>
-                    <p><strong>Apakah anda yakin ingin menghapus detail cetak surat ini ?</strong></p>
+                    <p><strong id="nama-hapus"></strong></p>
                 </div>
 
             </div>
@@ -198,27 +172,12 @@
 
 <script>
     const ctx = document.getElementById('chart-hari').getContext('2d');
-    var chart = new Chart(ctx, {
+    let chart = new Chart(ctx, {
         type: 'bar',
         data: {}
     });
 
     $(document).ready(function(){
-        $('.hapus').on('click', function(){
-            $('#form-hapus').attr('action', $("meta[name='base-url']").attr('content') + '/cetakSurat/' + $(this).data('id'));
-        });
-
-        $('.update').on('click', function(){
-            $('#form-update').attr('action', $("meta[name='base-url']").attr('content') + '/cetakSurat/' + $(this).data('id'));
-            $("#nomor").val($(this).data('nomor'));
-        });
-
-        $('button:submit').click(function () {
-            $(this).html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
-        });
-
-        $(".pagination").addClass("justify-content-center");
-
         $.get("{{ route('chart-surat',$surat->id) }}", function (response) {
             chart.data = response;
             chart.update();
