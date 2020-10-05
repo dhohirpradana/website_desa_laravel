@@ -97,7 +97,7 @@
                 try {
                     if ($surat->isiSurat[$key + 1]->jenis_isi == 3 || $data_kades == true && $surat->data_kades == 1) {
                         if ($isiSurat->jenis_isi == 1) {
-                            echo '<div class="text-justify" style="text-indent: 50px">'. $hasil .'</div>';
+                            echo '<div class="text-justify">'. str_repeat('&nbsp;', 12) . $hasil .'</div>';
                         } elseif ($isiSurat->jenis_isi == 2) {
                             echo '<div class="text-justify">'. $hasil .'</div>';
                         } elseif ($isiSurat->jenis_isi == 5) {
@@ -105,7 +105,7 @@
                         }
                     } else {
                         if ($isiSurat->jenis_isi == 1) {
-                            echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
+                            echo '<p class="text-justify">'. str_repeat('&nbsp;', 12) . $hasil .'</p>';
                         } elseif ($isiSurat->jenis_isi == 2) {
                             echo '<p class="text-justify">'. $hasil .'</p>';
                         } elseif ($isiSurat->jenis_isi == 5) {
@@ -114,7 +114,7 @@
                     }
                 } catch (\Throwable $th) {
                     if ($isiSurat->jenis_isi == 1) {
-                        echo '<p class="text-justify" style="text-indent: 50px">'. $hasil .'</p>';
+                        echo '<p class="text-justify">'. str_repeat('&nbsp;', 12) . $hasil .'</p>';
                     } elseif ($isiSurat->jenis_isi == 2) {
                         echo '<p class="text-justify">'. $hasil .'</p>';
                     } elseif ($isiSurat->jenis_isi == 5) {
