@@ -88,6 +88,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link @if (Request::segment(1) == 'anggaran-realisasi' || Request::segment(1) == 'tambah-anggaran-realisasi') active @endif" href="{{ route('anggaran-realisasi.index') }}">
+                    <i class="fas fa-coins text-success"></i>
+                    <span class="nav-link-inner--text">Kelola Anggaran Realisasi APBDes</span><span class="badge badge-success ml-1">new</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'surat' || Request::segment(1) == 'tambah-surat') active @endif" href="{{ route('surat.index') }}">
                     <i class="ni ni-single-copy-04 text-primary"></i>
                     <span class="nav-link-inner--text">Kelola Surat</span>

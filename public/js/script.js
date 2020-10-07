@@ -12,6 +12,13 @@ $(document).on("change", "input", function (event) {
     $('.alert-dismissible').remove();
 });
 
+$(document).on("change", "select", function (event) {
+    $(this).attr('value', this.value);
+    $(this).removeClass('is-invalid');
+    $(this).siblings('.invalid-feedback').remove();
+    $('.alert-dismissible').remove();
+});
+
 $(document).on("change", "textarea", function (event) {
     $(this).html(event.target.value);
     $(this).removeClass('is-invalid');
@@ -61,4 +68,18 @@ function alertError () {
             </button>
         </div>
     `);
+}
+
+function hanyaAngka(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+function hanyaHuruf(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && charCode > 32)
+        return false;
+    return true;
 }

@@ -11,6 +11,11 @@ class DetailJenisAnggaran extends Model
 
     public function kelompok_jenis_anggaran()
     {
+        return $this->belongsTo('App\KelompokJenisAnggaran');
+    }
+
+    public function jenis_anggaran()
+    {
         return $this->belongsTo('App\JenisAnggaran');
     }
 }
