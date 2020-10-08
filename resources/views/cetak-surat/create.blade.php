@@ -6,8 +6,8 @@
 @endsection
 
 @section('header')
-<h1 class="text-sm text-uppercase text-white text-muted">Buat Surat {{ $surat->nama }}</h1>
-<h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
+<h1 class="text-uppercase text-white text-muted">Buat Surat {{ $surat->nama }}</h1>
+<p class="text-white">{{ $surat->deskripsi }}</p>
 @endsection
 
 @section('content')
@@ -30,9 +30,6 @@
 </div>
 <div class="card bg-secondary shadow border-0">
     <div class="card-body px-lg-5 py-lg-5">
-        <div class="text-center mb-4">
-            <p>{{ $surat->deskripsi }}</p>
-        </div>
         <form role="form" action="{{ route('cetak-surat.store', ['id' => $surat->id, 'slug' => Str::slug($surat->nama)]) }}" method="POST">
             @csrf
             @foreach ($surat->isiSurat as $key => $isiSurat)

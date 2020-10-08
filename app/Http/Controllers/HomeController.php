@@ -8,6 +8,7 @@ use App\Gallery;
 use App\Penduduk;
 use App\Sejarah;
 use App\Surat;
+use App\Video;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -19,7 +20,36 @@ class HomeController extends Controller
         $berita = Berita::latest()->take(3)->get();
         $sejarah = Sejarah::latest()->take(3)->get();
         $gallery = Gallery::where('slider', 1)->get();
-        return view('index', compact('surat', 'desa', 'gallery','berita','sejarah'));
+        $galleries = array();
+        $videos = Video::all();
+
+        foreach (Gallery::where('slider', null)->get() as $key => $value) {
+            $gambar = [
+                'gambar'    => $value->gallery,
+                'id'        => $value->id,
+                'caption'   => $value->caption,
+                'jenis'     => 1,
+                'created_at'=> strtotime($value->created_at),
+            ];
+            array_push($galleries, $gambar);
+        }
+
+        foreach ($videos as $key => $value) {
+            $gambar = [
+                'gambar'    => $value->gambar,
+                'id'        => $value->video_id,
+                'caption'   => $value->caption,
+                'jenis'     => 2,
+                'created_at'=> strtotime($value->published_at),
+            ];
+            array_push($galleries, $gambar);
+        }
+
+        usort($galleries, function($a, $b) {
+            return $a['created_at'] < $b['created_at'];
+        });
+
+        return view('index', compact('surat', 'desa', 'gallery','berita','sejarah','galleries'));
     }
 
     public function dashboard()
