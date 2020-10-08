@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home.index');
+
+Route::get('/layanan-surat', 'SuratController@layanan_surat')->name('layanan-surat');
 Route::get('/sejarah', 'SejarahController@sejarah')->name('sejarah');
 Route::get('/sejarah/{sejarah}/{slug}', 'SejarahController@show')->name('sejarah.show');
 Route::get('/berita', 'BeritaController@berita')->name('berita');
@@ -21,14 +23,9 @@ Route::get('/berita/{berita}/{slug}', 'BeritaController@show')->name('berita.sho
 Route::get('/gallery', 'GalleryController@gallery')->name('gallery');
 Route::get('/buat-surat/{id}/{slug}', 'CetakSuratController@create')->name('buat-surat');
 Route::get('/panduan', 'HomeController@panduan')->name('panduan');
+Route::get('/statistik-penduduk', 'GrafikController@index')->name('statistik-penduduk');
+Route::get('/anggaran-realisasi-cart', 'AnggaranRealisasiController@cart')->name('anggaran-realisasi.cart');
 Route::post('/cetak-surat/{id}/{slug}', 'CetakSuratController@store')->name('cetak-surat.store');
-
-Route::get('/statistik-penduduk/pekerjaan', 'GrafikController@pekerjaan')->name('statistik-penduduk.pekerjaan');
-Route::get('/statistik-penduduk/pendidikan', 'GrafikController@pendidikan')->name('statistik-penduduk.pendidikan');
-Route::get('/statistik-penduduk/agama', 'GrafikController@agama')->name('statistik-penduduk.agama');
-Route::get('/statistik-penduduk/usia', 'GrafikController@usia')->name('statistik-penduduk.usia');
-Route::get('/statistik-penduduk/golongan-darah', 'GrafikController@darah')->name('statistik-penduduk.darah');
-Route::get('/statistik-penduduk/status-perkawinan', 'GrafikController@perkawinan')->name('statistik-penduduk.perkawinan');
 
 Route::group(['middleware' => ['web', 'guest']], function () {
     Route::get('/masuk', 'AuthController@index')->name('masuk');
@@ -80,7 +77,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('penduduk', 'PendudukController')->except('create','show');
 
     Route::get('/kelompok-jenis-anggaran/{kelompokJenisAnggaran}', 'AnggaranRealisasiController@kelompokJenisAnggaran');
-    Route::get('/detail-jenis-anggaran/{id}', 'AnggaranRealisasiController@show')->name('anggaran-realisasi.show');
+    Route::get('/detail-jenis-anggaran/{id}', 'AnggaranRealisasiController@show')->name('detail-jenis-anggaran.show');
     Route::get('/tambah-anggaran-realisasi', 'AnggaranRealisasiController@create')->name('anggaran-realisasi.create');
     Route::resource('anggaran-realisasi', 'AnggaranRealisasiController')->except('create','show');
 

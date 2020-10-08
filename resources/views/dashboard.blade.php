@@ -168,14 +168,11 @@
             <div class="card-header">
                 <div
                     class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <h2 class="mb-0">Grafik Cetak Surat Harian</h2>
                     </div>
-                    <div class="mb-3">
-                        <form id="form-tanggal" action="javascript:;" method="GET">
-                            <input type="date" name="tanggal" id="tanggal" class="form-control"
-                                value="{{ request('tanggal') ? request('tanggal') : date('Y-m-d') }}">
-                        </form>
+                    <div class="mb-1">
+                        <input type="date" name="tanggal" id="tanggal" class="form-control-sm" value="{{ date('Y-m-d') }}">
                     </div>
                 </div>
             </div>
@@ -189,14 +186,11 @@
             <div class="card-header font-weight-bold">
                 <div
                     class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <h2 class="mb-0">Grafik Cetak Surat Bulanan</h2>
                     </div>
-                    <div class="mb-3">
-                        <form id="form-bulan" action="javascript:;" method="GET">
-                            <input type="month" name="bulan" id="bulan" class="form-control"
-                                value="{{ request('bulan') ? request('bulan') : date('Y-m') }}">
-                        </form>
+                    <div class="mb-1">
+                        <input type="month" name="bulan" id="bulan" class="form-control-sm" value="{{ date('Y-m') }}">
                     </div>
                 </div>
             </div>
@@ -210,14 +204,11 @@
             <div class="card-header font-weight-bold">
                 <div
                     class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <h2 class="mb-0">Grafik Cetak Surat Tahunan</h2>
                     </div>
-                    <div class="mb-3">
-                        <form id="form-tahun" action="javascript:;" method="GET">
-                            <input type="number" name="tahun" id="tahun" class="form-control"
-                                value="{{ request('tahun') ? request('tahun') : date('Y') }}">
-                        </form>
+                    <div class="mb-1">
+                        Tahun : <input type="number" name="tahun" id="tahun" class="form-control-sm" value="{{ date('Y') }}" style="width:80px">
                     </div>
                 </div>
             </div>
@@ -268,10 +259,98 @@
             </div>
         </div>
     </div>
+    <div class="col-md-12 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header">
+                <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
+                    <div class="mb-1">
+                        <h2 class="mb-0">Grafik Pelaksanaan APBDes</h2>
+                    </div>
+                    <div class="mb-1">
+                        Tahun : <input type="number" name="tahun-apbdes" id="tahun-apbdes" class="form-control-sm" value="{{ date('Y') }}" style="width:80px">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-12 mb-3">
+                        <div class="text-center">
+                            <h3 class="mb-0">PELAKSANAAN</h3>
+                            <p class="text-sm mb-0">Realisasi | Anggaran</p>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-info">
+                                <div class="progress-label">
+                                    <span>Pendapatan</span>
+                                    <span id="pendapatan-uang">Rp. 0 | Rp. 0</span>
+                                </div>
+                                <div class="progress-percentage">
+                                    <span id="pendapatan-persen">0%</span>
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div id="pendapatan-value" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-info">
+                                <div class="progress-label">
+                                    <span>Belanja</span>
+                                    <span id="belanja-uang">Rp. 0 | Rp. 0</span>
+                                </div>
+                                <div class="progress-percentage">
+                                    <span id="belanja-persen">0%</span>
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div id="belanja-value" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-info">
+                                <div class="progress-label">
+                                    <span>Pembiayaan</span>
+                                    <span id="pembiayaan-uang">Rp. 0 | Rp. 0</span>
+                                </div>
+                                <div class="progress-percentage">
+                                    <span id="pembiayaan-persen">0%</span>
+                                </div>
+                            </div>
+                            <div class="progress">
+                                <div id="pembiayaan-value" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="text-center">
+                            <h3 class="mb-0">PENDAPATAN</h3>
+                            <p class="text-sm mb-0">Realisasi | Anggaran</p>
+                        </div>
+                        <div id="pendapatan-wrapper"></div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="text-center">
+                            <h3 class="mb-0">BELANJA</h3>
+                            <p class="text-sm mb-0">Realisasi | Anggaran</p>
+                        </div>
+                        <div id="belanja-wrapper"></div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="text-center">
+                            <h3 class="mb-0">PEMBIAYAAN</h3>
+                            <p class="text-sm mb-0">Realisasi | Anggaran</p>
+                        </div>
+                        <div id="pembiayaan-wrapper"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
 @push('scripts')
+<script src="{{ asset('js/apbdes.js') }}"></script>
 <script>
     let pie = {
         chart: {
@@ -470,7 +549,6 @@
     let chart_tahunan = Highcharts.chart('chart-tahunan', bar);
     chart_tahunan.title.textSetter("Grafik Cetak Surat Tahunan");
 
-
     $(document).ready(function(){
         $(".form-control").change(function () {
             $(this).parent().submit();
@@ -488,16 +566,14 @@
             chart_tahunan.series[0].setData(response);
         });
 
-        $("#form-tanggal").submit(function () {
-            let form = this;
-            $.get("{{ route('surat-harian') }}", {'tanggal': $(this).find('[name="tanggal"]').val()}, function (response) {
+        $("#tanggal").change(function () {
+            $.get("{{ route('surat-harian') }}", {'tanggal': $(this).val()}, function (response) {
                 chart_harian.series[0].setData(response);
             });
         });
 
-        $("#form-bulan").submit(function () {
-            let form = this;
-            $.get("{{ route('surat-bulanan') }}", {'bulan': $(this).find('[name="bulan"]').val()}, function (response) {
+        $("#bulan").change(function () {
+            $.get("{{ route('surat-bulanan') }}", {'bulan': $(this).val()}, function (response) {
                 chart_bulanan.series[0].setData(response);
             });
         });

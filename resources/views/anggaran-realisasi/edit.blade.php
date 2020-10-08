@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Anggaran Realisasi APBDes')
+@section('title', 'Edit Anggaran Pendapatan Belanja Desa')
 
 @section('styles')
 
@@ -15,8 +15,8 @@
                     <div class="card-header border-0">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-between text-center text-md-left">
                             <div class="mb-3">
-                                <h2 class="mb-0">Tambah Anggaran Realisasi APBDes</h2>
-                                <p class="mb-0 text-sm">Kelola Anggaran Realisasi APBDes</p>
+                                <h2 class="mb-0">Edit Anggaran Pendapatan Belanja Desa</h2>
+                                <p class="mb-0 text-sm">Kelola Anggaran Pendapatan Belanja Desa</p>
                             </div>
                             <div class="mb-3">
                                 <a href="{{ route("anggaran-realisasi.index") }}" class="btn btn-success" title="Kembali"><i class="fas fa-arrow-left"></i> Kembali</a>
@@ -36,11 +36,11 @@
     <div class="col">
         <div class="card bg-secondary shadow h-100">
             <div class="card-header bg-white border-0">
-                <h3 class="mb-0">Tambah Anggaran Realisasi APBDes</h3>
+                <h3 class="mb-0">Edit Anggaran Pendapatan Belanja Desa</h3>
             </div>
             <div class="card-body">
-                <form autocomplete="off" action="{{ route('anggaran-realisasi.store') }}" method="post" enctype="multipart/form-data">
-                    @csrf
+                <form autocomplete="off" action="{{ route('anggaran-realisasi.update', $anggaran_realisasi) }}" method="post" enctype="multipart/form-data">
+                    @csrf @method('patch')
                     <div class="row">
                         <div class="form-group col-md-2">
                             <label class="form-control-label">Tahun</label>
@@ -91,7 +91,7 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-        $.getJSON("{{ route('anggaran-realisasi.show', $anggaran_realisasi->detail_jenis_anggaran->jenis_anggaran_id) }}", function (response) {
+        $.getJSON("{{ route('detail-jenis-anggaran.show', $anggaran_realisasi->detail_jenis_anggaran->jenis_anggaran_id) }}", function (response) {
             $("#detail_jenis_anggaran_id").html(`<option value="" selected disabled>Pilih Detail Jenis Anggaran</option>`);
             $.each(response, function(key, item) {
                 if (!item.nama) {

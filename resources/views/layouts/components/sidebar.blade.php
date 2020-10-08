@@ -90,7 +90,7 @@
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'anggaran-realisasi' || Request::segment(1) == 'tambah-anggaran-realisasi') active @endif" href="{{ route('anggaran-realisasi.index') }}">
                     <i class="fas fa-coins text-success"></i>
-                    <span class="nav-link-inner--text">Kelola Anggaran Realisasi APBDes</span><span class="badge badge-success ml-1">new</span>
+                    <span class="nav-link-inner--text">Kelola APBDes</span><span class="badge badge-success ml-1">new</span>
                 </a>
             </li>
             <li class="nav-item">

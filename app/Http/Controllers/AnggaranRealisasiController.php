@@ -15,10 +15,130 @@ class AnggaranRealisasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $anggaran_realisasi = AnggaranRealisasi::latest()->paginate(10);
-        return view('anggaran-realisasi.index', compact('anggaran_realisasi'));
+        $pendapatan = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($pendapatan) {$pendapatan->where('jenis_anggaran_id', 4);})->latest()->paginate(20);
+        $belanja = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 5);})->latest()->paginate(20);
+        $pembiayaan = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($pembiayaan) {$pembiayaan->where('jenis_anggaran_id', 6);})->latest()->paginate(20);
+
+        if ($request->tahun) {
+            $pendapatan = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($pendapatan) {$pendapatan->where('jenis_anggaran_id', 4);})->latest()->paginate(20);
+            $belanja = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 5);})->latest()->paginate(20);
+            $pembiayaan = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($pembiayaan) {$pembiayaan->where('jenis_anggaran_id', 6);})->latest()->paginate(20);
+        }
+
+        $pendapatan->appends(request()->input())->links();
+        $belanja->appends(request()->input())->links();
+        $pembiayaan->appends(request()->input())->links();
+
+        return view('anggaran-realisasi.index', compact('pendapatan','belanja','pembiayaan'));
+    }
+
+    public function cart(Request $request)
+    {
+        $pendapatan_anggaran = 0; $pendapatan_realisasi = 0; $belanja_anggaran = 0; $belanja_realisasi = 0; $pembiayaan_anggaran = 0; $pembiayaan_realisasi = 0; $rincian = null;
+
+        if ($request->tahun) {
+            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 4);})->get() as $item) {
+                $pendapatan_anggaran += $item->nilai_anggaran;
+                $pendapatan_realisasi += $item->nilai_realisasi;
+            }
+
+            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 5);})->get() as $item) {
+                $belanja_anggaran += $item->nilai_anggaran;
+                $belanja_realisasi += $item->nilai_realisasi;
+            }
+
+            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($pembiayaan) {$pembiayaan->where('jenis_anggaran_id', 6);})->get() as $item) {
+                $pembiayaan_anggaran += $item->nilai_anggaran;
+                $pembiayaan_realisasi += $item->nilai_realisasi;
+            }
+
+            foreach (AnggaranRealisasi::whereTahun($request->tahun)->get()->groupBy('detail_jenis_anggaran_id') as $key => $value) {
+                $anggaran = 0;
+                $realisasi = 0;
+                foreach ($value as $item) {
+                    $anggaran += $item->nilai_anggaran;
+                    $realisasi += $item->nilai_realisasi;
+                }
+                $rincian[] = $this->cart_rincian($value[0]->detail_jenis_anggaran->jenis_anggaran_id,$realisasi, $anggaran, $value[0]->detail_jenis_anggaran->nama ? $value[0]->detail_jenis_anggaran->nama : $value[0]->detail_jenis_anggaran->kelompok_jenis_anggaran->nama);
+            }
+        } else {
+            foreach (AnggaranRealisasi::whereTahun(date('Y'))->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 4);})->get() as $item) {
+                $pendapatan_anggaran += $item->nilai_anggaran;
+                $pendapatan_realisasi += $item->nilai_realisasi;
+            }
+
+            foreach (AnggaranRealisasi::whereTahun(date('Y'))->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 5);})->get() as $item) {
+                $belanja_anggaran += $item->nilai_anggaran;
+                $belanja_realisasi += $item->nilai_realisasi;
+            }
+
+            foreach (AnggaranRealisasi::whereTahun(date('Y'))->whereHas('detail_jenis_anggaran', function ($pembiayaan) {$pembiayaan->where('jenis_anggaran_id', 6);})->get() as $item) {
+                $pembiayaan_anggaran += $item->nilai_anggaran;
+                $pembiayaan_realisasi += $item->nilai_realisasi;
+            }
+
+            foreach (AnggaranRealisasi::whereTahun(date('Y'))->get()->groupBy('detail_jenis_anggaran_id') as $key => $value) {
+                $anggaran = 0;
+                $realisasi = 0;
+                foreach ($value as $item) {
+                    $anggaran += $item->nilai_anggaran;
+                    $realisasi += $item->nilai_realisasi;
+                }
+                $rincian[] = $this->cart_rincian($value[0]->detail_jenis_anggaran->jenis_anggaran_id,$realisasi, $anggaran, $value[0]->detail_jenis_anggaran->nama ? $value[0]->detail_jenis_anggaran->nama : $value[0]->detail_jenis_anggaran->kelompok_jenis_anggaran->nama);
+            }
+        }
+
+        try {
+            $pendapatan_persen = ($pendapatan_realisasi / $pendapatan_anggaran) * 100;
+        } catch (\Throwable $th) {
+            $pendapatan_persen = 0;
+        }
+
+        try {
+            $belanja_persen = ($belanja_realisasi / $belanja_anggaran) * 100;
+        } catch (\Throwable $th) {
+            $belanja_persen = 0;
+        }
+
+        try {
+            $pembiayaan_persen = ($pembiayaan_realisasi / $pembiayaan_anggaran) * 100;
+        } catch (\Throwable $th) {
+            $pembiayaan_persen = 0;
+        }
+
+        return response()->json([
+            'pendapatan'    => [
+                'uang'      => 'Rp. ' . substr(number_format($pendapatan_realisasi, 2, ',', '.'),0,-3) . ' | Rp. ' . substr(number_format($pendapatan_anggaran, 2, ',', '.'),0,-3),
+                'persen'    => $pendapatan_persen,
+            ],
+            'belanja'       => [
+                'uang'      => 'Rp. ' . substr(number_format($belanja_realisasi, 2, ',', '.'),0,-3) . ' | Rp. ' . substr(number_format($belanja_anggaran, 2, ',', '.'),0,-3),
+                'persen'    => $belanja_persen,
+            ],
+            'pembiayaan'    => [
+                'uang'      => 'Rp. ' . substr(number_format($pembiayaan_realisasi, 2, ',', '.'),0,-3) . ' | Rp. ' . substr(number_format($pembiayaan_anggaran, 2, ',', '.'),0,-3),
+                'persen'    => $pembiayaan_persen,
+            ],
+            'detail'        => $rincian
+        ]);
+    }
+
+    public function cart_rincian($jenis, $realisasi, $anggaran, $rincian)
+    {
+        try {
+            $persen = ($realisasi / $anggaran) * 100;
+        } catch (\Throwable $th) {
+            $persen = 0;
+        }
+
+        return [
+            'jenis'     => $jenis,
+            'rincian'   => $rincian,
+            'uang'      => 'Rp. ' . substr(number_format($realisasi, 2, ',', '.'),0,-3) . ' | Rp. ' . substr(number_format($anggaran, 2, ',', '.'),0,-3),
+            'persen'    => $persen
+        ];
     }
 
     /**
@@ -46,6 +166,7 @@ class AnggaranRealisasiController extends Controller
             'detail_jenis_anggaran_id'  => ['required'],
             'nilai_anggaran'            => ['required','numeric','min:0'],
             'nilai_realisasi'           => ['required','numeric','min:0'],
+            'keterangan_lainnya'        => ['nullable']
         ],[
             'detail_jenis_anggaran_id.required' => 'detail jenis anggaran wajib diisi'
         ]);
@@ -99,9 +220,11 @@ class AnggaranRealisasiController extends Controller
     {
         $data = $request->validate([
             'tahun'                     => ['required','numeric','min:1900'],
-            'detail_jenis_anggaran_id'  => ['required','numeric'],
+            'jenis_anggaran'            => ['required'],
+            'detail_jenis_anggaran_id'  => ['required'],
             'nilai_anggaran'            => ['required','numeric','min:0'],
             'nilai_realisasi'           => ['required','numeric','min:0'],
+            'keterangan_lainnya'        => ['nullable']
         ],[
             'detail_jenis_anggaran_id.required' => 'detail jenis anggaran wajib diisi'
         ]);

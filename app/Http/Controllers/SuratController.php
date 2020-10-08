@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CetakSurat;
+use App\Desa;
 use App\IsiSurat;
 use App\Surat;
 use Illuminate\Support\Facades\Validator;
@@ -19,6 +20,18 @@ class SuratController extends Controller
     {
         $surat = Surat::latest()->get();
         return view('surat.index', compact('surat'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function layanan_surat()
+    {
+        $surat = Surat::latest()->get();
+        $desa = Desa::find(1);
+        return view('surat.layanan-surat', compact('surat','desa'));
     }
 
     /**

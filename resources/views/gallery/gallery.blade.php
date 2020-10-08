@@ -9,8 +9,8 @@
 @endsection
 
 @section('header')
-<h1 class="text-white text-sm text-muted">GALLERY</h1>
-<h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
+<h1 class="text-white text-muted">GALLERY</h1>
+<p class="text-white">Gallery Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah mengetahui informasi mengenai macam-macam gallery desa {{ $desa->nama_desa }}.</p>
 @endsection
 
 @section('content')

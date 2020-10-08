@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Berita;
 use App\Desa;
 use App\Gallery;
 use App\Penduduk;
+use App\Sejarah;
 use App\Surat;
 use Illuminate\Http\Request;
 
@@ -12,10 +14,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $surat = Surat::whereTampilkan(1)->get();
+        $surat = Surat::whereTampilkan(1)->latest()->take(3)->get();
         $desa = Desa::find(1);
+        $berita = Berita::latest()->take(3)->get();
+        $sejarah = Sejarah::latest()->take(3)->get();
         $gallery = Gallery::where('slider', 1)->get();
-        return view('index', compact('surat', 'desa', 'gallery'));
+        return view('index', compact('surat', 'desa', 'gallery','berita','sejarah'));
     }
 
     public function dashboard()

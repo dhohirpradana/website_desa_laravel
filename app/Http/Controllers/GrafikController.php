@@ -2,56 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Desa;
 use App\Penduduk;
-use Carbon\Carbon;
 
 class GrafikController extends Controller
 {
-    public function pekerjaan()
+    public function index()
     {
-        $data = $this->grafikPekerjaan();
-        $total = Penduduk::all()->count();
-
-        return view('statistik-penduduk.pekerjaan',compact('total','data'));
-    }
-
-    public function pendidikan()
-    {
-        $data = $this->grafikPendidikan();
-        $total = Penduduk::all()->count();
-
-        return view('statistik-penduduk.pendidikan',compact('total','data'));
-    }
-
-    public function agama()
-    {
-        $data = $this->grafikAgama();
-        $total = Penduduk::all()->count();
-
-        return view('statistik-penduduk.agama', compact('total','data'));
-    }
-
-    public function usia()
-    {
-        $data = $this->grafikUsia();
-        $total = Penduduk::all()->count();
-
-        return view('statistik-penduduk.usia',compact('total','data'));
-    }
-
-    public function darah()
-    {
-        $data = $this->grafikDarah();
-        $total = Penduduk::all()->count();
-
-        return view('statistik-penduduk.darah',compact('total','data'));
-    }
-
-    public function perkawinan()
-    {
-        $data = $this->grafikPerkawinan();
-        $total = Penduduk::all()->count();
-
-        return view('statistik-penduduk.perkawinan',compact('total','data'));
+        $totalPenduduk = Penduduk::all();
+        $pekerjaan = $this->grafikPekerjaan();
+        $pendidikan = $this->grafikPendidikan();
+        $perkawinan = $this->grafikPerkawinan();
+        $agama = $this->grafikAgama();
+        $darah = $this->grafikDarah();
+        $usia = $this->grafikUsia();
+        $desa = Desa::find(1);
+        return view('statistik-penduduk.index',compact('desa','totalPenduduk','pekerjaan','pendidikan','perkawinan','agama','darah','usia'));
     }
 }

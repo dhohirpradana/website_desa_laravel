@@ -88,53 +88,32 @@
                                 <span class="nav-link-inner--text">Beranda</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-icon" href="{{ route('sejarah') }}">
-                                <i class="fas fa-atlas"></i>
-                                <span class="nav-link-inner--text">Sejarah</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-icon" href="{{ route('berita') }}">
-                                <i class="fas fa-newspaper"></i>
-                                <span class="nav-link-inner--text">Berita</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-icon" href="{{ route('gallery') }}">
-                                <i class="fas fa-images"></i>
-                                <span class="nav-link-inner--text">Gallery</span>
-                            </a>
-                        </li><li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-chart-pie"></i> <span class="nav-link-inner--text">Statistik Penduduk</span>
+                                <i class="fas fa-bars"></i> <span class="nav-link-inner--text">Menu Utama</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
-                                <a href="{{ route('statistik-penduduk.pekerjaan') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'pekerjaan') active @endif">
-                                    <span class="nav-link-inner--text"> Pekerjaan </span>
+                                <a class="dropdown-item @if (Request::segment(1) == 'layanan-surat') active @endif" href="{{ route('layanan-surat') }}">
+                                    <i class="fas fa-fw fa-file-alt text-primary"></i>
+                                    <span class="nav-link-inner--text">Layanan Surat</span>
                                 </a>
-                                <a href="{{ route('statistik-penduduk.pendidikan') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'pendidikan') active @endif">
-                                    <span class="nav-link-inner--text"> Pendidikan </span>
+                                <a class="dropdown-item @if (Request::segment(1) == 'sejarah') active @endif" href="{{ route('sejarah') }}">
+                                    <i class="fas fa-fw fa-atlas text-success"></i>
+                                    <span class="nav-link-inner--text">Sejarah</span>
                                 </a>
-                                <a href="{{ route('statistik-penduduk.agama') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'agama') active @endif">
-                                    <span class="nav-link-inner--text"> Agama </span>
+                                <a class="dropdown-item @if (Request::segment(1) == 'berita') active @endif" href="{{ route('berita') }}">
+                                    <i class="fas fa-fw fa-newspaper text-cyan"></i>
+                                    <span class="nav-link-inner--text">Berita</span>
                                 </a>
-                                <a href="{{ route('statistik-penduduk.usia') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'usia') active @endif">
-                                    <span class="nav-link-inner--text"> Usia </span>
+                                <a class="dropdown-item @if (Request::segment(1) == 'gallery') active @endif" href="{{ route('gallery') }}">
+                                    <i class="fas fa-fw fa-images text-orange"></i>
+                                    <span class="nav-link-inner--text">Gallery</span>
                                 </a>
-                                <a href="{{ route('statistik-penduduk.darah') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'golongan-darah') active @endif">
-                                    <span class="nav-link-inner--text"> Golongan Darah </span>
-                                </a>
-                                <a href="{{ route('statistik-penduduk.perkawinan') }}" class="dropdown-item font-weight-bold @if (Request::segment(2) == 'status-perkawinan') active @endif">
-                                    <span class="nav-link-inner--text"> Perkawinan </span>
+                                <a class="dropdown-item @if (Request::segment(1) == 'statistik-penduduk') active @endif" href="{{ route('statistik-penduduk') }}">
+                                    <i class="fas fa-fw fa-chart-pie text-info"></i>
+                                    <span class="nav-link-inner--text">Statistik Penduduk</span>
                                 </a>
                             </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-link-icon" href="{{ route('panduan') }}">
-                                <i class="fas fa-question"></i>
-                                <span class="nav-link-inner--text">Panduan</span>
-                            </a>
                         </li>
                         @auth
                             <li class="nav-item dropdown">
@@ -142,38 +121,41 @@
                                     <i class="fas fa-bars"></i> <span class="nav-link-inner--text">Menu Admin</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
-                                    <a class="dropdown-item font-weight-bold" href="{{ route('dashboard') }}">
+                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
                                         <i class="fas fa-fw fa-tachometer-alt text-blue"></i> Dashboard
                                     </a>
-                                    <a class="dropdown-item font-weight-bold" href="{{ route('penduduk.index') }}">
+                                    <a class="dropdown-item" href="{{ route('penduduk.index') }}">
                                         <i class="fas fa-fw fa-users text-info"></i> Kelola Penduduk
                                     </a>
-                                    <a class="dropdown-item font-weight-bold" href="{{ route('dusun.index') }}">
+                                    <a class="dropdown-item" href="{{ route('dusun.index') }}">
                                         <i class="fas fa-fw fa-map-marker-alt text-yellow"></i> Kelola Dusun
                                     </a>
-                                    <a class="dropdown-item font-weight-bold" href="{{ route('surat.index') }}">
+                                    <a class="dropdown-item" href="{{ route('anggaran-realisasi.index') }}">
+                                        <i class="fas fa-fw fa-coins text-success"></i> Kelola APBDes
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('surat.index') }}">
                                         <i class="fas fa-fw fa-file-alt text-primary"></i> Kelola Surat
                                     </a>
-                                    <a href="{{ route('sejarah.index') }}" class="dropdown-item font-weight-bold">
+                                    <a href="{{ route('sejarah.index') }}" class="dropdown-item">
                                         <i class="fas fa-fw fa-atlas text-success"></i> Kelola Sejarah
                                     </a>
-                                    <a href="{{ route('berita.index') }}" class="dropdown-item font-weight-bold">
+                                    <a href="{{ route('berita.index') }}" class="dropdown-item">
                                         <i class="fas fa-fw fa-newspaper text-cyan"></i> Kelola Berita
                                     </a>
-                                    <a class="dropdown-item font-weight-bold" href="{{ route('gallery.index') }}">
+                                    <a class="dropdown-item" href="{{ route('gallery.index') }}">
                                         <i class="fas fa-fw fa-images text-orange"></i> Kelola Gallery
                                     </a>
-                                    <a class="dropdown-item font-weight-bold" href="{{ route('slider.index') }}">
+                                    <a class="dropdown-item" href="{{ route('slider.index') }}">
                                         <i class="fas fa-fw fa-images text-purple"></i> Kelola Slider
                                     </a>
-                                    <a class="dropdown-item font-weight-bold" href="{{ route('profil-desa') }}">
+                                    <a class="dropdown-item" href="{{ route('profil-desa') }}">
                                         <i class="fas fa-fw fa-users text-info"></i> Profil Desa
                                     </a>
-                                    <a class="dropdown-item font-weight-bold" href="{{ route('profil') }}">
+                                    <a class="dropdown-item" href="{{ route('profil') }}">
                                         <i class="fas fa-fw fa-user text-yellow"></i> Profil Saya
                                     </a>
                                     <hr class="m-0">
-                                    <a class="dropdown-item font-weight-bold" href="{{ route('keluar') }}" onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
+                                    <a class="dropdown-item" href="{{ route('keluar') }}" onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
                                         <i class="fas fa-fw fa-sign-out-alt"></i> Keluar
                                     </a>
                                     <form id="form-keluar" action="{{ route('keluar') }}" method="POST" style="display: none;">
@@ -181,7 +163,6 @@
                                     </form>
                                 </div>
                             </li>
-
                         @endguest
                     </ul>
                 </div>
@@ -239,6 +220,7 @@
     <script src="{{ url('/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
     <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
     <script>
+        const baseURL = $('meta[name="base-url"]').attr('content');
         window.TrackJS &&
             TrackJS.install({
                 token: "ee6fab19c5a04ac1a32a645abde4613a",
