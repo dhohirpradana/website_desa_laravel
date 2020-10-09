@@ -130,7 +130,7 @@
                                     <a class="dropdown-item" href="{{ route('dusun.index') }}">
                                         <i class="fas fa-fw fa-map-marker-alt text-yellow"></i> Kelola Dusun
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('anggaran-realisasi.index') }}">
+                                    <a class="dropdown-item" href="{{ url('anggaran-realisasi?jenis=pendapatan&tahun='.date('Y')) }}">
                                         <i class="fas fa-fw fa-coins text-success"></i> Kelola APBDes
                                     </a>
                                     <a class="dropdown-item" href="{{ route('surat.index') }}">

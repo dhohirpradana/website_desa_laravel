@@ -17,21 +17,28 @@ class AnggaranRealisasiController extends Controller
      */
     public function index(Request $request)
     {
-        $pendapatan = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($pendapatan) {$pendapatan->where('jenis_anggaran_id', 4);})->latest()->paginate(20);
-        $belanja = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 5);})->latest()->paginate(20);
-        $pembiayaan = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($pembiayaan) {$pembiayaan->where('jenis_anggaran_id', 6);})->latest()->paginate(20);
-
-        if ($request->tahun) {
-            $pendapatan = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($pendapatan) {$pendapatan->where('jenis_anggaran_id', 4);})->latest()->paginate(20);
-            $belanja = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 5);})->latest()->paginate(20);
-            $pembiayaan = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($pembiayaan) {$pembiayaan->where('jenis_anggaran_id', 6);})->latest()->paginate(20);
+        if ($request->jenis == "pendapatan") {
+            $anggaran_realisasi = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 4);})->latest()->paginate(10);
+        } elseif ($request->jenis == "belanja") {
+            $anggaran_realisasi = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 5);})->latest()->paginate(10);
+        } elseif ($request->jenis == "pembiayaan") {
+            $anggaran_realisasi = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 6);})->latest()->paginate(10);
+        } else {
+            $anggaran_realisasi = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 4);})->latest()->paginate(10);
         }
 
-        $pendapatan->appends(request()->input())->links();
-        $belanja->appends(request()->input())->links();
-        $pembiayaan->appends(request()->input())->links();
+        if ($request->tahun) {
+            if ($request->jenis == "pendapatan") {
+                $anggaran_realisasi = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 4);})->latest()->paginate(10);
+            } elseif ($request->jenis == "belanja") {
+                $anggaran_realisasi = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 5);})->latest()->paginate(10);
+            } elseif ($request->jenis == "pembiayaan") {
+                $anggaran_realisasi = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 6);})->latest()->paginate(10);
+            }
+        }
+        $anggaran_realisasi->appends(request()->input())->links();
 
-        return view('anggaran-realisasi.index', compact('pendapatan','belanja','pembiayaan'));
+        return view('anggaran-realisasi.index', compact('anggaran_realisasi'));
     }
 
     public function cart(Request $request)

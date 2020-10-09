@@ -19,19 +19,9 @@
                                 <p class="mb-0 text-sm">Kelola Anggaran Pendapatan Belanja Desa</p>
                             </div>
                             <div class="mb-3">
-                                <a href="{{ route('anggaran-realisasi.create') }}" class="btn btn-success" title="Tambah"><i class="fas fa-plus"></i> Tambah APBDes</a>
+                                <a href="{{ route('anggaran-realisasi.create') }}?jenis={{ request('jenis') }}&tahun={{ request('tahun') }}&page={{ request('page') }}" class="btn btn-success" title="Tambah"><i class="fas fa-plus"></i> Tambah APBDes</a>
                             </div>
                         </div>
-                        <form class="navbar-search mt-3 cari-none" action="{{ URL::current() }}" method="GET">
-                            <div class="form-group mb-0">
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    </div>
-                                    <input class="form-control" placeholder="Cari ...." type="text" name="cari" value="{{ request('cari') }}">
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -48,124 +38,53 @@
             <div class="nav-wrapper">
                 <ul class="nav nav-pills nav-fill">
                     <li class="nav-item ml-1 mr-1">
-                        <a class="nav-link active" data-toggle="tab" href="#pendapatan"><i class="fas fa-hand-holding-usd mr-2"></i>PENDAPATAN</a>
+                        <a class="nav-link {{ request('jenis') == 'pendapatan' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=pendapatan&tahun={{ request('tahun') }}"><i class="fas fa-hand-holding-usd mr-2"></i>PENDAPATAN</a>
                     </li>
                     <li class="nav-item ml-1 mr-1">
-                        <a class="nav-link" data-toggle="tab" href="#belanja"><i class="fas fa-shopping-cart mr-2"></i>BELANJA</a>
+                        <a class="nav-link {{ request('jenis') == 'belanja' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=belanja&tahun={{ request('tahun') }}"><i class="fas fa-shopping-cart mr-2"></i>BELANJA</a>
                     </li>
                     <li class="nav-item ml-1 mr-1">
-                        <a class="nav-link" data-toggle="tab" href="#pembiayaan"><i class="fas fa-money-check-alt mr-2"></i>PEMBIAYAAN</a>
+                        <a class="nav-link {{ request('jenis') == 'pembiayaan' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=pembiayaan&tahun={{ request('tahun') }}"><i class="fas fa-money-check-alt mr-2"></i>PEMBIAYAAN</a>
                     </li>
                 </ul>
             </div>
-            <form id="form-tahun" action="{{ URL::current() }}" method="GET">
-                <input type="number" name="tahun" id="tahun" class="form-control" value="{{ request('tahun') ? request('tahun') : date('Y') }}">
+            <form id="form-tahun" action="{{ URL::current()}}" method="GET">
+                <input type="hidden" name="jenis" value="{{ request('jenis') ? request('jenis') : "pendapatan"}}">
+                Tahun: <input type="number" name="tahun" id="tahun" class="form-control-sm" value="{{ request('tahun') ? request('tahun') : date('Y') }}" style="width: 80px">
             </form>
         </div>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="pendapatan">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped table-bordered">
-                        <thead>
-                            <th width="100px">#</th>
-                            <th>Rincian</th>
-                            <th>Anggaran</th>
-                            <th>Realisasi</th>
-                            <th>Ditambahkan pada</th>
-                            <th>Diperbarui pada</th>
-                        </thead>
-                        <tbody>
-                            @forelse ($pendapatan as $item)
-                                <tr>
-                                    <td>
-                                        <a href="{{ route('anggaran-realisasi.edit', $item) }}" class="btn btn-sm btn-success" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-                                        <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }}" data-action="{{ route("anggaran-realisasi.destroy", $item) }}" data-toggle="modal" href="#modal-hapus"><i data-toggle="tooltip" title="Hapus" class="fas fa-trash"></i></a>
-                                    </td>
-                                    <td>{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }} {{ $item->keterangan_lainnya ? "(" . $item->keterangan_lainnya . ")" : "" }}</td>
-                                    <td>Rp. {{ substr(number_format($item->nilai_anggaran, 2, ',', '.'),0,-3) }}</td>
-                                    <td>Rp. {{ substr(number_format($item->nilai_realisasi, 2, ',', '.'),0,-3) }}</td>
-                                    <td>{{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}</td>
-                                    <td>{{ date('d/m/Y H:i:s', strtotime($item->updated_at)) }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="15" align="center">Data tidak tersedia</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                {{ $pendapatan->links() }}
-            </div>
-            <div class="tab-pane fade" id="belanja">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped table-bordered">
-                        <thead>
-                            <th width="100px">#</th>
-                            <th>Rincian</th>
-                            <th>Anggaran</th>
-                            <th>Realisasi</th>
-                            <th>Ditambahkan pada</th>
-                            <th>Diperbarui pada</th>
-                        </thead>
-                        <tbody>
-                            @forelse ($belanja as $item)
-                                <tr>
-                                    <td>
-                                        <a href="{{ route('anggaran-realisasi.edit', $item) }}" class="btn btn-sm btn-success" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-                                        <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }}" data-action="{{ route("anggaran-realisasi.destroy", $item) }}" data-toggle="modal" href="#modal-hapus"><i data-toggle="tooltip" title="Hapus" class="fas fa-trash"></i></a>
-                                    </td>
-                                    <td>{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }} {{ $item->keterangan_lainnya ? "(" . $item->keterangan_lainnya . ")" : "" }}</td>
-                                    <td>Rp. {{ substr(number_format($item->nilai_anggaran, 2, ',', '.'),0,-3) }}</td>
-                                    <td>Rp. {{ substr(number_format($item->nilai_realisasi, 2, ',', '.'),0,-3) }}</td>
-                                    <td>{{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}</td>
-                                    <td>{{ date('d/m/Y H:i:s', strtotime($item->updated_at)) }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="15" align="center">Data tidak tersedia</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                {{ $belanja->links() }}
-            </div>
-            <div class="tab-pane fade" id="pembiayaan">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped table-bordered">
-                        <thead>
-                            <th width="100px">#</th>
-                            <th>Rincian</th>
-                            <th>Anggaran</th>
-                            <th>Realisasi</th>
-                            <th>Ditambahkan pada</th>
-                            <th>Diperbarui pada</th>
-                        </thead>
-                        <tbody>
-                            @forelse ($pembiayaan as $item)
-                                <tr>
-                                    <td>
-                                        <a href="{{ route('anggaran-realisasi.edit', $item) }}" class="btn btn-sm btn-success" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-                                        <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }}" data-action="{{ route("anggaran-realisasi.destroy", $item) }}" data-toggle="modal" href="#modal-hapus"><i data-toggle="tooltip" title="Hapus" class="fas fa-trash"></i></a>
-                                    </td>
-                                    <td>{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }} {{ $item->keterangan_lainnya ? "(" . $item->keterangan_lainnya . ")" : "" }}</td>
-                                    <td>Rp. {{ substr(number_format($item->nilai_anggaran, 2, ',', '.'),0,-3) }}</td>
-                                    <td>Rp. {{ substr(number_format($item->nilai_realisasi, 2, ',', '.'),0,-3) }}</td>
-                                    <td>{{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}</td>
-                                    <td>{{ date('d/m/Y H:i:s', strtotime($item->updated_at)) }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="15" align="center">Data tidak tersedia</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                {{ $pembiayaan->links() }}
-            </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <th width="100px">#</th>
+                    <th>Rincian</th>
+                    <th>Anggaran</th>
+                    <th>Realisasi</th>
+                    <th>Ditambahkan pada</th>
+                    <th>Diperbarui pada</th>
+                </thead>
+                <tbody>
+                    @forelse ($anggaran_realisasi as $item)
+                        <tr>
+                            <td>
+                                <a href="{{ route('anggaran-realisasi.edit', $item) }}?jenis={{ request('jenis') }}&tahun={{ request('tahun') }}&page={{ request('page') }}" class="btn btn-sm btn-success" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }}" data-action="{{ route("anggaran-realisasi.destroy", $item) }}" data-toggle="modal" href="#modal-hapus"><i data-toggle="tooltip" title="Hapus" class="fas fa-trash"></i></a>
+                            </td>
+                            <td>{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }} {{ $item->keterangan_lainnya ? "(" . $item->keterangan_lainnya . ")" : "" }}</td>
+                            <td>Rp. {{ substr(number_format($item->nilai_anggaran, 2, ',', '.'),0,-3) }}</td>
+                            <td>Rp. {{ substr(number_format($item->nilai_realisasi, 2, ',', '.'),0,-3) }}</td>
+                            <td>{{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}</td>
+                            <td>{{ date('d/m/Y H:i:s', strtotime($item->updated_at)) }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="15" align="center">Data tidak tersedia</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
+        {{ $anggaran_realisasi->links() }}
     </div>
 </div>
 

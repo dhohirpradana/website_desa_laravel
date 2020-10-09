@@ -19,7 +19,7 @@
                                 <p class="mb-0 text-sm">Kelola Anggaran Pendapatan Belanja Desa</p>
                             </div>
                             <div class="mb-3">
-                                <a href="{{ route("anggaran-realisasi.index") }}" class="btn btn-success" title="Kembali"><i class="fas fa-arrow-left"></i> Kembali</a>
+                                <a href="{{ route('anggaran-realisasi.index') }}?jenis={{ request('jenis') }}&tahun={{ request('tahun') }}&page={{ request('page') }}" class="btn btn-success" title="Kembali"><i class="fas fa-arrow-left"></i> Kembali</a>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     <div class="row">
                         <div class="form-group col-md-2">
                             <label class="form-control-label">Tahun</label>
-                            <input type="number" onkeypress="return hanyaAngka(event);" class="form-control @error('tahun') is-invalid @enderror" name="tahun" id="tahun" placeholder="Masukkan Tahun ..." value="{{ old('tahun',date('Y')) }}">
+                            <input type="number" onkeypress="return hanyaAngka(event);" class="form-control @error('tahun') is-invalid @enderror" name="tahun" id="tahun" placeholder="Masukkan Tahun ..." value="{{ old('tahun', request('tahun') ? request('tahun') : date('Y')) }}">
                             @error('tahun') <span class="invalid-feedback font-weight-bold">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group col-md-5">
@@ -52,7 +52,17 @@
                             <select class="form-control @error('jenis_anggaran') is-invalid @enderror" name="jenis_anggaran" id="jenis_anggaran">
                                 <option value="" selected disabled>Pilih Jenis Anggaran</option>
                                 @foreach ($jenis_anggaran as $item)
-                                    <option value="{{ $item->id }}" {{ old('jenis_anggaran') == $item->id ? 'selected' : '' }}>{{ $item->id }}. {{ $item->nama }}</option>
+                                    @php
+                                        $jenis = '';
+                                        if (request('jenis') == 'pendapatan') {
+                                            $jenis = 4;
+                                        } elseif (request('jenis') == 'belanja') {
+                                            $jenis = 5;
+                                        } elseif (request('jenis') == 'pembiayaan') {
+                                            $jenis = 6;
+                                        }
+                                    @endphp
+                                    <option value="{{ $item->id }}" {{ old('jenis_anggaran',$jenis) == $item->id ? 'selected' : '' }}>{{ $item->id }}. {{ $item->nama }}</option>
                                 @endforeach
                             </select>
                             @error('jenis_anggaran') <span class="invalid-feedback font-weight-bold">{{ $message }}</span> @enderror
@@ -91,7 +101,7 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-        if ($("#detail_jenis_anggaran_id").attr('value')) {
+        if ($("#jenis_anggaran") != "") {
             $.getJSON(baseURL + "/detail-jenis-anggaran/" + $("#jenis_anggaran").val(), function (response) {
                 $("#detail_jenis_anggaran_id").html(`<option value="" selected disabled>Pilih Detail Jenis Anggaran</option>`);
                 $.each(response, function(key, item) {
@@ -113,6 +123,7 @@
                 });
             });
         }
+
         $('#jenis_anggaran').change(function () {
             $("#detail_jenis_anggaran_id").html(`<option value="" selected disabled>Loading ...</option>`);
             $.getJSON(baseURL + "/detail-jenis-anggaran/" + $(this).val(), function (response) {
