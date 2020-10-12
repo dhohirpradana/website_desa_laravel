@@ -3,7 +3,9 @@ $.get(baseURL + "/anggaran-realisasi-cart", function (response) {
 });
 
 $("#tahun-apbdes").change(function () {
+    $("#loading-tahun").css('display','');
     $.get(baseURL + "/anggaran-realisasi-cart", {'tahun': $(this).val()}, function (response) {
+        $("#loading-tahun").css('display','none');
         anggaran_realisasi_cart(response);
     });
 });
@@ -49,10 +51,13 @@ function anggaran_realisasi_cart (response) {
     try {
         response.detail.forEach(element => {
             if (element.jenis == 4) {
+                $("#pendapatan-wrapper").parent().css('display','');
                 $("#pendapatan-wrapper").append(progressBar(element));
             } else if (element.jenis == 5) {
+                $("#belanja-wrapper").parent().css('display','');
                 $("#belanja-wrapper").append(progressBar(element));
             } else {
+                $("#pembiayaan-wrapper").parent().css('display','');
                 $("#pembiayaan-wrapper").append(progressBar(element));
             }
         });

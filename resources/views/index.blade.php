@@ -13,6 +13,14 @@
     .ikon {
         font-family: fontAwesome;
     }
+
+    .progress-label > span {
+        color: white;
+    }
+
+    .progress-percentage > span {
+        color: white;
+    }
 </style>
 @endsection
 
@@ -69,6 +77,7 @@
             </div>
             <div class="mb-1">
                 Tahun : <input type="number" name="tahun-apbdes" id="tahun-apbdes" class="form-control-sm" value="{{ date('Y') }}" style="width:80px">
+                <img id="loading-tahun" src="{{ asset(Storage::url('loading.gif')) }}" alt="Loading" height="20px" style="display: none">
             </div>
         </div>
     </div>
@@ -122,21 +131,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-3">
+            <div class="col-lg-4 col-md-6 mb-3" style="display:none">
                 <div class="text-center">
                     <h3 class="mb-0 text-white">PENDAPATAN</h3>
                     <p class="text-sm mb-0">Realisasi | Anggaran</p>
                 </div>
                 <div id="pendapatan-wrapper"></div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-3">
+            <div class="col-lg-4 col-md-6 mb-3" style="display:none">
                 <div class="text-center">
                     <h3 class="mb-0 text-white">BELANJA</h3>
                     <p class="text-sm mb-0">Realisasi | Anggaran</p>
                 </div>
                 <div id="belanja-wrapper"></div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-3">
+            <div class="col-lg-4 col-md-6 mb-3" style="display: none">
                 <div class="text-center">
                     <h3 class="mb-0 text-white">PEMBIAYAAN</h3>
                     <p class="text-sm mb-0">Realisasi | Anggaran</p>
@@ -243,27 +252,24 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            @for ($i = 0; $i < 6; $i++)
-                @php
-                    try {
-                        if ($galleries[$i]['jenis'] == 1) {
-                            echo '<div class="col-lg-4 col-md-6 mb-3 animate-up">
-                                    <a href="'. url(Storage::url($galleries[$i]['gambar'])) .'" data-fancybox data-caption="'. $galleries[$i]['caption'] .'">
-                                        <img class="mw-100" src="'. url(Storage::url($galleries[$i]['gambar'])) .'" alt="">
-                                    </a>
-                                </div>';
-                        } else {
-                            echo '<div class="col-lg-4 col-md-6 mb-3 animate-up">
-                                    <a href="https://www.youtube.com/watch?v='. $galleries[$i]['id'] .'" data-fancybox data-caption="'. $galleries[$i]['caption'] .'">
-                                        <i class="fas fa-play fa-2x" style="position: absolute; top:43%; left:46%;"></i>
-                                        <img class="mw-100" src="'. $galleries[$i]['gambar'] .'" alt="">
-                                    </a>
-                                </div>';
-                        }
-
-                    } catch (\Throwable $th) {}
-                @endphp
-            @endfor
+            @foreach ($galleries as $key => $item)
+                @if ($key < 3)
+                    @if ($item['jenis'] == 1)
+                        <div class="col-lg-4 col-md-6 mb-3 animate-up">
+                            <a href="{{ url(Storage::url($item['gambar'])) }}" data-fancybox data-caption="{{ $item['caption'] }}">
+                                <img class="mw-100" src="{{ url(Storage::url($item['gambar'])) }}" alt="">
+                            </a>
+                        </div>
+                    @else
+                        <div class="col-lg-4 col-md-6 mb-3 animate-up">
+                            <a href="https://www.youtube.com/watch?v={{ $item['id'] }}" data-fancybox data-caption="{{ $item['caption'] }}">
+                                <i class="fas fa-play fa-2x" style="position: absolute; top:43%; left:46%;"></i>
+                                <img class="mw-100" src="{{ $item['gambar'] }}" alt="">
+                            </a>
+                        </div>
+                    @endif
+                @endif
+            @endforeach
         </div>
         @if (count($galleries) > 6)
             <div class="text-center">

@@ -173,6 +173,7 @@
                     </div>
                     <div class="mb-1">
                         <input type="date" name="tanggal" id="tanggal" class="form-control-sm" value="{{ date('Y-m-d') }}">
+                        <img id="loading-tanggal-surat" src="{{ asset(Storage::url('loading.gif')) }}" alt="Loading" height="20px" style="display: none">
                     </div>
                 </div>
             </div>
@@ -191,6 +192,7 @@
                     </div>
                     <div class="mb-1">
                         <input type="month" name="bulan" id="bulan" class="form-control-sm" value="{{ date('Y-m') }}">
+                        <img id="loading-bulan-surat" src="{{ asset(Storage::url('loading.gif')) }}" alt="Loading" height="20px" style="display: none">
                     </div>
                 </div>
             </div>
@@ -209,6 +211,7 @@
                     </div>
                     <div class="mb-1">
                         Tahun : <input type="number" name="tahun" id="tahun" class="form-control-sm" value="{{ date('Y') }}" style="width:80px">
+                        <img id="loading-tahun-surat" src="{{ asset(Storage::url('loading.gif')) }}" alt="Loading" height="20px" style="display: none">
                     </div>
                 </div>
             </div>
@@ -268,6 +271,7 @@
                     </div>
                     <div class="mb-1">
                         Tahun : <input type="number" name="tahun-apbdes" id="tahun-apbdes" class="form-control-sm" value="{{ date('Y') }}" style="width:80px">
+                        <img id="loading-tahun" src="{{ asset(Storage::url('loading.gif')) }}" alt="Loading" height="20px" style="display: none">
                     </div>
                 </div>
             </div>
@@ -550,37 +554,45 @@
     chart_tahunan.title.textSetter("Grafik Cetak Surat Tahunan");
 
     $(document).ready(function(){
-        $(".form-control").change(function () {
-            $(this).parent().submit();
-        });
+        $("#loading-tanggal-surat").css('display','');
+        $("#loading-bulan-surat").css('display','');
+        $("#loading-tahun-surat").css('display','');
 
         $.get("{{ route('surat-harian') }}", function (response) {
+            $("#loading-tanggal-surat").css('display','none');
             chart_harian.series[0].setData(response);
         });
 
         $.get("{{ route('surat-bulanan') }}", function (response) {
+            $("#loading-bulan-surat").css('display','none');
             chart_bulanan.series[0].setData(response);
         });
 
         $.get("{{ route('surat-tahunan') }}", function (response) {
+            $("#loading-tahun-surat").css('display','none');
             chart_tahunan.series[0].setData(response);
         });
 
         $("#tanggal").change(function () {
+            $("#loading-tanggal-surat").css('display','');
             $.get("{{ route('surat-harian') }}", {'tanggal': $(this).val()}, function (response) {
+                $("#loading-tanggal-surat").css('display','none');
                 chart_harian.series[0].setData(response);
             });
         });
 
         $("#bulan").change(function () {
+            $("#loading-bulan-surat").css('display','');
             $.get("{{ route('surat-bulanan') }}", {'bulan': $(this).val()}, function (response) {
+                $("#loading-bulan-surat").css('display','none');
                 chart_bulanan.series[0].setData(response);
             });
         });
 
         $("#tahun").change(function () {
-            let form = this;
+            $("#loading-tahun-surat").css('display','');
             $.get("{{ route('surat-tahunan') }}", {'tahun': $(this).val()}, function (response) {
+                $("#loading-tahun-surat").css('display','none');
                 chart_tahunan.series[0].setData(response);
             });
         });
