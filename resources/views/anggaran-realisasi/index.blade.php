@@ -38,13 +38,13 @@
             <div class="nav-wrapper">
                 <ul class="nav nav-pills nav-fill">
                     <li class="nav-item m-1">
-                        <a class="nav-link {{ request('jenis') == 'pendapatan' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=pendapatan&tahun={{ request('tahun') }}"><i class="fas fa-hand-holding-usd mr-2"></i>PENDAPATAN</a>
+                        <a class="nav-link tab {{ request('jenis') == 'pendapatan' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=pendapatan&tahun={{ request('tahun') }}"><i class="fas fa-hand-holding-usd mr-2"></i>PENDAPATAN</a>
                     </li>
                     <li class="nav-item m-1">
-                        <a class="nav-link {{ request('jenis') == 'belanja' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=belanja&tahun={{ request('tahun') }}"><i class="fas fa-shopping-cart mr-2"></i>BELANJA</a>
+                        <a class="nav-link tab {{ request('jenis') == 'belanja' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=belanja&tahun={{ request('tahun') }}"><i class="fas fa-shopping-cart mr-2"></i>BELANJA</a>
                     </li>
                     <li class="nav-item m-1">
-                        <a class="nav-link {{ request('jenis') == 'pembiayaan' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=pembiayaan&tahun={{ request('tahun') }}"><i class="fas fa-money-check-alt mr-2"></i>PEMBIAYAAN</a>
+                        <a class="nav-link tab {{ request('jenis') == 'pembiayaan' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=pembiayaan&tahun={{ request('tahun') }}"><i class="fas fa-money-check-alt mr-2"></i>PEMBIAYAAN</a>
                     </li>
                 </ul>
             </div>
@@ -130,8 +130,10 @@
         $("#tahun").change(function () {
             $("#tahun").css('display','none');
             $("#loading-tahun").css('display','');
-            $("tbody").html(`<tr><td colspan="6" align="center"><img id="loading-tahun" src="{{ asset(Storage::url('loading.gif')) }}" alt="Loading" height="20px" style="display: none"></td></tr>`);
             $(this).parent().submit();
+        });
+        $(".tab").click(function () {
+            $("tbody").html(`<tr><td colspan="6" align="center">Loading ...</td></tr>`);
         });
     });
 </script>
