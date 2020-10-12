@@ -128,6 +128,7 @@
 <script>
     $(document).ready(function () {
         $("#tahun").change(function () {
+            $("#tahun").css('display','none');
             $("#loading-tahun").css('display','');
             $(this).parent().submit();
         });

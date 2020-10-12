@@ -4,7 +4,9 @@ $.get(baseURL + "/anggaran-realisasi-cart", function (response) {
 
 $("#tahun-apbdes").change(function () {
     $("#loading-tahun").css('display','');
+    $("#tahun-apbdes").css('display','none');
     $.get(baseURL + "/anggaran-realisasi-cart", {'tahun': $(this).val()}, function (response) {
+        $("#tahun-apbdes").css('display','');
         $("#loading-tahun").css('display','none');
         anggaran_realisasi_cart(response);
     });
