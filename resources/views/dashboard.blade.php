@@ -325,21 +325,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="col-lg-4 col-md-6 mb-3" style="display:none">
                         <div class="text-center">
                             <h3 class="mb-0">PENDAPATAN</h3>
                             <p class="text-sm mb-0">Realisasi | Anggaran</p>
                         </div>
                         <div id="pendapatan-wrapper"></div>
                     </div>
-                    <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="col-lg-4 col-md-6 mb-3" style="display:none">
                         <div class="text-center">
                             <h3 class="mb-0">BELANJA</h3>
                             <p class="text-sm mb-0">Realisasi | Anggaran</p>
                         </div>
                         <div id="belanja-wrapper"></div>
                     </div>
-                    <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="col-lg-4 col-md-6 mb-3" style="display:none">
                         <div class="text-center">
                             <h3 class="mb-0">PEMBIAYAAN</h3>
                             <p class="text-sm mb-0">Realisasi | Anggaran</p>
