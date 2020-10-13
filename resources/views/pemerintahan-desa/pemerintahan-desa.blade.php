@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Website Resmi Pemerintah Desa '. $desa->nama_desa . ' - Sejarah')
+@section('title', 'Website Resmi Pemerintah Desa '. $desa->nama_desa . ' - Pemerintahan Desa')
 
 @section('styles')
 <meta name="description" content="Macam-macam sejarah Desa {{ $desa->nama_desa }}, Kecamatan {{ $desa->nama_kecamatan }}, Kabupaten {{ $desa->nama_kabupaten }}.">
@@ -12,26 +12,29 @@
 @endsection
 
 @section('header')
-<h1 class="text-white text-muted">SEJARAH</h1>
-<p class="text-white">Sejarah Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah mengetahui informasi mengenai macam-macam sejarah desa {{ $desa->nama_desa }}.</p>
+<h1 class="text-white text-muted">PEMERINTAHAN DESA</h1>
+<p class="text-white">Pemerintahan Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah mengetahui informasi seputar pemerintahan desa {{ $desa->nama_desa }}.</p>
 @endsection
 
 @section('content')
 <div class="row justify-content-center">
 
-    @forelse ($sejarah as $item)
+    @forelse ($pemerintahan_desa as $item)
         <div class="col-lg-4 col-md-6 mb-3">
             <div class="card animate-up shadow">
                 @if ($item->gambar)
-                    <a href="{{ route('sejarah.show', ['sejarah' => $item, 'slug' => Str::slug($item->judul)]) }}">
+                    <a href="{{ route('pemerintahan-desa.show', ['pemerintahan_desa' => $item, 'slug' => Str::slug($item->judul)]) }}">
                         <div class="card-img" style="background-image: url('{{ url(Storage::url($item->gambar)) }}'); background-size: cover; height: 200px;">
                         </div>
                     </a>
                 @endif
                 <div class="card-body text-center">
-                    <a href="{{ route('sejarah.show', ['sejarah' => $item, 'slug' => Str::slug($item->judul)]) }}">
+                    <a href="{{ route('pemerintahan-desa.show', ['pemerintahan_desa' => $item, 'slug' => Str::slug($item->judul)]) }}">
                         <h3>{{ $item->judul }}</h3>
-                        <p class="text-sm text-muted"><i class="fas fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</p>
+                        <div class="mt-3 d-flex justify-content-between text-sm text-muted">
+                            <i class="fas fa-clock"> {{ $item->created_at->diffForHumans() }}</i>
+                            <i class="fas fa-eye"> {{ $item->dilihat }} Kali Dibaca</i>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -45,5 +48,8 @@
             </div>
         </div>
     @endforelse
+    <div class="col-12">
+        {{ $pemerintahan_desa->links() }}
+    </div>
 </div>
 @endsection

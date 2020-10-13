@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SejarahSeeder extends Seeder
+class PemerintahanDesaSeeder extends Seeder
 {
     /**
      * Run the database seeds.

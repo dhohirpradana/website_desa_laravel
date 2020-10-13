@@ -13,7 +13,7 @@
 
 @section('header')
 <h1 class="text-white text-muted">BERITA</h1>
-<p class="text-white">Berita Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah mengetahui informasi mengenai macam-macam berita desa {{ $desa->nama_desa }}.</p>
+<p class="text-white">Berita Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah mengetahui informasi seputar berita desa {{ $desa->nama_desa }}.</p>
 @endsection
 
 @section('content')
@@ -30,7 +30,10 @@
                 <div class="card-body text-center">
                     <a href="{{ route('berita.show', ['berita' => $item, 'slug' => Str::slug($item->judul)]) }}">
                         <h3>{{ $item->judul }}</h3>
-                        <p class="text-sm text-muted"><i class="fas fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</p>
+                        <div class="mt-3 d-flex justify-content-between text-sm text-muted">
+                            <i class="fas fa-clock"> {{ $item->created_at->diffForHumans() }}</i>
+                            <i class="fas fa-eye"> {{ $item->dilihat }} Kali Dibaca</i>
+                        </div>
                     </a>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Sejarah')
+@section('title', 'Pemerintahan Desa')
 
 @section('styles')
 <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
@@ -24,11 +24,11 @@
                     <div class="card-header border-0">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-between text-center text-md-left">
                             <div class="mb-3">
-                                <h2 class="mb-0">Sejarah</h2>
-                                <p class="mb-0 text-sm">Kelola Sejarah</p>
+                                <h2 class="mb-0">Pemerintahan Desa</h2>
+                                <p class="mb-0 text-sm">Kelola Informasi Pemerintahan Desa</p>
                             </div>
                             <div class="mb-3">
-                                <a href="{{ route('sejarah.create') }}" class="btn btn-success" title="Tambah"><i class="fas fa-plus"></i> Tambah Sejarah</a>
+                                <a href="{{ route('pemerintahan-desa.create') }}" class="btn btn-success" title="Tambah"><i class="fas fa-plus"></i> Tambah Informasi Pemerintahan Desa</a>
                             </div>
                         </div>
                     </div>
@@ -43,22 +43,22 @@
 @section('content')
 @include('layouts.components.alert')
 <div class="row mt-4 justify-content-center">
-    @forelse ($sejarah as $item)
+    @forelse ($pemerintahan_desa as $item)
         <div class="col-lg-4 col-md-6 mb-3">
             <div class="card animate-up shadow">
                 @if ($item->gambar)
-                    <a href="{{ route('sejarah.show', ['sejarah' => $item, 'slug' => Str::slug($item->judul)]) }}">
+                    <a href="{{ route('pemerintahan-desa.show', ['pemerintahan_desa' => $item, 'slug' => Str::slug($item->judul)]) }}">
                         <div class="card-img" style="background-image: url('{{ url(Storage::url($item->gambar)) }}'); background-size: cover; height: 200px;">
                         </div>
                     </a>
                 @endif
                 <div class="card-body text-center">
-                    <a href="{{ route('sejarah.show', ['sejarah' => $item, 'slug' => Str::slug($item->judul)]) }}">
+                    <a href="{{ route('pemerintahan-desa.show', ['pemerintahan_desa' => $item, 'slug' => Str::slug($item->judul)]) }}">
                         <h3>{{ $item->judul }}</h3>
                         <p class="text-sm text-muted"><i class="fas fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</p>
                     </a>
-                    <a href="{{ route('sejarah.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
-                    <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->judul }}" data-action="{{ route("sejarah.destroy", $item) }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
+                    <a href="{{ route('pemerintahan-desa.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
+                    <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->judul }}" data-action="{{ route("pemerintahan-desa.destroy", $item) }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
                 </div>
             </div>
         </div>
@@ -69,6 +69,9 @@
             </div>
         </div>
     @endforelse
+    <div class="col-12">
+        {{ $pemerintahan_desa->links() }}
+    </div>
 </div>
 
 <div class="modal fade" id="modal-hapus" tabindex="-1" role="dialog" aria-labelledby="modal-hapus" aria-hidden="true">
@@ -76,7 +79,7 @@
         <div class="modal-content bg-gradient-danger">
 
             <div class="modal-header">
-                <h6 class="modal-title" id="modal-title-delete">Hapus Sejarah?</h6>
+                <h6 class="modal-title" id="modal-title-delete">Hapus Informasi Pemerintahan Desa?</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -87,7 +90,7 @@
                 <div class="py-3 text-center">
                     <i class="ni ni-bell-55 ni-3x"></i>
                     <h4 class="heading mt-4">Perhatian!!</h4>
-                    <p>Menghapus sejarah akan menghapus semua data yang dimilikinya</p>
+                    <p>Menghapus informasi pemerintahan desa akan menghapus semua data yang dimilikinya</p>
                     <p><strong id="nama-hapus"></strong></p>
                 </div>
 

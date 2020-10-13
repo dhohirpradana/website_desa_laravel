@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Berita;
 use App\Desa;
 use App\Gallery;
+use App\PemerintahanDesa;
 use App\Penduduk;
-use App\Sejarah;
 use App\Surat;
 use App\Video;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class HomeController extends Controller
         $surat = Surat::whereTampilkan(1)->latest()->take(3)->get();
         $desa = Desa::find(1);
         $berita = Berita::latest()->take(3)->get();
-        $sejarah = Sejarah::latest()->take(3)->get();
+        $pemerintahan_desa = PemerintahanDesa::latest()->take(3)->get();
         $gallery = Gallery::where('slider', 1)->get();
         $galleries = array();
         $videos = Video::all();
@@ -49,7 +49,7 @@ class HomeController extends Controller
             return $a['created_at'] < $b['created_at'];
         });
 
-        return view('index', compact('surat', 'desa', 'gallery','berita','sejarah','galleries'));
+        return view('index', compact('surat', 'desa', 'gallery','berita','pemerintahan_desa','galleries'));
     }
 
     public function dashboard()

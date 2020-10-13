@@ -163,7 +163,7 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6 border-bottom">
                             <h2 class="text-white">BERITA</h2>
-                            <p class="text-white">Berita Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah mengetahui informasi mengenai macam-macam berita desa {{ $desa->nama_desa }}.</p>
+                            <p class="text-white">Berita Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah mengetahui informasi seputar berita desa {{ $desa->nama_desa }}.</p>
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,10 @@
                         <div class="card-body text-center">
                             <a href="{{ route('berita.show', ['berita' => $item, 'slug' => Str::slug($item->judul)]) }}">
                                 <h3>{{ $item->judul }}</h3>
-                                <p class="text-sm text-muted"><i class="fas fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</p>
+                                <div class="mt-3 d-flex justify-content-between text-sm text-muted">
+                                    <i class="fas fa-clock"> {{ $item->created_at->diffForHumans() }}</i>
+                                    <i class="fas fa-eye"> {{ $item->dilihat }} Kali Dibaca</i>
+                                </div>
                             </a>
                         </div>
                     </div>
@@ -196,41 +199,44 @@
         @endif
     </section>
 @endif
-@if ($sejarah->count() > 0)
+@if ($pemerintahan_desa->count() > 0)
     <section class="mb-5">
         <div class="row">
             <div class="col-md">
                 <div class="header-body text-center mt-5 mb-3">
                     <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6 border-bottom">
-                            <h2 class="text-white">SEJARAH</h2>
-                            <p class="text-white">Sejarah Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah mengetahui informasi mengenai macam-macam sejarah desa {{ $desa->nama_desa }}.</p>
+                            <h2 class="text-white">Pemerintahan Desa</h2>
+                            <p class="text-white">Pemerintahan Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah mengetahui informasi seputar pemerintahan desa {{ $desa->nama_desa }}.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row justify-content-center">
-            @foreach ($sejarah as $item)
+            @foreach ($pemerintahan_desa as $item)
                 <div class="col-lg-4 col-md-6 mb-3">
                     <div class="card animate-up shadow">
                         @if ($item->gambar)
-                            <a href="{{ route('sejarah.show', ['sejarah' => $item, 'slug' => Str::slug($item->judul)]) }}">
+                            <a href="{{ route('pemerintahan-desa.show', ['pemerintahan_desa' => $item, 'slug' => Str::slug($item->judul)]) }}">
                                 <div class="card-img" style="background-image: url('{{ url(Storage::url($item->gambar)) }}'); background-size: cover; height: 200px;">
                                 </div>
                             </a>
                         @endif
                         <div class="card-body text-center">
-                            <a href="{{ route('sejarah.show', ['sejarah' => $item, 'slug' => Str::slug($item->judul)]) }}">
+                            <a href="{{ route('pemerintahan-desa.show', ['pemerintahan_desa' => $item, 'slug' => Str::slug($item->judul)]) }}">
                                 <h3>{{ $item->judul }}</h3>
-                                <p class="text-sm text-muted"><i class="fas fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</p>
+                                <div class="mt-3 d-flex justify-content-between text-sm text-muted">
+                                    <i class="fas fa-clock"> {{ $item->created_at->diffForHumans() }}</i>
+                                    <i class="fas fa-eye"> {{ $item->dilihat }} Kali Dibaca</i>
+                                </div>
                             </a>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
-        @if ($sejarah->count() > 3)
+        @if ($pemerintahan_desa->count() > 3)
             <div class="text-center">
                 <a href="{{ route('sejarah') }}" class="btn btn-primary">Lebih Banyak Sejarah</a>
             </div>

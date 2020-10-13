@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Sejarah')
+@section('title', 'Edit Informasi Pemerintahan Desa')
 
 @section('styles')
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
@@ -25,11 +25,11 @@
                     <div class="card-header border-0">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-between text-center text-md-left">
                             <div class="mb-3">
-                                <h2 class="mb-0">Tambah Sejarah</h2>
-                                <p class="mb-0 text-sm">Kelola Sejarah</p>
+                                <h2 class="mb-0">Edit Informasi Pemerintahan Desa</h2>
+                                <p class="mb-0 text-sm">Kelola Informasi Pemerintahan Desa</p>
                             </div>
                             <div class="mb-3">
-                                <a href="{{ route("sejarah.index") }}" class="btn btn-success" title="Kembali"><i class="fas fa-arrow-left"></i> Kembali</a>
+                                <a href="{{ route('pemerintahan-desa.index') }}" class="btn btn-success" title="Kembali"><i class="fas fa-arrow-left"></i> Kembali</a>
                             </div>
                         </div>
                     </div>
@@ -46,26 +46,26 @@
     <div class="col">
         <div class="card bg-secondary shadow h-100">
             <div class="card-header bg-white border-0">
-                <h3 class="mb-0">Tambah Sejarah</h3>
+                <h3 class="mb-0">Edit Informasi Pemerintahan Desa</h3>
             </div>
             <div class="card-body">
-                <form autocomplete="off" action="{{ route('sejarah.store') }}" method="post" enctype="multipart/form-data">
-                    @csrf
+                <form autocomplete="off" action="{{ route('pemerintahan-desa.update', $pemerintahan_desa) }}" method="post" enctype="multipart/form-data">
+                    @csrf @method('patch')
                     <div class="form-group">
                         <label class="form-control-label">Gambar</label>
                         <div class="text-center">
-                            <img onclick="$(this).siblings('.images').click()" class="mw-100 upload-image" style="max-height: 300px" src="{{ asset('storage/upload.jpg') }}" alt="">
+                            <img title="Klik untuk ganti gambar" onclick="$(this).siblings('.images').click()" class="mw-100 upload-image" style="max-height: 300px" src="{{ $pemerintahan_desa->gambar ? asset(Storage::url($pemerintahan_desa->gambar)) : asset('storage/upload.jpg') }}" alt="Gambar berita {{ $pemerintahan_desa->judul }}">
                             <input accept="image/*" onchange="uploadImage(this)" type="file" name="gambar" class="images" style="display: none">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label">Judul</label>
-                        <input class="form-control @error('judul') is-invalid @enderror" name="judul" placeholder="Masukkan Judul ..." value="{{ old('judul') }}">
+                        <input class="form-control @error('judul') is-invalid @enderror" name="judul" placeholder="Masukkan Judul ..." value="{{ old('judul', $pemerintahan_desa->judul) }}">
                         @error('judul') <span class="invalid-feedback font-weight-bold">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
                         <label class="form-control-label">Konten</label>
-                        <textarea class="form-control @error('konten') is-invalid @enderror" name="konten">{{ old('konten') }}</textarea>
+                        <textarea class="form-control @error('konten') is-invalid @enderror" name="konten">{{ old('konten', $pemerintahan_desa->konten) }}</textarea>
                         @error('konten') <span class="invalid-feedback font-weight-bold">{{ $message }}</span> @enderror
                     </div>
                     <button type="submit" class="btn btn-primary btn-block" id="simpan">SIMPAN</button>

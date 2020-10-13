@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home.index');
 
 Route::get('/layanan-surat', 'SuratController@layanan_surat')->name('layanan-surat');
-Route::get('/sejarah', 'SejarahController@sejarah')->name('sejarah');
-Route::get('/sejarah/{sejarah}/{slug}', 'SejarahController@show')->name('sejarah.show');
+Route::get('/pemerintahan-desa', 'PemerintahanDesaController@pemerintahan_desa')->name('pemerintahan-desa');
+Route::get('/pemerintahan-desa/{pemerintahan_desa}/{slug}', 'PemerintahanDesaController@show')->name('pemerintahan-desa.show');
 Route::get('/berita', 'BeritaController@berita')->name('berita');
 Route::get('/berita/{berita}/{slug}', 'BeritaController@show')->name('berita.show');
 Route::get('/gallery', 'GalleryController@gallery')->name('gallery');
@@ -46,10 +46,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('/cetakSurat', 'CetakSuratController')->except('create','store','index');
     Route::resource('/surat', 'SuratController')->except('create');
 
-    Route::get('/kelola-sejarah', 'SejarahController@index')->name('sejarah.index');
-    Route::get('/tambah-sejarah', 'SejarahController@create')->name('sejarah.create');
-    Route::get('/edit-sejarah/{sejarah}', 'SejarahController@edit')->name('sejarah.edit');
-    Route::resource('/sejarah', 'SejarahController')->except('create','show','index','edit');
+    Route::get('/kelola-pemerintahan-desa', 'PemerintahanDesaController@index')->name('pemerintahan-desa.index');
+    Route::get('/tambah-pemerintahan-desa', 'PemerintahanDesaController@create')->name('pemerintahan-desa.create');
+    Route::get('/edit-pemerintahan-desa/{pemerintahan_desa}', 'PemerintahanDesaController@edit')->name('pemerintahan-desa.edit');
+    Route::resource('/pemerintahan-desa', 'PemerintahanDesaController')->except('create','show','index','edit');
 
     Route::get('/kelola-berita', 'BeritaController@index')->name('berita.index');
     Route::get('/tambah-berita', 'BeritaController@create')->name('berita.create');

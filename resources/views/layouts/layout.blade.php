@@ -97,9 +97,9 @@
                                     <i class="fas fa-fw fa-file-alt text-yellow"></i>
                                     <span class="nav-link-inner--text">Layanan Surat</span>
                                 </a>
-                                <a class="dropdown-item @if (Request::segment(1) == 'sejarah') active @endif" href="{{ route('sejarah') }}">
+                                <a class="dropdown-item @if (Request::segment(1) == 'pemerintahan-desa') active @endif" href="{{ route('pemerintahan-desa') }}">
                                     <i class="fas fa-fw fa-atlas text-success"></i>
-                                    <span class="nav-link-inner--text">Sejarah</span>
+                                    <span class="nav-link-inner--text">Pemerintahan Desa</span>
                                 </a>
                                 <a class="dropdown-item @if (Request::segment(1) == 'berita') active @endif" href="{{ route('berita') }}">
                                     <i class="fas fa-fw fa-newspaper text-cyan"></i>
@@ -136,8 +136,8 @@
                                     <a class="dropdown-item" href="{{ route('surat.index') }}">
                                         <i class="fas fa-fw fa-file-alt text-primary"></i> Kelola Surat
                                     </a>
-                                    <a href="{{ route('sejarah.index') }}" class="dropdown-item">
-                                        <i class="fas fa-fw fa-atlas text-success"></i> Kelola Sejarah
+                                    <a href="{{ route('pemerintahan-desa.index') }}" class="dropdown-item">
+                                        <i class="fas fa-fw fa-atlas text-success"></i> Kelola Informasi Pemerintahan Desa
                                     </a>
                                     <a href="{{ route('berita.index') }}" class="dropdown-item">
                                         <i class="fas fa-fw fa-newspaper text-cyan"></i> Kelola Berita

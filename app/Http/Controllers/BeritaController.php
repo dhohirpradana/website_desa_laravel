@@ -95,6 +95,7 @@ class BeritaController extends Controller
         if ($slug != Str::slug($berita->judul)) {
             return abort(404);
         }
+        $berita->update(['dilihat' => $berita->dilihat + 1]);
         return view('berita.show', compact('berita','desa','beritas'));
     }
 

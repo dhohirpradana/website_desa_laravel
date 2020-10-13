@@ -100,9 +100,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if (Request::segment(1) == 'kelola-sejarah' || Request::segment(1) == 'tambah-sejarah' || Request::segment(1) == 'sejarah') active @endif" href="{{ route('sejarah.index') }}">
+                <a class="nav-link @if (Request::segment(1) == 'kelola-pemerintahan-desa' || Request::segment(1) == 'tambah-pemerintahan-desa' || Request::segment(1) == 'pemerintahan-desa') active @endif" href="{{ route('pemerintahan-desa.index') }}">
                     <i class="fas fa-atlas text-success"></i>
-                    <span class="nav-link-inner--text">Kelola Sejarah</span>
+                    <span class="nav-link-inner--text">Kelola Informasi Pemerintahan Desa</span>
                 </a>
             </li>
             <li class="nav-item">
