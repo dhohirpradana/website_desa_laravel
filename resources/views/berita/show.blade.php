@@ -13,8 +13,7 @@
 
 @section('header')
 <h2 class="text-white text-sm text-muted">BERITA</h2>
-<h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
-<h2 class="text-white text-sm text-muted">{{ $berita->judul }}</h2>
+<h1 class="text-white">{{ $berita->judul }}</h1>
 @endsection
 
 @section('content')

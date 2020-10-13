@@ -94,7 +94,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
                                 <a class="dropdown-item @if (Request::segment(1) == 'layanan-surat') active @endif" href="{{ route('layanan-surat') }}">
-                                    <i class="fas fa-fw fa-file-alt text-primary"></i>
+                                    <i class="fas fa-fw fa-file-alt text-yellow"></i>
                                     <span class="nav-link-inner--text">Layanan Surat</span>
                                 </a>
                                 <a class="dropdown-item @if (Request::segment(1) == 'sejarah') active @endif" href="{{ route('sejarah') }}">
