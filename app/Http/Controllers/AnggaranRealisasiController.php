@@ -17,25 +17,48 @@ class AnggaranRealisasiController extends Controller
      */
     public function index(Request $request)
     {
+        $tahun = $request->tahun ? $request->tahun : date('Y');
         if ($request->jenis == "pendapatan") {
-            $anggaran_realisasi = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 4);})->latest()->paginate(10);
+            $anggaran_realisasi = AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 4);})->latest()->paginate(10);
         } elseif ($request->jenis == "belanja") {
-            $anggaran_realisasi = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 5);})->latest()->paginate(10);
+            $anggaran_realisasi = AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 5);})->latest()->paginate(10);
         } elseif ($request->jenis == "pembiayaan") {
-            $anggaran_realisasi = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 6);})->latest()->paginate(10);
+            $anggaran_realisasi = AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 6);})->latest()->paginate(10);
+        } elseif ($request->jenis == "laporan") {
+            $detail_jenis_anggaran = DetailJenisAnggaran::all();
+            $pendapatan_anggaran = 0; $pendapatan_realisasi = 0; $belanja_anggaran = 0; $belanja_realisasi = 0; $pembiayaan_anggaran = 0; $pembiayaan_realisasi = 0; $rincian = null;
+            $penerimaan_biaya_anggaran = 0; $penerimaan_biaya_realisasi = 0; $pengeluaran_biaya_anggaran = 0; $pengeluaran_biaya_realisasi = 0;
+
+            foreach (AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('jenis_anggaran_id', 4);})->get() as $item) {
+                $pendapatan_anggaran += $item->nilai_anggaran;
+                $pendapatan_realisasi += $item->nilai_realisasi;
+            }
+
+            foreach (AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('jenis_anggaran_id', 5);})->get() as $item) {
+                $belanja_anggaran += $item->nilai_anggaran;
+                $belanja_realisasi += $item->nilai_realisasi;
+            }
+
+            foreach (AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('kelompok_jenis_anggaran_id', 61);})->get() as $item) {
+                $penerimaan_biaya_anggaran += $item->nilai_anggaran;
+                $penerimaan_biaya_realisasi += $item->nilai_realisasi;
+            }
+
+            foreach (AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('kelompok_jenis_anggaran_id', 62);})->get() as $item) {
+                $pengeluaran_biaya_anggaran += $item->nilai_anggaran;
+                $pengeluaran_biaya_realisasi += $item->nilai_realisasi;
+            }
+
+            $pembiayaan_netto_anggaran = $penerimaan_biaya_anggaran - $pengeluaran_biaya_anggaran;
+            $pembiayaan_netto_realisasi = $penerimaan_biaya_realisasi - $pengeluaran_biaya_realisasi;
+
+            return view('anggaran-realisasi.laporan',compact('detail_jenis_anggaran','pendapatan_anggaran','pendapatan_realisasi','belanja_anggaran','belanja_realisasi','pembiayaan_netto_anggaran','pembiayaan_netto_realisasi'));
+        } elseif($request->jenis == "grafik"){
+            return view('anggaran-realisasi.grafik');
         } else {
             $anggaran_realisasi = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 4);})->latest()->paginate(10);
         }
 
-        if ($request->tahun) {
-            if ($request->jenis == "pendapatan") {
-                $anggaran_realisasi = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 4);})->latest()->paginate(10);
-            } elseif ($request->jenis == "belanja") {
-                $anggaran_realisasi = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 5);})->latest()->paginate(10);
-            } elseif ($request->jenis == "pembiayaan") {
-                $anggaran_realisasi = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 6);})->latest()->paginate(10);
-            }
-        }
         $anggaran_realisasi->appends(request()->input())->links();
 
         return view('anggaran-realisasi.index', compact('anggaran_realisasi'));
@@ -44,57 +67,30 @@ class AnggaranRealisasiController extends Controller
     public function cart(Request $request)
     {
         $pendapatan_anggaran = 0; $pendapatan_realisasi = 0; $belanja_anggaran = 0; $belanja_realisasi = 0; $pembiayaan_anggaran = 0; $pembiayaan_realisasi = 0; $rincian = null;
+        $tahun = $request->tahun ? $request->tahun : date('Y');
+        foreach (AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('jenis_anggaran_id', 4);})->get() as $item) {
+            $pendapatan_anggaran += $item->nilai_anggaran;
+            $pendapatan_realisasi += $item->nilai_realisasi;
+        }
 
-        if ($request->tahun) {
-            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 4);})->get() as $item) {
-                $pendapatan_anggaran += $item->nilai_anggaran;
-                $pendapatan_realisasi += $item->nilai_realisasi;
-            }
+        foreach (AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('jenis_anggaran_id', 5);})->get() as $item) {
+            $belanja_anggaran += $item->nilai_anggaran;
+            $belanja_realisasi += $item->nilai_realisasi;
+        }
 
-            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 5);})->get() as $item) {
-                $belanja_anggaran += $item->nilai_anggaran;
-                $belanja_realisasi += $item->nilai_realisasi;
-            }
+        foreach (AnggaranRealisasi::whereTahun($tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('jenis_anggaran_id', 6);})->get() as $item) {
+            $pembiayaan_anggaran += $item->nilai_anggaran;
+            $pembiayaan_realisasi += $item->nilai_realisasi;
+        }
 
-            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($pembiayaan) {$pembiayaan->where('jenis_anggaran_id', 6);})->get() as $item) {
-                $pembiayaan_anggaran += $item->nilai_anggaran;
-                $pembiayaan_realisasi += $item->nilai_realisasi;
+        foreach (AnggaranRealisasi::whereTahun($tahun)->get()->groupBy('detail_jenis_anggaran_id') as $value) {
+            $anggaran = 0;
+            $realisasi = 0;
+            foreach ($value as $item) {
+                $anggaran += $item->nilai_anggaran;
+                $realisasi += $item->nilai_realisasi;
             }
-
-            foreach (AnggaranRealisasi::whereTahun($request->tahun)->get()->groupBy('detail_jenis_anggaran_id') as $key => $value) {
-                $anggaran = 0;
-                $realisasi = 0;
-                foreach ($value as $item) {
-                    $anggaran += $item->nilai_anggaran;
-                    $realisasi += $item->nilai_realisasi;
-                }
-                $rincian[] = $this->cart_rincian($value[0]->detail_jenis_anggaran->jenis_anggaran_id,$realisasi, $anggaran, $value[0]->detail_jenis_anggaran->nama ? $value[0]->detail_jenis_anggaran->nama : $value[0]->detail_jenis_anggaran->kelompok_jenis_anggaran->nama);
-            }
-        } else {
-            foreach (AnggaranRealisasi::whereTahun(date('Y'))->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 4);})->get() as $item) {
-                $pendapatan_anggaran += $item->nilai_anggaran;
-                $pendapatan_realisasi += $item->nilai_realisasi;
-            }
-
-            foreach (AnggaranRealisasi::whereTahun(date('Y'))->whereHas('detail_jenis_anggaran', function ($belanja) {$belanja->where('jenis_anggaran_id', 5);})->get() as $item) {
-                $belanja_anggaran += $item->nilai_anggaran;
-                $belanja_realisasi += $item->nilai_realisasi;
-            }
-
-            foreach (AnggaranRealisasi::whereTahun(date('Y'))->whereHas('detail_jenis_anggaran', function ($pembiayaan) {$pembiayaan->where('jenis_anggaran_id', 6);})->get() as $item) {
-                $pembiayaan_anggaran += $item->nilai_anggaran;
-                $pembiayaan_realisasi += $item->nilai_realisasi;
-            }
-
-            foreach (AnggaranRealisasi::whereTahun(date('Y'))->get()->groupBy('detail_jenis_anggaran_id') as $key => $value) {
-                $anggaran = 0;
-                $realisasi = 0;
-                foreach ($value as $item) {
-                    $anggaran += $item->nilai_anggaran;
-                    $realisasi += $item->nilai_realisasi;
-                }
-                $rincian[] = $this->cart_rincian($value[0]->detail_jenis_anggaran->jenis_anggaran_id,$realisasi, $anggaran, $value[0]->detail_jenis_anggaran->nama ? $value[0]->detail_jenis_anggaran->nama : $value[0]->detail_jenis_anggaran->kelompok_jenis_anggaran->nama);
-            }
+            $rincian[] = $this->cart_rincian($value[0]->detail_jenis_anggaran->jenis_anggaran_id,$realisasi, $anggaran, $value[0]->detail_jenis_anggaran->nama ? $value[0]->detail_jenis_anggaran->nama : $value[0]->detail_jenis_anggaran->kelompok_jenis_anggaran->nama);
         }
 
         try {
@@ -178,8 +174,17 @@ class AnggaranRealisasiController extends Controller
             'detail_jenis_anggaran_id.required' => 'detail jenis anggaran wajib diisi'
         ]);
 
+        $jenis = '';
+        if ($request->jenis_anggaran == 4 ) {
+            $jenis = 'pendapatan';
+        } elseif ($request->jenis_anggaran == 5 ) {
+            $jenis = 'belanja';
+        } elseif ($request->jenis_anggaran == 6 ) {
+            $jenis = 'pembiayaan';
+        }
+
         AnggaranRealisasi::create($data);
-        return redirect()->route('anggaran-realisasi.index')->with('success','Anggaran Realisasi APBDes berhasil ditambahkan');
+        return redirect('/anggaran-realisasi?jenis='.$jenis."&tahun=".$request->tahun)->with('success','Anggaran Realisasi APBDes berhasil ditambahkan');
     }
 
     /**

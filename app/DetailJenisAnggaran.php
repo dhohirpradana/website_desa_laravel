@@ -18,4 +18,9 @@ class DetailJenisAnggaran extends Model
     {
         return $this->belongsTo('App\JenisAnggaran');
     }
+
+    public function anggaran_realisasi()
+    {
+        return $this->hasMany('App\AnggaranRealisasi');
+    }
 }

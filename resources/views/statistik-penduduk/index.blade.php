@@ -250,14 +250,5 @@
         }]
     });
 
-    let chart_harian = Highcharts.chart('chart-harian', bar);
-    chart_harian.title.textSetter("Grafik Cetak Surat Harian");
-
-    let chart_bulanan = Highcharts.chart('chart-bulanan', bar);
-    chart_bulanan.title.textSetter("Grafik Cetak Surat Bulanan");
-
-    let chart_tahunan = Highcharts.chart('chart-tahunan', bar);
-    chart_tahunan.title.textSetter("Grafik Cetak Surat Tahunan");
-
 </script>
 @endpush

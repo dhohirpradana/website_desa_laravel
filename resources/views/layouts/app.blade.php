@@ -114,6 +114,12 @@
                             &copy; {{ date('Y') }} <a href="{{ config('app.url') }}" class="font-weight-bold ml-1" target="_blank">Desa {{ $desa->nama_desa }}</a>
                         </div>
                     </div>
+                    <div class="col-xl-6">
+                        <div class="copyright text-center text-xl-right text-muted">
+                            Powered By <a href="https://github.com/maulanakevinp/simapeda" class="font-weight-bold ml-1"
+                                target="_blank">SIMAPEDA</a>
+                        </div>
+                    </div>
                 </div>
             </footer>
         </div>

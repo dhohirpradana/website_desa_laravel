@@ -1,4 +1,4 @@
-$.get(baseURL + "/anggaran-realisasi-cart", function (response) {
+$.get(baseURL + "/anggaran-realisasi-cart", {'tahun': $("#tahun-apbdes").val()}, function (response) {
     anggaran_realisasi_cart(response);
 });
 

@@ -4,6 +4,15 @@
 
 @section('styles')
 <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+<style>
+    .table th, .table td {
+        padding: 5px;
+    }
+    .card .table td, .card .table th {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+</style>
 @endsection
 
 @section('content-header')
@@ -56,75 +65,81 @@
             </div>
             <form id="form-tahun" action="{{ URL::current()}}" method="GET">
                 <input type="hidden" name="jenis" value="{{ request('jenis') ? request('jenis') : "pendapatan"}}">
+                <input type="hidden" id="tahun-apbdes" value="{{ request('tahun') ? request('tahun') : date('Y')}}">
                 Tahun: <input type="number" name="tahun" id="tahun" class="form-control-sm" value="{{ request('tahun') ? request('tahun') : date('Y') }}" style="width: 80px">
                 <img id="loading-tahun" src="{{ asset(Storage::url('loading.gif')) }}" alt="Loading" height="20px" style="display: none">
             </form>
         </div>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped table-bordered">
-                <thead>
-                    <th width="100px">#</th>
-                    <th>Rincian</th>
-                    <th>Anggaran</th>
-                    <th>Realisasi</th>
-                    <th>Ditambahkan pada</th>
-                    <th>Diperbarui pada</th>
-                </thead>
-                <tbody>
-                    @forelse ($anggaran_realisasi as $item)
-                        <tr>
-                            <td>
-                                <a href="{{ route('anggaran-realisasi.edit', $item) }}?jenis={{ request('jenis') }}&tahun={{ request('tahun') }}&page={{ request('page') }}" class="btn btn-sm btn-success" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }}" data-action="{{ route("anggaran-realisasi.destroy", $item) }}" data-toggle="modal" href="#modal-hapus"><i data-toggle="tooltip" title="Hapus" class="fas fa-trash"></i></a>
-                            </td>
-                            <td>{{ $item->detail_jenis_anggaran->nama ? $item->detail_jenis_anggaran->nama : $item->detail_jenis_anggaran->kelompok_jenis_anggaran->nama }} {{ $item->keterangan_lainnya ? "(" . $item->keterangan_lainnya . ")" : "" }}</td>
-                            <td>Rp. {{ substr(number_format($item->nilai_anggaran, 2, ',', '.'),0,-3) }}</td>
-                            <td>Rp. {{ substr(number_format($item->nilai_realisasi, 2, ',', '.'),0,-3) }}</td>
-                            <td>{{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}</td>
-                            <td>{{ date('d/m/Y H:i:s', strtotime($item->updated_at)) }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" align="center">Data tidak tersedia</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        {{ $anggaran_realisasi->links() }}
-    </div>
-</div>
-
-<div class="modal fade" id="modal-hapus" tabindex="-1" role="dialog" aria-labelledby="modal-hapus" aria-hidden="true">
-    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
-        <div class="modal-content bg-gradient-danger">
-
-            <div class="modal-header">
-                <h6 class="modal-title" id="modal-title-delete">Hapus Anggaran Realisasi?</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-
-                <div class="py-3 text-center">
-                    <i class="ni ni-bell-55 ni-3x"></i>
-                    <h4 class="heading mt-4">Perhatian!!</h4>
-                    <p>Menghapus anggaran realisasi akan menghapus semua data yang dimilikinya</p>
-                    <p><strong id="nama-hapus"></strong></p>
+        <div class="row justify-content-center">
+            <div class="col-12 mb-3">
+                <div class="text-center">
+                    <h3 class="mb-0">PELAKSANAAN</h3>
+                    <p class="text-sm mb-0">Realisasi | Anggaran</p>
                 </div>
-
+                <div class="progress-wrapper">
+                    <div class="progress-info">
+                        <div class="progress-label">
+                            <span>Pendapatan</span>
+                            <span id="pendapatan-uang">Rp. 0 | Rp. 0</span>
+                        </div>
+                        <div class="progress-percentage">
+                            <span id="pendapatan-persen">0%</span>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div id="pendapatan-value" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <div class="progress-wrapper">
+                    <div class="progress-info">
+                        <div class="progress-label">
+                            <span>Belanja</span>
+                            <span id="belanja-uang">Rp. 0 | Rp. 0</span>
+                        </div>
+                        <div class="progress-percentage">
+                            <span id="belanja-persen">0%</span>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div id="belanja-value" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <div class="progress-wrapper">
+                    <div class="progress-info">
+                        <div class="progress-label">
+                            <span>Pembiayaan</span>
+                            <span id="pembiayaan-uang">Rp. 0 | Rp. 0</span>
+                        </div>
+                        <div class="progress-percentage">
+                            <span id="pembiayaan-persen">0%</span>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div id="pembiayaan-value" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                    </div>
+                </div>
             </div>
-
-            <div class="modal-footer">
-                <form id="form-hapus" action="" method="POST" >
-                    @csrf @method('delete')
-                    <button type="submit" class="btn btn-white">Yakin</button>
-                </form>
-                <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal">Tidak</button>
+            <div class="col-lg-4 col-md-6 mb-3" style="display:none">
+                <div class="text-center">
+                    <h3 class="mb-0">PENDAPATAN</h3>
+                    <p class="text-sm mb-0">Realisasi | Anggaran</p>
+                </div>
+                <div id="pendapatan-wrapper"></div>
             </div>
-
+            <div class="col-lg-4 col-md-6 mb-3" style="display:none">
+                <div class="text-center">
+                    <h3 class="mb-0">BELANJA</h3>
+                    <p class="text-sm mb-0">Realisasi | Anggaran</p>
+                </div>
+                <div id="belanja-wrapper"></div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-3" style="display:none">
+                <div class="text-center">
+                    <h3 class="mb-0">PEMBIAYAAN</h3>
+                    <p class="text-sm mb-0">Realisasi | Anggaran</p>
+                </div>
+                <div id="pembiayaan-wrapper"></div>
+            </div>
         </div>
     </div>
 </div>
