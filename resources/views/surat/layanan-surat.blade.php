@@ -13,6 +13,10 @@
     .ikon {
         font-family: fontAwesome;
     }
+
+    .animate-up:hover {
+        top: -5px;
+    }
 </style>
 @endsection
 
@@ -35,7 +39,7 @@
 <div class="row mt-4 justify-content-center">
     @forelse ($surat as $item)
         <div class="col-lg-4 col-md-6 surats">
-            <div class="single-service bg-white rounded shadow p-3">
+            <div class="single-service bg-white rounded shadow p-3 animate-up">
                 <a href="{{ route('buat-surat', ['id' => $item->id,'slug' => Str::slug($item->nama)]) }}">
                     <i class="fas {{ $item->icon }} ikon fa-5x mb-3"></i>
                     <h4>{{ $item->nama }}</h4>

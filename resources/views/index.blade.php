@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">
-<link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('/css/style.css') }}" >
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <style>
     .ikon {
@@ -20,6 +20,10 @@
 
     .progress-percentage > span {
         color: white;
+    }
+
+    .animate-up:hover {
+        top: -5px;
     }
 </style>
 @endsection
@@ -57,7 +61,7 @@
     <div class="row mt-4 justify-content-center">
         @foreach ($surat as $item)
             <div class="col-lg-4 col-md-6 surats">
-                <div class="single-service bg-white rounded shadow p-3">
+                <div class="single-service bg-white rounded shadow p-3 animate-up">
                     <a href="{{ route('buat-surat', ['id' => $item->id,'slug' => Str::slug($item->nama)]) }}">
                         <i class="fas {{ $item->icon }} ikon fa-5x mb-3"></i>
                         <h4>{{ $item->nama }}</h4>
@@ -66,7 +70,9 @@
                 </div>
             </div>
         @endforeach
-        <a href="{{ route('layanan-surat') }}" class="btn btn-primary">Lebih Banyak Surat</a>
+        @if (App\Surat::count() > 3)
+            <a href="{{ route('layanan-surat') }}" class="btn btn-primary">Lebih Banyak Surat</a>
+        @endif
     </div>
 </section>
 <div class="card shadow h-100 mb-5" style="margin-top:100px">
@@ -192,7 +198,7 @@
                 </div>
             @endforeach
         </div>
-        @if ($berita->count() > 3)
+        @if (App\Berita::count() > 3)
             <div class="text-center">
                 <a href="{{ route('berita') }}" class="btn btn-primary">Lebih Banyak Berita</a>
             </div>
@@ -236,7 +242,7 @@
                 </div>
             @endforeach
         </div>
-        @if ($pemerintahan_desa->count() > 3)
+        @if (App\PemerintahanDesa::count() > 3)
             <div class="text-center">
                 <a href="{{ route('sejarah') }}" class="btn btn-primary">Lebih Banyak Sejarah</a>
             </div>
@@ -261,13 +267,13 @@
             @foreach ($galleries as $key => $item)
                 @if ($key < 3)
                     @if ($item['jenis'] == 1)
-                        <div class="col-lg-4 col-md-6 mb-3 animate-up">
+                        <div class="col-lg-4 col-md-6 mb-3 img-scale-up">
                             <a href="{{ url(Storage::url($item['gambar'])) }}" data-fancybox data-caption="{{ $item['caption'] }}">
                                 <img class="mw-100" src="{{ url(Storage::url($item['gambar'])) }}" alt="">
                             </a>
                         </div>
                     @else
-                        <div class="col-lg-4 col-md-6 mb-3 animate-up">
+                        <div class="col-lg-4 col-md-6 mb-3 img-scale-up">
                             <a href="https://www.youtube.com/watch?v={{ $item['id'] }}" data-fancybox data-caption="{{ $item['caption'] }}">
                                 <i class="fas fa-play fa-2x" style="position: absolute; top:43%; left:46%;"></i>
                                 <img class="mw-100" src="{{ $item['gambar'] }}" alt="">
