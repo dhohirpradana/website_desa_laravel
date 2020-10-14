@@ -244,7 +244,7 @@
         </div>
         @if (App\PemerintahanDesa::count() > 3)
             <div class="text-center">
-                <a href="{{ route('sejarah') }}" class="btn btn-primary">Lebih Banyak Sejarah</a>
+                <a href="{{ route('pemerintahan-desa') }}" class="btn btn-primary">Lebih Banyak Sejarah</a>
             </div>
         @endif
     </section>
