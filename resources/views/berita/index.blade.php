@@ -59,8 +59,10 @@
                             <i class="fas fa-eye"> {{ $item->dilihat }} Kali Dibaca</i>
                         </div>
                     </a>
-                    <a href="{{ route('berita.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
-                    <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->judul }}" data-action="{{ route('berita.destroy',$item) }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
+                    <div class="mt-3">
+                        <a href="{{ route('berita.edit', $item) }}" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-edit"></i> Edit</a>
+                        <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->judul }}" data-action="{{ route('berita.destroy',$item) }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
+                    </div>
                 </div>
             </div>
         </div>
