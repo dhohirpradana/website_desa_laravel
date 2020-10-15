@@ -83,6 +83,6 @@ class DetailDusunController extends Controller
     public function destroy(DetailDusun $detailDusun)
     {
         $detailDusun->delete();
-        return redirect()->back()->with('success', 'Detail dusun berhasil diperbarui');
+        return redirect()->back()->with('success', 'Detail dusun berhasil dihapus');
     }
 }

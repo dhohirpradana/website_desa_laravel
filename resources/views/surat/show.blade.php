@@ -71,7 +71,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive mb-3">
-            <table class="table table-bordered table-hover table-striped">
+            <table class="table table-sm table-bordered table-hover table-striped">
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
@@ -110,9 +110,9 @@
                     @forelse ($cetakSurat as $item)
                         <tr>
                             <td>
-                                <a target="_blank" href="{{ route('cetakSurat.show', $item->id) }}" class="btn btn-sm btn-success" title="Detail Cetak" data-toggle="tooltip"><i class="fas fa-print"></i> Cetak</a>
-                                <a href="{{ route('cetakSurat.edit',$item->id) }}" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"><i class="fas fa-edit"></i> Edit</a>
-                                <a class="btn btn-sm btn-danger hapus-data" data-nama="Detail cetak surat ini" data-action="{{ route('cetakSurat.destroy',$item->id) }}" data-toggle="modal" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i> Hapus</a>
+                                <a target="_blank" href="{{ route('cetakSurat.show', $item->id) }}" class="btn btn-sm btn-success" title="Detail Cetak" data-toggle="tooltip"><i class="fas fa-print"></i></a>
+                                <a href="{{ route('cetakSurat.edit',$item->id) }}" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-sm btn-danger hapus-data" data-nama="Detail cetak surat ini" data-action="{{ route('cetakSurat.destroy',$item->id) }}" data-toggle="tooltip" href="#modal-hapus" title="Hapus"><i class="fas fa-trash"></i></a>
                             </td>
                             <td>{{ $item->nomor ? $item->nomor : "-" }}</td>
                             @foreach ($item->DetailCetak as $DetailCetak)

@@ -31,7 +31,9 @@ $(document).on("click", "input[type='checkbox']", function () {
     $(this).attr('checked', $(this).prop('checked'));
 });
 
-$(document).on('click', '.hapus-data', function(){
+$(document).on('click', '.hapus-data', function(event){
+    event.preventDefault();
+    $('#modal-hapus').modal('show');
     $('#nama-hapus').html('Apakah Anda yakin ingin menghapus ' + $(this).data('nama') + '???');
     $('#form-hapus').attr('action', $(this).data('action'));
 });

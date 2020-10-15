@@ -132,30 +132,30 @@
 <div class="card shadow">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover table-striped table-bordered">
+            <table class="table table-hover table-sm table-striped table-bordered">
                 <thead>
-                    <th>#</th>
-                    <th>NIK</th>
-                    <th>KK</th>
-                    <th>Nama</th>
-                    <th>Jenis Kelamin</th>
-                    <th>TTL</th>
-                    <th>Golongan Darah</th>
-                    <th>Agama</th>
-                    <th>Pendidikan</th>
-                    <th>Pekerjaan</th>
-                    <th>Status Perkawinan</th>
-                    <th>Status Hub. dalam Keluarga</th>
-                    <th>Kewarganegaraan</th>
-                    <th>Nama Ayah</th>
-                    <th>Nama Ibu</th>
+                    <th class="text-center">#</th>
+                    <th class="text-center">NIK</th>
+                    <th class="text-center">KK</th>
+                    <th class="text-center">Nama</th>
+                    <th class="text-center">Jenis Kelamin</th>
+                    <th class="text-center">TTL</th>
+                    <th class="text-center">Golongan Darah</th>
+                    <th class="text-center">Agama</th>
+                    <th class="text-center">Pendidikan</th>
+                    <th class="text-center">Pekerjaan</th>
+                    <th class="text-center">Status Perkawinan</th>
+                    <th class="text-center">Status Hub. dalam Keluarga</th>
+                    <th class="text-center">Kewarganegaraan</th>
+                    <th class="text-center">Nama Ayah</th>
+                    <th class="text-center">Nama Ibu</th>
                 </thead>
                 <tbody>
                     @forelse ($penduduk as $item)
                         <tr>
                             <td>
                                 <a href="{{ route('penduduk.edit', $item) }}" class="btn btn-sm btn-success" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->nama }}" data-action="{{ route("penduduk.destroy", $item) }}" data-toggle="modal" href="#modal-hapus"><i data-toggle="tooltip" title="Hapus" class="fas fa-trash"></i></a>
+                                <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->nama }}" data-action="{{ route("penduduk.destroy", $item) }}" data-toggle="tooltip" title="Hapus" href="#modal-hapus"><i class="fas fa-trash"></i></a>
                             </td>
                             <td>{{ $item->nik }}</td>
                             <td>{{ $item->kk }}</td>

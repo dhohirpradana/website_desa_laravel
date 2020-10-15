@@ -35,7 +35,7 @@
 @include('layouts.components.alert')
 <div class="row mt-4 justify-content-center">
     @forelse ($gallery as $item)
-        <div class="col-lg-4 col-md-6 mb-3 animate-up">
+        <div class="col-lg-4 col-md-6 mb-3 img-scale-up">
             <a href="{{ url(Storage::url($item->gallery)) }}" data-fancybox>
                 <img class="mw-100" src="{{ url(Storage::url($item->gallery)) }}" alt="">
             </a>

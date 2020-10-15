@@ -17,9 +17,11 @@ Route::get('/', 'HomeController@index')->name('home.index');
 
 Route::get('/layanan-surat', 'SuratController@layanan_surat')->name('layanan-surat');
 Route::get('/pemerintahan-desa', 'PemerintahanDesaController@pemerintahan_desa')->name('pemerintahan-desa');
+Route::get('/pemerintahan-desa/{pemerintahan_desa}', function (){return abort(404);});
 Route::get('/pemerintahan-desa/{pemerintahan_desa}/{slug}', 'PemerintahanDesaController@show')->name('pemerintahan-desa.show');
 Route::get('/berita', 'BeritaController@berita')->name('berita');
 Route::get('/berita/{berita}/{slug}', 'BeritaController@show')->name('berita.show');
+Route::get('/berita/{berita}', function (){return abort(404);});
 Route::get('/gallery', 'GalleryController@gallery')->name('gallery');
 Route::get('/buat-surat/{id}/{slug}', 'CetakSuratController@create')->name('buat-surat');
 Route::get('/panduan', 'HomeController@panduan')->name('panduan');
@@ -74,11 +76,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
     Route::get('/tambah-penduduk', 'PendudukController@create')->name('penduduk.create');
+    Route::get('/penduduk/{penduduk}', function (){return abort(404);});
     Route::resource('penduduk', 'PendudukController')->except('create','show');
 
     Route::get('/kelompok-jenis-anggaran/{kelompokJenisAnggaran}', 'AnggaranRealisasiController@kelompokJenisAnggaran');
     Route::get('/detail-jenis-anggaran/{id}', 'AnggaranRealisasiController@show')->name('detail-jenis-anggaran.show');
     Route::get('/tambah-anggaran-realisasi', 'AnggaranRealisasiController@create')->name('anggaran-realisasi.create');
+    Route::get('/anggaran-realisasi/{anggaran_realisasi}', function (){return abort(404);});
     Route::resource('anggaran-realisasi', 'AnggaranRealisasiController')->except('create','show');
 
     Route::get('/tambah-dusun', 'DusunController@create')->name('dusun.create');

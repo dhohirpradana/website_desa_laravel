@@ -68,8 +68,8 @@
                                     <td>{{ $item->rw }}</td>
                                     <td>{{ $item->rt }}</td>
                                     <td>
-                                        <a href="#modal-edit-detail-dusun" class="btn btn-sm btn-success edit" data-get="{{ route('detailDusun.show', $item) }}" data-action="{{ route('detailDusun.update', $item) }}" ><i class="fas fa-edit"></i></a>
-                                        <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->nama }}" data-action="{{ route("dusun.destroy", $item) }}" data-toggle="modal" href="#modal-hapus"><i data-toggle="tooltip" title="Hapus" class="fas fa-trash"></i></a>
+                                        <a href="#modal-edit-detail-dusun" class="btn btn-sm btn-success edit" data-get="{{ route('detailDusun.show', $item) }}" data-action="{{ route('detailDusun.update', $item) }}" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-sm btn-danger hapus-data" data-nama="RT/RW {{ $item->rt }}/{{ $item->rw }}" data-action="{{ route("detailDusun.destroy", $item) }}" data-toggle="tooltip" title="Hapus" href="#modal-hapus"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @empty
@@ -85,6 +85,40 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal-hapus" tabindex="-1" role="dialog" aria-labelledby="modal-hapus" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content bg-gradient-danger">
+
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-delete">Hapus Detail Dusun?</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="py-3 text-center">
+                    <i class="ni ni-bell-55 ni-3x"></i>
+                    <h4 class="heading mt-4">Perhatian!!</h4>
+                    <p>Menghapus dusun akan menghapus semua data yang dimilikinya</p>
+                    <p><strong id="nama-hapus"></strong></p>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <form id="form-hapus" action="" method="POST" >
+                    @csrf @method('delete')
+                    <button type="submit" class="btn btn-white">Yakin</button>
+                </form>
+                <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal">Tidak</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modal-edit-detail-dusun" tabindex="-1" role="dialog" aria-labelledby="modal-edit-detail-dusun" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-" role="document">
         <div class="modal-content">
@@ -96,7 +130,7 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-edit" data-redirect="{{ route('dusun.edit',$dusun) }}" action="" method="POST">
+                <form class="form form-edit" data-redirect="{{ route('dusun.edit',$dusun) }}" action="" method="POST">
                     @csrf @method('patch')
                     <input type="hidden" name="dusun_id" value="{{ $dusun->id }}">
                     <div class="form-group">
@@ -128,7 +162,7 @@
             </div>
 
             <div class="modal-body">
-                <form data-redirect="{{ route('dusun.edit',$dusun) }}" action="{{ route("detailDusun.store") }}" method="POST">
+                <form class="form" data-redirect="{{ route('dusun.edit',$dusun) }}" action="{{ route("detailDusun.store") }}" method="POST">
                     @csrf
                     <input type="hidden" name="dusun_id" value="{{ $dusun->id }}">
                     <div class="form-group">
@@ -173,7 +207,7 @@
         });
     });
 
-    $(document).on('submit', 'form', function(event) {
+    $(document).on('submit', '.form', function(event) {
         event.preventDefault();
         const form = this;
         const url = $(this).attr('action');

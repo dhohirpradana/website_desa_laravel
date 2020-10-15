@@ -54,11 +54,11 @@
 <div class="card shadow">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover table-stripped table-bordered">
+            <table class="table table-hover table-sm table-stripped table-bordered">
                 <thead>
-                    <th width="20px">#</th>
-                    <th>Nama Dusun</th>
-                    <th>Opsi</th>
+                    <th class="text-center" width="20px">#</th>
+                    <th class="text-center">Nama Dusun</th>
+                    <th class="text-center">Opsi</th>
                 </thead>
                 <tbody>
                     @forelse ($dusun as $item)
@@ -67,7 +67,7 @@
                             <td>{{ $item->nama }}</td>
                             <td>
                                 <a href="{{ route('dusun.edit', $item) }}" class="btn btn-sm btn-success" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->nama }}" data-action="{{ route("dusun.destroy", $item) }}" data-toggle="modal" href="#modal-hapus"><i data-toggle="tooltip" title="Hapus" class="fas fa-trash"></i></a>
+                                <a class="btn btn-sm btn-danger hapus-data" data-nama="{{ $item->nama }}" data-action="{{ route("dusun.destroy", $item) }}" data-toggle="tooltip" title="Hapus" href="#modal-hapus"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                     @empty
