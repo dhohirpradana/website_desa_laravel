@@ -78,19 +78,19 @@
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'penduduk' || Request::segment(1) == 'tambah-penduduk') active @endif" href="{{ route('penduduk.index') }}">
                     <i class="fas fa-users text-info"></i>
-                    <span class="nav-link-inner--text">Kelola Penduduk</span><span class="badge badge-success ml-1">new</span>
+                    <span class="nav-link-inner--text">Kelola Penduduk</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'dusun' || Request::segment(1) == 'tambah-dusun') active @endif" href="{{ route('dusun.index') }}">
                     <i class="fas fa-map-marker-alt text-yellow"></i>
-                    <span class="nav-link-inner--text">Kelola Dusun</span><span class="badge badge-success ml-1">new</span>
+                    <span class="nav-link-inner--text">Kelola Dusun</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(1) == 'anggaran-realisasi' || Request::segment(1) == 'tambah-anggaran-realisasi') active @endif" href="{{ url('anggaran-realisasi?jenis=pendapatan&tahun='.date('Y')) }}">
                     <i class="fas fa-coins text-success"></i>
-                    <span class="nav-link-inner--text">Kelola APBDes</span><span class="badge badge-success ml-1">new</span>
+                    <span class="nav-link-inner--text">Kelola APBDes</span>
                 </a>
             </li>
             <li class="nav-item">
