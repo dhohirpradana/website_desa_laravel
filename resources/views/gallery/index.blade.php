@@ -115,8 +115,9 @@
             </div>
 
             <div class="modal-body">
-                <form class="form" data-url="{{ route("gallery.storeGallery") }}" action="javascript:;" method="POST" enctype="multipart/form-data">
+                <form action="{{ route("gallery.store") }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="slider" value="">
                     <div class="form-group">
                         <label class="form-control-label">Gambar</label>
                         <div class="text-center">
@@ -184,65 +185,5 @@
             reader.readAsDataURL(inputFile.files[0]);
         }
     }
-
-    $(document).ready(function(){
-        $("button[data-dismiss='modal']").click(function () {
-            $('.alert-dismissible').remove();
-        });
-
-        $(document).on('submit', '.form' ,function(){
-            let form = this;
-            $(".notifikasi").html('');
-            $.ajax({
-                url: $(form).data('url'),
-                type: 'POST',
-                data: new FormData(this),
-                dataType: 'json',
-                contentType: false,
-                cache: false,
-                processData: false,
-                beforeSend: function(data){
-                    $(form).find('button:submit').attr('disabled','disabled');
-                    $(form).find('button:submit').html(`<img height="20px" src="{{ url('/storage/loading.gif') }}" alt=""> Loading ...`);
-                },
-                success: function(data){
-                    $(form).find('button:submit').html('SIMPAN');
-                    $(form).find('button:submit').removeAttr('disabled');
-                    $(".notifikasi").html(`
-                        <div class="alert alert-success alert-dismissible fade show">
-                            <span class="alert-icon"><i class="fas fa-check-circle"></i> <strong>Berhasil</strong></span>
-                            <span class="alert-text">
-                                ${data.message}
-                            </span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    `);
-                    document.location.reload(true);
-                },
-                error: function (data) {
-                    console.clear();
-                    $(form).find('button:submit').html('SIMPAN');
-                    $(form).find('button:submit').removeAttr('disabled');
-                    let text = `
-                        <div class="alert alert-danger alert-dismissible fade show">
-                            <span class="alert-icon"><i class="fas fa-times-circle"></i> <strong>Gagal</strong></span>
-                            <span class="alert-text">
-                                <ul id="pesanError">`;
-                    $.each(data.responseJSON.errors, function (i, e) {
-                        text += `   <li>${e}</li>`;
-                    });
-                    text += `   </ul>
-                            </span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>`;
-                    $(".notifikasi").html(text);
-                }
-            });
-        });
-    });
 </script>
 @endpush

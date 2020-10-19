@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home.index');
 
+Route::get('/laporan-apbdes', 'AnggaranRealisasiController@laporan_apbdes')->name('laporan-apbdes');
 Route::get('/layanan-surat', 'SuratController@layanan_surat')->name('layanan-surat');
 Route::get('/pemerintahan-desa', 'PemerintahanDesaController@pemerintahan_desa')->name('pemerintahan-desa');
 Route::get('/pemerintahan-desa/{pemerintahan_desa}', function (){return abort(404);});

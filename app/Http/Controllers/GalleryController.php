@@ -7,7 +7,6 @@ use App\Gallery;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Validator;
 
 class GalleryController extends Controller
 {
@@ -100,7 +99,7 @@ class GalleryController extends Controller
      */
     public function indexSlider()
     {
-        $gallery = Gallery::where('slider', 1)->get();
+        $gallery = Gallery::where('slider', 1)->latest()->get();
         return view('gallery.slider', compact('gallery'));
     }
 
@@ -122,37 +121,6 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'file.*'    => ['required', 'image', 'max:2048']
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'error'     => true,
-                'message'   => $validator->errors()->all()
-            ], 400);
-        }
-
-        $photos = $request->file('file');
-
-        if (!is_array($photos)) {
-            $photos = [$photos];
-        }
-
-        for ($i = 0; $i < count($photos); $i++) {
-            Gallery::create([
-                'gallery'   => $photos[$i]->store('public/gallery'),
-                'slider'    => 1
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Slider berhasil ditambahkan'
-        ]);
-    }
-
-    public function storeGallery(Request $request)
-    {
         $request->validate([
             'gambar'    => ['required', 'image', 'max:2048'],
             'caption'   => ['nullable', 'string']
@@ -160,12 +128,11 @@ class GalleryController extends Controller
 
         Gallery::create([
             'gallery'   => $request->gambar->store('public/gallery'),
-            'caption'   => $request->caption
+            'caption'   => $request->caption,
+            'slider'    => $request->slider
         ]);
 
-        return response()->json([
-            'message' => 'Gambar berhasil ditambahkan'
-        ]);
+        return redirect()->back()->with('success', 'Gambar berhasil ditambahkan');
     }
 
     /**

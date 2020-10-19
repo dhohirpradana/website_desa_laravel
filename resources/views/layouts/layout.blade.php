@@ -113,6 +113,10 @@
                                     <i class="fas fa-fw fa-chart-pie text-info"></i>
                                     <span class="nav-link-inner--text">Statistik Penduduk</span>
                                 </a>
+                                <a class="dropdown-item @if (Request::segment(1) == 'laporan-apbdes') active @endif" href="{{ route('laporan-apbdes') }}">
+                                    <i class="fas fa-fw fa-money-check-alt text-success"></i>
+                                    <span class="nav-link-inner--text">Laporan APBDes</span>
+                                </a>
                             </div>
                         </li>
                         @auth

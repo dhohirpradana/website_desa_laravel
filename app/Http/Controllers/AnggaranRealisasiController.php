@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AnggaranRealisasi;
+use App\Desa;
 use App\DetailJenisAnggaran;
 use App\JenisAnggaran;
 use App\KelompokJenisAnggaran;
@@ -29,33 +30,8 @@ class AnggaranRealisasiController extends Controller
             $anggaran_realisasi = AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 6);})->latest()->paginate(10);
         } elseif ($request->jenis == "laporan") {
             $detail_jenis_anggaran = DetailJenisAnggaran::all();
-            $pendapatan_anggaran = 0; $pendapatan_realisasi = 0; $belanja_anggaran = 0; $belanja_realisasi = 0; $pembiayaan_anggaran = 0; $pembiayaan_realisasi = 0; $rincian = null;
-            $penerimaan_biaya_anggaran = 0; $penerimaan_biaya_realisasi = 0; $pengeluaran_biaya_anggaran = 0; $pengeluaran_biaya_realisasi = 0;
-
-            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('jenis_anggaran_id', 4);})->get() as $item) {
-                $pendapatan_anggaran += $item->nilai_anggaran;
-                $pendapatan_realisasi += $item->nilai_realisasi;
-            }
-
-            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('jenis_anggaran_id', 5);})->get() as $item) {
-                $belanja_anggaran += $item->nilai_anggaran;
-                $belanja_realisasi += $item->nilai_realisasi;
-            }
-
-            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('kelompok_jenis_anggaran_id', 61);})->get() as $item) {
-                $penerimaan_biaya_anggaran += $item->nilai_anggaran;
-                $penerimaan_biaya_realisasi += $item->nilai_realisasi;
-            }
-
-            foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('kelompok_jenis_anggaran_id', 62);})->get() as $item) {
-                $pengeluaran_biaya_anggaran += $item->nilai_anggaran;
-                $pengeluaran_biaya_realisasi += $item->nilai_realisasi;
-            }
-
-            $pembiayaan_netto_anggaran = $penerimaan_biaya_anggaran - $pengeluaran_biaya_anggaran;
-            $pembiayaan_netto_realisasi = $penerimaan_biaya_realisasi - $pengeluaran_biaya_realisasi;
-
-            return view('anggaran-realisasi.laporan',compact('detail_jenis_anggaran','pendapatan_anggaran','pendapatan_realisasi','belanja_anggaran','belanja_realisasi','pembiayaan_netto_anggaran','pembiayaan_netto_realisasi'));
+            $data = $this->laporan($request);
+            return view('anggaran-realisasi.laporan',compact('detail_jenis_anggaran','data'));
         } elseif($request->jenis == "grafik"){
             return view('anggaran-realisasi.grafik');
         } else {
@@ -65,6 +41,46 @@ class AnggaranRealisasiController extends Controller
         $anggaran_realisasi->appends(request()->input())->links();
 
         return view('anggaran-realisasi.index', compact('anggaran_realisasi'));
+    }
+
+    public function laporan_apbdes(Request $request)
+    {
+        $detail_jenis_anggaran = DetailJenisAnggaran::all();
+        $desa = Desa::find(1);
+        $data = $this->laporan($request);
+
+        return view('anggaran-realisasi.laporan-apbdes',compact('desa','detail_jenis_anggaran','data'));
+    }
+
+    public function laporan($request)
+    {
+        $data['pendapatan_anggaran'] = 0; $data['pendapatan_realisasi'] = 0; $data['belanja_anggaran'] = 0; $data['belanja_realisasi'] = 0; $data['pembiayaan_anggaran'] = 0; $data['pembiayaan_realisasi'] = 0; $data['rincian'] = null;
+        $data['penerimaan_biaya_anggaran'] = 0; $data['penerimaan_biaya_realisasi'] = 0; $data['pengeluaran_biaya_anggaran'] = 0; $data['pengeluaran_biaya_realisasi'] = 0;
+
+        foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('jenis_anggaran_id', 4);})->get() as $item) {
+            $data['pendapatan_anggaran'] += $item->nilai_anggaran;
+            $data['pendapatan_realisasi'] += $item->nilai_realisasi;
+        }
+
+        foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('jenis_anggaran_id', 5);})->get() as $item) {
+            $data['belanja_anggaran'] += $item->nilai_anggaran;
+            $data['belanja_realisasi'] += $item->nilai_realisasi;
+        }
+
+        foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('kelompok_jenis_anggaran_id', 61);})->get() as $item) {
+            $data['penerimaan_biaya_anggaran'] += $item->nilai_anggaran;
+            $data['penerimaan_biaya_realisasi'] += $item->nilai_realisasi;
+        }
+
+        foreach (AnggaranRealisasi::whereTahun($request->tahun)->whereHas('detail_jenis_anggaran', function ($jenis) {$jenis->where('kelompok_jenis_anggaran_id', 62);})->get() as $item) {
+            $data['pengeluaran_biaya_anggaran'] += $item->nilai_anggaran;
+            $data['pengeluaran_biaya_realisasi'] += $item->nilai_realisasi;
+        }
+
+        $data['pembiayaan_netto_anggaran'] = $data['penerimaan_biaya_anggaran'] - $data['pengeluaran_biaya_anggaran'];
+        $data['pembiayaan_netto_realisasi'] = $data['penerimaan_biaya_realisasi'] - $data['pengeluaran_biaya_realisasi'];
+
+        return $data;
     }
 
     public function cart(Request $request)
@@ -97,19 +113,19 @@ class AnggaranRealisasiController extends Controller
         }
 
         try {
-            $pendapatan_persen = ($pendapatan_realisasi / $pendapatan_anggaran) * 100;
+            $pendapatan_persen = number_format((float)($pendapatan_realisasi / $pendapatan_anggaran) * 100, 2, '.', '');
         } catch (\Throwable $th) {
             $pendapatan_persen = 0;
         }
 
         try {
-            $belanja_persen = ($belanja_realisasi / $belanja_anggaran) * 100;
+            $belanja_persen = number_format((float)($belanja_realisasi / $belanja_anggaran) * 100, 2, '.', '');
         } catch (\Throwable $th) {
             $belanja_persen = 0;
         }
 
         try {
-            $pembiayaan_persen = ($pembiayaan_realisasi / $pembiayaan_anggaran) * 100;
+            $pembiayaan_persen = number_format((float)($pembiayaan_realisasi / $pembiayaan_anggaran) * 100, 2, '.', '');
         } catch (\Throwable $th) {
             $pembiayaan_persen = 0;
         }
@@ -134,7 +150,7 @@ class AnggaranRealisasiController extends Controller
     public function cart_rincian($jenis, $realisasi, $anggaran, $rincian)
     {
         try {
-            $persen = ($realisasi / $anggaran) * 100;
+            $persen = number_format((float)($realisasi / $anggaran) * 100, 2, '.', '');
         } catch (\Throwable $th) {
             $persen = 0;
         }
@@ -171,7 +187,7 @@ class AnggaranRealisasiController extends Controller
             'jenis_anggaran'            => ['required'],
             'detail_jenis_anggaran_id'  => ['required'],
             'nilai_anggaran'            => ['required','numeric','min:0'],
-            'nilai_realisasi'           => ['required','numeric','min:0'],
+            'nilai_realisasi'           => ['required','numeric','min:0','max:'.$request->nilai_anggaran],
             'keterangan_lainnya'        => ['nullable']
         ],[
             'detail_jenis_anggaran_id.required' => 'detail jenis anggaran wajib diisi'
@@ -238,7 +254,7 @@ class AnggaranRealisasiController extends Controller
             'jenis_anggaran'            => ['required'],
             'detail_jenis_anggaran_id'  => ['required'],
             'nilai_anggaran'            => ['required','numeric','min:0'],
-            'nilai_realisasi'           => ['required','numeric','min:0'],
+            'nilai_realisasi'           => ['required','numeric','min:0','max:'.$request->nilai_anggaran],
             'keterangan_lainnya'        => ['nullable']
         ],[
             'detail_jenis_anggaran_id.required' => 'detail jenis anggaran wajib diisi'

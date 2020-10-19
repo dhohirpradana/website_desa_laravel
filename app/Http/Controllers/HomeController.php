@@ -19,7 +19,7 @@ class HomeController extends Controller
         $desa = Desa::find(1);
         $berita = Berita::latest()->take(3)->get();
         $pemerintahan_desa = PemerintahanDesa::latest()->take(3)->get();
-        $gallery = Gallery::where('slider', 1)->get();
+        $gallery = Gallery::where('slider', 1)->latest()->get();
         $galleries = array();
         $videos = Video::all();
 
