@@ -17,8 +17,7 @@
 @endsection
 
 @section('header')
-<h1 class="text-white text-sm text-muted">PANDUAN PENGGUNAAN APLIKASI SIMAPEDA</h1>
-<h2 class="text-lead text-white">DESA {{ Str::upper($desa->nama_desa) }}<br/>KABUPATEN {{ Str::upper($desa->nama_kabupaten) }}</h2>
+<h1 class="text-white text-muted">PANDUAN PENGGUNAAN APLIKASI SIMAPEDA</h1>
 @endsection
 
 @section('content')

@@ -46,11 +46,9 @@
     @forelse ($berita as $item)
         <div class="col-lg-4 col-md-6 mb-3">
             <div class="card animate-up shadow">
-                @if ($item->gambar)
-                    <a href="{{ route('berita.show', ['berita' => $item, 'slug' => Str::slug($item->judul)]) }}">
-                        <div class="card-img" style="background-image: url('{{ url(Storage::url($item->gambar)) }}'); background-size: cover; height: 200px;"></div>
-                    </a>
-                @endif
+                <a href="{{ route('berita.show', ['berita' => $item, 'slug' => Str::slug($item->judul)]) }}">
+                    <div class="card-img" style="background-image: url('{{ $item->gambar ? url(Storage::url($item->gambar)) : url(Storage::url('noimage.jpg')) }}'); background-size: cover; height: 200px;"></div>
+                </a>
                 <div class="card-body text-center">
                     <a href="{{ route('berita.show', ['berita' => $item, 'slug' => Str::slug($item->judul)]) }}">
                         <h3>{{ $item->judul }}</h3>
