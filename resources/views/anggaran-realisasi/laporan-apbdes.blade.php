@@ -25,7 +25,16 @@
 <div class="card shadow">
     <div class="card-body">
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left mb-3">
-            <h2 class="mb-0">Laporan Anggaran Pendapatan Belanja Desa</h2>
+            <div class="nav-wrapper">
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item m-1">
+                        <a class="nav-link tab {{ request('jenis') == 'laporan' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=laporan&tahun={{ request('tahun') }}"><i class="fas fa-hand-holding-usd mr-2"></i>Laporan</a>
+                    </li>
+                    <li class="nav-item m-1">
+                        <a class="nav-link tab {{ request('jenis') == 'grafik' ? 'active' : '' }}" href="{{ URL::current() }}?jenis=grafik&tahun={{ request('tahun') }}"><i class="fas fa-chart-bar mr-2"></i>Grafik</a>
+                    </li>
+                </ul>
+            </div>
             <form id="form-tahun" action="{{ URL::current()}}" method="GET">
                 Tahun: <input type="number" name="tahun" id="tahun" class="form-control-sm" value="{{ request('tahun') ? request('tahun') : date('Y') }}" style="width: 80px">
                 <img id="loading-tahun" src="{{ asset(Storage::url('loading.gif')) }}" alt="Loading" height="20px" style="display: none">

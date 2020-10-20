@@ -35,7 +35,7 @@ class AnggaranRealisasiController extends Controller
         } elseif($request->jenis == "grafik"){
             return view('anggaran-realisasi.grafik');
         } else {
-            $anggaran_realisasi = AnggaranRealisasi::whereHas('detail_jenis_anggaran', function ($data) {$data->where('jenis_anggaran_id', 4);})->latest()->paginate(10);
+            return redirect('anggaran-realisasi?jenis=pendapatan&tahun='.date('Y'));
         }
 
         $anggaran_realisasi->appends(request()->input())->links();
@@ -49,7 +49,18 @@ class AnggaranRealisasiController extends Controller
         $desa = Desa::find(1);
         $data = $this->laporan($request);
 
-        return view('anggaran-realisasi.laporan-apbdes',compact('desa','detail_jenis_anggaran','data'));
+        if (!$request->tahun || !$request->jenis) {
+            return redirect('laporan-apbdes?jenis=laporan&tahun='.date('Y'));
+        }
+
+        if ($request->jenis == "laporan") {
+            return view('anggaran-realisasi.laporan-apbdes',compact('desa','detail_jenis_anggaran','data'));
+        } elseif ($request->jenis == "grafik") {
+            return view('anggaran-realisasi.grafik-apbdes-umum',compact('desa','detail_jenis_anggaran','data'));
+        }else {
+            return redirect('laporan-apbdes?jenis=laporan&tahun='.date('Y'));
+        }
+
     }
 
     public function laporan($request)
