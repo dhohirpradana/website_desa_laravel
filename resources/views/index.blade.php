@@ -38,8 +38,8 @@
     <div class="col-md">
         <div id="owl-one" class="owl-carousel owl-theme" style="z-index: 0">
             @foreach($gallery as $key => $item)
-                <a href="{{ asset(Storage::url($item->gallery)) }}" data-caption="{{ $item->caption }}" data-fancybox>
-                    <img src="{{ asset(Storage::url($item->gallery)) }}" class="mw-100" alt="Slide Show {{ $key }}">
+                <a class="text-center" href="{{ asset(Storage::url($item->gallery)) }}" data-caption="{{ $item->caption }}" data-fancybox>
+                    <img src="{{ asset(Storage::url($item->gallery)) }}" alt="Slide Show {{ $key }}" style="max-height: 500px; object-fit: contain;">
                     <p class="text-center text-white">{{ $item->caption }}</p>
                 </a>
             @endforeach
