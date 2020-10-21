@@ -59,13 +59,7 @@ class HomeController extends Controller
         $bulan = 0;
         $tahun = 0;
         $totalCetakSurat = 0;
-        $totalPenduduk = Penduduk::all();
-        $pekerjaan = $this->grafikPekerjaan();
-        $pendidikan = $this->grafikPendidikan();
-        $perkawinan = $this->grafikPerkawinan();
-        $agama = $this->grafikAgama();
-        $darah = $this->grafikDarah();
-        $usia = $this->grafikUsia();
+        $totalPenduduk = new Penduduk();
 
         foreach ($surat as $value) {
             if (count($value->cetakSurat) != 0) {
@@ -84,7 +78,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('dashboard', compact('surat','hari','bulan','tahun','totalCetakSurat','totalPenduduk','pekerjaan','pendidikan','perkawinan','agama','darah','usia'));
+        return view('dashboard', compact('surat','hari','bulan','tahun','totalCetakSurat','totalPenduduk'));
     }
 
     public function suratHarian(Request $request)

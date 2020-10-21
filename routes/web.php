@@ -27,6 +27,7 @@ Route::get('/gallery', 'GalleryController@gallery')->name('gallery');
 Route::get('/buat-surat/{id}/{slug}', 'CetakSuratController@create')->name('buat-surat');
 Route::get('/panduan', 'HomeController@panduan')->name('panduan');
 Route::get('/statistik-penduduk', 'GrafikController@index')->name('statistik-penduduk');
+Route::get('/statistik-penduduk/show', 'GrafikController@show')->name('statistik-penduduk.show');
 Route::get('/anggaran-realisasi-cart', 'AnggaranRealisasiController@cart')->name('anggaran-realisasi.cart');
 Route::post('/cetak-surat/{id}/{slug}', 'CetakSuratController@store')->name('cetak-surat.store');
 
