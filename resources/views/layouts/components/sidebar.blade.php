@@ -5,7 +5,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Brand -->
-    <a class="navbar-brand pt-0" href="{{ route('home.index') }}">
+    <a class="text-center pt-0" href="{{ route('home.index') }}">
         <h1 class="text-primary font-weight-900 text-uppercase">Desa {{ $desa->nama_desa }}</h1>
     </a>
     <!-- User -->
