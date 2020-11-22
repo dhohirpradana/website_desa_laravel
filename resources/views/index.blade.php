@@ -50,6 +50,7 @@
         </div>
     </div>
 </div>
+@if ($surat->count() > 0)
 <section class="mb-5">
     <div class="row">
         <div class="col-md">
@@ -80,6 +81,7 @@
         @endif
     </div>
 </section>
+@endif
 <div class="card shadow h-100 mb-5" style="margin-top:100px">
     <div class="card-header">
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
