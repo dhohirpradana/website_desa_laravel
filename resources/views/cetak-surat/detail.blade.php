@@ -35,7 +35,7 @@
             <hr style="border-top: 5px double #000000;">
         </div>
 
-        @if ($surat->jenis_isi == 4)
+        @if ($surat->perihal == 1)
             @php
                 $perihal = array();
                 foreach ($surat->isiSurat->where('jenis_isi', 4) as $isiSurat) {
