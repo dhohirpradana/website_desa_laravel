@@ -44,17 +44,6 @@ class DusunController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Dusun  $dusun
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dusun $dusun)
-    {
-        return view('dusun.show', compact('dusun'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Dusun  $dusun

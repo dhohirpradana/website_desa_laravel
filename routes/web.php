@@ -93,3 +93,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get('/chart-surat/{id}', 'SuratController@chartSurat')->name('chart-surat');
 });
+
+Route::fallback(function () {
+    abort(404);
+});
