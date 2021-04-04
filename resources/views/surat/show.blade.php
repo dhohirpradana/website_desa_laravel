@@ -178,7 +178,7 @@
     });
 
     $(document).ready(function(){
-        $.get("{{ route('chart-surat',$surat->id) }}", function (response) {
+        $.get("{{ route('chart-surat',$surat->id) }}", {'tahun': $("#tahun").val()}, function (response) {
             chart.data = response;
             chart.update();
         });
