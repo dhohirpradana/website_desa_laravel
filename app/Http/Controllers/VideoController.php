@@ -21,6 +21,9 @@ class VideoController extends Controller
         $api_key = config('api.key');
         if ($api_key != "KOSONG") {
             Video::truncate();
+            if ($desa->channel_id == null) {
+                return back()->with('success', 'Video berhasil diperbarui');
+            }
             $apiUrl = "https://www.googleapis.com/youtube/v3/search?";
             $part = "part=snippet";
             $channelId = "&channelId={$desa->channel_id}";
@@ -79,6 +82,6 @@ class VideoController extends Controller
 
         $desa->update($data);
 
-        return back()->with('success', 'Video berhasil diperbarui');
+        return back()->with('success', 'Channel ID YouTube berhasil diperbarui');
     }
 }
