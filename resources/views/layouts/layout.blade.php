@@ -28,8 +28,8 @@
     <meta name="base-url" content="{{ url('') }}">
 
     <!-- SEO Management-->
-    <meta name="author" content="Maulana Kevin Pradana">
-    <meta name="keywords" content="desa arjasa,arjasa jember,arjasa,desa,desa.id,arjasa arjasa jember,desa di kecamatan arjasa jember,desa arjasa jember,daerah arjasa,website desa arjasa, web desa arjasa, website arjasa, web arjasa">
+    <meta name="author" content="Mahasiswa TI Universitas Muria Kudus">
+    <meta name="keywords" content="desa mlati norowito,mlati norowito kudus,mlati norowito,desa,desa.id,mlati mlati jember,desa di kecamatan kota kudus,desa mlati norowito kudus jawa tengah,daerah mlati norowito,website desa mlati norowito, web desa mlati norowito, website mlati norowito, web mlati norowito">
 
     <title>@yield('title')</title>
 
@@ -44,7 +44,7 @@
     <link href="{{ asset('/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
 
     <!-- CSS Files -->
-    <link href="{{ asset('/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet">
+    <link href="{{ asset('/css/argon-dashboard.css') }}" rel="stylesheet">
 
     @yield('styles')
 </head>
@@ -90,7 +90,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bars"></i> <span class="nav-link-inner--text">Menu Utama</span>
+                                <i class="fas fa-bars"></i> <span class="nav-link-inner--text">Menu</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
                                 <a class="dropdown-item @if (Request::segment(1) == 'layanan-surat') active @endif" href="{{ route('layanan-surat') }}">
@@ -122,7 +122,7 @@
                         @auth
                             <li class="nav-item dropdown">
                                 <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-bars"></i> <span class="nav-link-inner--text">Menu Admin</span>
+                                    <i class="fas fa-bars"></i> <span class="nav-link-inner--text">Admin</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
                                     <a class="dropdown-item" href="{{ route('dashboard') }}">
@@ -201,12 +201,6 @@
                         <div class="copyright text-center text-xl-left text-muted">
                             © {{ date('Y') }} <a href="{{ url('') }}" class="font-weight-bold ml-1"
                                 target="_blank">Desa {{ $desa->nama_desa }}</a>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="copyright text-center text-xl-right text-muted">
-                            Powered By <a href="https://github.com/maulanakevinp/simapeda/tree/1.2" class="font-weight-bold ml-1"
-                                target="_blank">SIMAPEDA</a>
                         </div>
                     </div>
                 </div>

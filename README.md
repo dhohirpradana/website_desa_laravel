@@ -98,9 +98,9 @@ php artisan serve
 ```
 - Lalu ctrl+klik pada http://127.0.0.0:8000
 
-Login Admin http://127.0.0.0:8000/masuk <br>
-email : admin@gmail.com <br>
-password : asdqwe123
+Login Admin http://127.0.0.0:8000/admin <br>
+email : mlatinorowito@gmail.com <br>
+password : mlatinorowito354
 
 ## About Laravel
 

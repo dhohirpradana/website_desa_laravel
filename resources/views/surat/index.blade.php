@@ -22,7 +22,7 @@
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-between text-center text-md-left">
                             <div class="mb-3">
                                 <h2 class="mb-0">Surat</h2>
-                                <p class="mb-0 text-sm">Kelola Surat {{ config('app.name') }}</p>
+                                <p class="mb-0 text-sm">Kelola Surat</p>
                             </div>
                             <div class="mb-3">
                                 <a href="{{ route('surat.create') }}" class="btn btn-success" title="Tambah"><i class="fas fa-plus"></i> Tambah Surat</a>

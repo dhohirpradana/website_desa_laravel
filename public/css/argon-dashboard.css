@@ -1996,6 +1996,7 @@ pre code {
 
 .form-control {
   display: block;
+  text-transform: uppercase;
   width: 100%;
   height: calc(2.75rem + 2px);
   padding: 0.625rem 0.75rem;
@@ -6908,7 +6909,7 @@ button.bg-dark:focus {
 }
 
 .bg-default {
-  background-color: #172b4d !important;
+  background-color: #0C2D48 !important;
 }
 
 a.bg-default:hover,
@@ -13762,11 +13763,15 @@ button.section-darker:hover,
 button.section-darker:focus {
   background-color: black !important;
 }
-
+/*
 .bg-gradient-primary {
   background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
-}
+} */
 
+
+.bg-gradient-primary {
+    background: linear-gradient(87deg, #145DA0 0, #2E8BC0 100%) !important;
+      }
 .bg-gradient-secondary {
   background: linear-gradient(87deg, #f7fafc 0, #f7f8fc 100%) !important;
 }
