@@ -1,7 +1,16 @@
+<Directory />
+    Options FollowSymLinks
+    AllowOverride All
+    Require all denied
+ </Directory>
 
-## Redirect to public folder
-<IfModule mod_rewrite.c>
-    RewriteEngine on
-    RewriteRule ^$ public/ [L]
-    RewriteRule (.*) public/$1 [L]
-</IfModule>
+ <Directory /usr/share>
+    AllowOverride None
+    Require all granted
+ </Directory>
+
+ <Directory /var/www/>
+    Options Indexes FollowSymLinks
+    AllowOverride all
+    Require all granted
+ </Directory>
