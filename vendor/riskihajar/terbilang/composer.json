@@ -1,0 +1,42 @@
+{
+    "name": "riskihajar/terbilang",
+    "description": "Convert number & date to words in any language for Laravel 4 and above",
+    "homepage": "https://github.com/riskihajar/terbilang",
+    "license": "MIT",
+    "keywords": ["laravel", "terbilang", "number to words", "date to words", "number to roman"],
+    "authors": [
+        {
+            "name": "riskihajar",
+            "email": "riskihajar@gmail.com",
+            "homepage": "http://riskihajar.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": ">=4.2"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Riskihajar\\Terbilang\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Riskihajar\\Terbilang\\TerbilangServiceProvider"
+            ],
+            "aliases": {
+                "Terbilang": "Riskihajar\\Terbilang\\Facades\\Terbilang"
+            }
+        }
+    }
+}
