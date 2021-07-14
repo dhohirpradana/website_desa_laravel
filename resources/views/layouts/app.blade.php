@@ -1,5 +1,5 @@
 @php
-    $desa = App\Desa::find(1);
+$desa = App\Desa::find(1);
 @endphp
 <!--
 
@@ -28,7 +28,7 @@
     <meta name="base-url" content="{{ url('') }}">
 
     <title>
-        Desa {{ $desa->nama_desa }} - @yield('title')
+        Kelurahan {{ $desa->nama_desa }} - @yield('title')
     </title>
 
     <!-- Favicon -->
@@ -66,7 +66,8 @@
                                 aria-expanded="false">
                                 <div class="media align-items-center">
                                     <span class="avatar avatar-sm">
-                                        <img alt="{{ asset(Storage::url(auth()->user()->foto_profil)) }}" src="{{ asset(Storage::url(auth()->user()->foto_profil)) }}">
+                                        <img alt="{{ asset(Storage::url(auth()->user()->foto_profil)) }}"
+                                            src="{{ asset(Storage::url(auth()->user()->foto_profil)) }}">
                                     </span>
                                     <div class="media-body ml-2 d-none d-lg-block">
                                         <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->nama }}</span>
@@ -83,12 +84,14 @@
                                     <span>Pengaturan</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="{{ route('keluar') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
+                                <a href="{{ route('keluar') }}" class="dropdown-item"
+                                    onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
                                     <i class="ni ni-user-run"></i>
                                     <span>Keluar</span>
                                 </a>
 
-                                <form id="form-keluar" action="{{ route('keluar') }}" method="POST" style="display: none;">
+                                <form id="form-keluar" action="{{ route('keluar') }}" method="POST"
+                                    style="display: none;">
                                     @csrf
                                 </form>
                             </div>
@@ -111,7 +114,8 @@
                 <div class="row align-items-center justify-content-xl-between">
                     <div class="col-xl-6">
                         <div class="copyright text-center text-xl-left text-muted">
-                            &copy; {{ date('Y') }} <a href="{{ config('app.url') }}" class="font-weight-bold ml-1" target="_blank">Desa {{ $desa->nama_desa }}</a>
+                            &copy; {{ date('Y') }} <a href="{{ config('app.url') }}"
+                                class="font-weight-bold ml-1" target="_blank">Kelurahan {{ $desa->nama_desa }}</a>
                         </div>
                     </div>
                 </div>

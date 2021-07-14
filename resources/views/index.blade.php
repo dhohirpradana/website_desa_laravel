@@ -1,9 +1,9 @@
 @extends('layouts.layout')
-@section('title', 'Website Resmi Pemerintah Desa ' . $desa->nama_desa . ' - Beranda')
+@section('title', 'Website Resmi Kelurahan' . $desa->nama_desa . ' - Beranda')
 
 @section('styles')
     <meta name="description"
-        content="Website Resmi Pemerintah Desa {{ $desa->nama_desa }}, Kecamatan {{ $desa->nama_kecamatan }}, Kabupaten {{ $desa->nama_kabupaten }}. Melayani pembuatan surat keterangan secara online">
+        content="Website Resmi Kelurahan {{ $desa->nama_desa }}, Kecamatan {{ $desa->nama_kecamatan }}, Kabupaten {{ $desa->nama_kabupaten }}. Melayani pembuatan surat keterangan secara online">
 
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
@@ -37,7 +37,7 @@
 @section('header')
     <h1 class="text-white text-sm text-muted">SELAMAT DATANG DI WEBSITE RESMI</h1>
     <h2 class="text-lead text-white">
-        <b><strong>DESA {{ Str::upper($desa->nama_desa) }} <br> KECAMATAN
+        <b><strong>KELURAHAN {{ Str::upper($desa->nama_desa) }} <br> KECAMATAN
                 {{ Str::upper($desa->nama_kecamatan) }} <br />KABUPATEN
                 {{ Str::upper($desa->nama_kabupaten) }}</strong></b>
     </h2>
@@ -66,7 +66,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-6 col-md-6 border-bottom">
                                 <h2 class="text-white">LAYANAN SURAT</h2>
-                                <p class="text-white">Dengan menggunakan layanan surat website Desa
+                                <p class="text-white">Dengan menggunakan layanan surat website Kelurahan
                                     {{ $desa->nama_desa }}, masyarakat dapat dengan mudah membuat beberapa surat
                                     keterangan berikut ini secara online.</p>
                             </div>
@@ -119,7 +119,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-6 col-md-6 border-bottom">
                                 <h2 class="text-white">BERITA</h2>
-                                <p class="text-white">Berita seputar desa {{ $desa->nama_desa }}.</p>
+                                <p class="text-white">Berita seputar kelurahan {{ $desa->nama_desa }}.</p>
                             </div>
                         </div>
                     </div>
@@ -162,9 +162,10 @@
                     <div class="header-body text-center mt-5 mb-3">
                         <div class="row justify-content-center">
                             <div class="col-lg-6 col-md-6 border-bottom">
-                                <h2 class="text-white">Pemerintahan Desa</h2>
-                                <p class="text-white">Pemerintahan Desa {{ $desa->nama_desa }}, masyarakat dapat dengan
-                                    mudah mengetahui informasi seputar pemerintahan desa {{ $desa->nama_desa }}.</p>
+                                <h2 class="text-white">Pemerintahan Kelurahan</h2>
+                                <p class="text-white">Pemerintahan kelurahan {{ $desa->nama_desa }}, masyarakat dapat
+                                    dengan
+                                    mudah mengetahui informasi seputar kelurahan {{ $desa->nama_desa }}.</p>
                             </div>
                         </div>
                     </div>
@@ -197,7 +198,7 @@
             @if (App\PemerintahanDesa::count() > 3)
                 <div class="text-center">
                     <a href="{{ route('pemerintahan-desa') }}" class="btn btn-primary">Lebih Banyak Informasi
-                        Pemerintahan Desa</a>
+                        Pemerintahan Kelurahan</a>
                 </div>
             @endif
         </section>
@@ -210,8 +211,9 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-6 col-md-6 border-bottom">
                                 <h2 class="text-white">GALLERY</h2>
-                                <p class="text-white">Gallery Desa {{ $desa->nama_desa }}, masyarakat dapat dengan mudah
-                                    mengetahui gallery desa {{ $desa->nama_desa }}.</p>
+                                <p class="text-white">Gallery Kelurahan {{ $desa->nama_desa }}, masyarakat dapat dengan
+                                    mudah
+                                    mengetahui gallery kelurahan {{ $desa->nama_desa }}.</p>
                             </div>
                         </div>
                     </div>
@@ -300,6 +302,5 @@
                 }
             });
         });
-
     </script>
 @endpush

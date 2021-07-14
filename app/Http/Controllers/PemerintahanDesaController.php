@@ -17,12 +17,12 @@ class PemerintahanDesaController extends Controller
      */
     public function index(Request $request)
     {
-        $pemerintahan_desa = PemerintahanDesa::orderBy('id','desc')->paginate(12);
+        $pemerintahan_desa = PemerintahanDesa::orderBy('id', 'desc')->paginate(12);
 
         if ($request->cari) {
-            $pemerintahan_desa = PemerintahanDesa::where('judul','like',"%{$request->cari}%")
-            ->orWhere('konten','like',"%{$request->cari}%")
-            ->orderBy('id','desc')->paginate(15);
+            $pemerintahan_desa = PemerintahanDesa::where('judul', 'like', "%{$request->cari}%")
+                ->orWhere('konten', 'like', "%{$request->cari}%")
+                ->orderBy('id', 'desc')->paginate(15);
         }
 
         $pemerintahan_desa->appends($request->only('cari'));
@@ -36,17 +36,17 @@ class PemerintahanDesaController extends Controller
      */
     public function pemerintahan_desa(Request $request)
     {
-        $pemerintahan_desa = PemerintahanDesa::orderBy('id','desc')->paginate(12);
+        $pemerintahan_desa = PemerintahanDesa::orderBy('id', 'desc')->paginate(12);
         $desa = Desa::find(1);
 
         if ($request->cari) {
-            $pemerintahan_desa = PemerintahanDesa::where('judul','like',"%{$request->cari}%")
-            ->orWhere('konten','like',"%{$request->cari}%")
-            ->orderBy('id','desc')->paginate(12);
+            $pemerintahan_desa = PemerintahanDesa::where('judul', 'like', "%{$request->cari}%")
+                ->orWhere('konten', 'like', "%{$request->cari}%")
+                ->orderBy('id', 'desc')->paginate(12);
         }
 
         $pemerintahan_desa->appends($request->only('cari'));
-        return view('pemerintahan-desa.pemerintahan-desa', compact('pemerintahan_desa','desa'));
+        return view('pemerintahan-desa.pemerintahan-desa', compact('pemerintahan_desa', 'desa'));
     }
 
     /**
@@ -68,9 +68,9 @@ class PemerintahanDesaController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'judul'     => ['required','string','max:191'],
+            'judul'     => ['required', 'string', 'max:191'],
             'konten'    => ['required'],
-            'gambar'    => ['nullable','image','max:2048'],
+            'gambar'    => ['nullable', 'image', 'max:2048'],
         ]);
 
         if ($request->gambar) {
@@ -79,7 +79,7 @@ class PemerintahanDesaController extends Controller
 
         PemerintahanDesa::create($data);
 
-        return redirect()->route('pemerintahan-desa.index')->with('success','Informasi pemerintahan desa berhasil ditambahkan');
+        return redirect()->route('pemerintahan-desa.index')->with('success', 'Informasi pemerintahan kelurahan berhasil ditambahkan');
     }
 
     /**
@@ -91,12 +91,12 @@ class PemerintahanDesaController extends Controller
     public function show(PemerintahanDesa $pemerintahan_desa, $slug)
     {
         $desa = Desa::find(1);
-        $pemerintahan_desas = PemerintahanDesa::where('id','!=', $pemerintahan_desa->id)->inRandomOrder()->limit(3)->get();
+        $pemerintahan_desas = PemerintahanDesa::where('id', '!=', $pemerintahan_desa->id)->inRandomOrder()->limit(3)->get();
         if ($slug != Str::slug($pemerintahan_desa->judul)) {
             return abort(404);
         }
         $pemerintahan_desa->update(['dilihat' => $pemerintahan_desa->dilihat + 1]);
-        return view('pemerintahan-desa.show', compact('pemerintahan_desa','desa','pemerintahan_desas'));
+        return view('pemerintahan-desa.show', compact('pemerintahan_desa', 'desa', 'pemerintahan_desas'));
     }
 
     /**
@@ -120,9 +120,9 @@ class PemerintahanDesaController extends Controller
     public function update(Request $request, PemerintahanDesa $pemerintahan_desa)
     {
         $data = $request->validate([
-            'judul'     => ['required','string','max:191'],
+            'judul'     => ['required', 'string', 'max:191'],
             'konten'    => ['required'],
-            'gambar'    => ['nullable','image','max:2048'],
+            'gambar'    => ['nullable', 'image', 'max:2048'],
         ]);
 
         if ($request->gambar) {
@@ -134,7 +134,7 @@ class PemerintahanDesaController extends Controller
 
         $pemerintahan_desa->update($data);
 
-        return back()->with('success','Informasi pemerintahan desa berhasil diperbarui');
+        return back()->with('success', 'Informasi pemerintahan kelurahan berhasil diperbarui');
     }
 
     /**
@@ -146,6 +146,6 @@ class PemerintahanDesaController extends Controller
     public function destroy(PemerintahanDesa $pemerintahan_desa)
     {
         $pemerintahan_desa->delete();
-        return back()->with('success','Informasi pemerintahan desa berhasil dihapus');
+        return back()->with('success', 'Informasi pemerintahan kelurahan berhasil dihapus');
     }
 }

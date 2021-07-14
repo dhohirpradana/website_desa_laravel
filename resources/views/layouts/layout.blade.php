@@ -1,5 +1,5 @@
 @php
-    $desa = App\Desa::find(1);
+$desa = App\Desa::find(1);
 @endphp
 <!--
 
@@ -29,7 +29,8 @@
 
     <!-- SEO Management-->
     <meta name="author" content="Mahasiswa TI Universitas Muria Kudus">
-    <meta name="keywords" content="desa mlati norowito,mlati norowito kudus,mlati norowito,desa,desa.id,mlati mlati jember,desa di kecamatan kota kudus,desa mlati norowito kudus jawa tengah,daerah mlati norowito,website desa mlati norowito, web desa mlati norowito, website mlati norowito, web mlati norowito">
+    <meta name="keywords"
+        content="desa mlati norowito,mlati norowito kudus,mlati norowito,desa,desa.id,mlati mlati jember,desa di kecamatan kota kudus,desa mlati norowito kudus jawa tengah,daerah mlati norowito,website kelurahan mlati norowito, web kelurahan mlati norowito, website mlati norowito, web mlati norowito">
 
     <title>@yield('title')</title>
 
@@ -55,7 +56,7 @@
         <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
             <div class="container px-4">
                 <a class="navbar-brand" href="{{ url('') }}">
-                    <h2 class="h1 text-white"><b>Desa {{ $desa->nama_desa }}</b></h2>
+                    <h2 class="h1 text-white"><b>Kelurahan {{ $desa->nama_desa }}</b></h2>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +68,7 @@
                         <div class="row">
                             <div class="col-6 collapse-brand">
                                 <a href="{{ url('') }}">
-                                    <h3 class="h1 text-primary"><b>Desa {{ $desa->nama_desa }}</b></h3>
+                                    <h3 class="h1 text-primary"><b>Kelurahan {{ $desa->nama_desa }}</b></h3>
                                 </a>
                             </div>
                             <div class="col-6 collapse-close">
@@ -89,31 +90,34 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bars"></i> <span class="nav-link-inner--text">Menu</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
-                                <a class="dropdown-item @if (Request::segment(1) == 'layanan-surat') active @endif" href="{{ route('layanan-surat') }}">
+                                <a class="dropdown-item @if (Request::segment(1)=='layanan-surat'
+                                    ) active @endif" href="{{ route('layanan-surat') }}">
                                     <i class="fas fa-fw fa-file-alt text-yellow"></i>
                                     <span class="nav-link-inner--text">Layanan Surat</span>
                                 </a>
-                                <a class="dropdown-item @if (Request::segment(1) == 'pemerintahan-desa') active @endif" href="{{ route('pemerintahan-desa') }}">
+                                <a class="dropdown-item @if (Request::segment(1)=='pemerintahan-desa' ) active @endif" href="{{ route('pemerintahan-desa') }}">
                                     <i class="fas fa-fw fa-atlas text-success"></i>
-                                    <span class="nav-link-inner--text">Pemerintahan Desa</span>
+                                    <span class="nav-link-inner--text">Informasi Kelurahan</span>
                                 </a>
-                                <a class="dropdown-item @if (Request::segment(1) == 'berita') active @endif" href="{{ route('berita') }}">
+                                <a class="dropdown-item @if (Request::segment(1)=='berita' ) active @endif" href="{{ route('berita') }}">
                                     <i class="fas fa-fw fa-newspaper text-cyan"></i>
                                     <span class="nav-link-inner--text">Berita</span>
                                 </a>
-                                <a class="dropdown-item @if (Request::segment(1) == 'gallery') active @endif" href="{{ route('gallery') }}">
+                                <a class="dropdown-item @if (Request::segment(1)=='gallery' ) active @endif" href="{{ route('gallery') }}">
                                     <i class="fas fa-fw fa-images text-orange"></i>
                                     <span class="nav-link-inner--text">Gallery</span>
                                 </a>
-                                <a class="dropdown-item @if (Request::segment(1) == 'statistik-penduduk') active @endif" href="{{ route('statistik-penduduk') }}">
+                                <a class="dropdown-item @if (Request::segment(1)=='statistik-penduduk' ) active @endif" href="{{ route('statistik-penduduk') }}">
                                     <i class="fas fa-fw fa-chart-pie text-info"></i>
                                     <span class="nav-link-inner--text">Statistik Penduduk</span>
                                 </a>
-                                <a class="dropdown-item @if (Request::segment(1) == 'laporan-apbdes') active @endif" href="{{ route('laporan-apbdes') }}">
+                                <a class="dropdown-item @if (Request::segment(1)=='laporan-apbdes'
+                                    ) active @endif" href="{{ route('laporan-apbdes') }}">
                                     <i class="fas fa-fw fa-money-check-alt text-success"></i>
                                     <span class="nav-link-inner--text">Laporan APBDes</span>
                                 </a>
@@ -121,7 +125,8 @@
                         </li>
                         @auth
                             <li class="nav-item dropdown">
-                                <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-bars"></i> <span class="nav-link-inner--text">Admin</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right py-0 overflow-hidden">
@@ -131,17 +136,18 @@
                                     <a class="dropdown-item" href="{{ route('penduduk.index') }}">
                                         <i class="fas fa-fw fa-users text-info"></i> Kelola Penduduk
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('dusun.index') }}">
+                                    {{-- <a class="dropdown-item" href="{{ route('dusun.index') }}">
                                         <i class="fas fa-fw fa-map-marker-alt text-yellow"></i> Kelola Dusun
-                                    </a>
-                                    <a class="dropdown-item" href="{{ url('anggaran-realisasi?jenis=pendapatan&tahun='.date('Y')) }}">
+                                    </a> --}}
+                                    <a class="dropdown-item"
+                                        href="{{ url('anggaran-realisasi?jenis=pendapatan&tahun=' . date('Y')) }}">
                                         <i class="fas fa-fw fa-coins text-success"></i> Kelola APBDes
                                     </a>
                                     <a class="dropdown-item" href="{{ route('surat.index') }}">
                                         <i class="fas fa-fw fa-file-alt text-primary"></i> Kelola Surat
                                     </a>
                                     <a href="{{ route('pemerintahan-desa.index') }}" class="dropdown-item">
-                                        <i class="fas fa-fw fa-atlas text-success"></i> Kelola Informasi Pemerintahan Desa
+                                        <i class="fas fa-fw fa-atlas text-success"></i> Kelola Informasi Kelurahan
                                     </a>
                                     <a href="{{ route('berita.index') }}" class="dropdown-item">
                                         <i class="fas fa-fw fa-newspaper text-cyan"></i> Kelola Berita
@@ -153,16 +159,18 @@
                                         <i class="fas fa-fw fa-images text-purple"></i> Kelola Slider
                                     </a>
                                     <a class="dropdown-item" href="{{ route('profil-desa') }}">
-                                        <i class="fas fa-fw fa-users text-info"></i> Profil Desa
+                                        <i class="fas fa-fw fa-users text-info"></i> Profil Kelurahan
                                     </a>
                                     <a class="dropdown-item" href="{{ route('profil') }}">
                                         <i class="fas fa-fw fa-user text-yellow"></i> Profil Saya
                                     </a>
                                     <hr class="m-0">
-                                    <a class="dropdown-item" href="{{ route('keluar') }}" onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
+                                    <a class="dropdown-item" href="{{ route('keluar') }}"
+                                        onclick="event.preventDefault(); document.getElementById('form-keluar').submit();">
                                         <i class="fas fa-fw fa-sign-out-alt"></i> Keluar
                                     </a>
-                                    <form id="form-keluar" action="{{ route('keluar') }}" method="POST" style="display: none;">
+                                    <form id="form-keluar" action="{{ route('keluar') }}" method="POST"
+                                        style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
@@ -200,7 +208,7 @@
                     <div class="col-xl-6">
                         <div class="copyright text-center text-xl-left text-muted">
                             © {{ date('Y') }} <a href="{{ url('') }}" class="font-weight-bold ml-1"
-                                target="_blank">Desa {{ $desa->nama_desa }}</a>
+                                target="_blank">Kelurahan {{ $desa->nama_desa }}</a>
                         </div>
                     </div>
                 </div>

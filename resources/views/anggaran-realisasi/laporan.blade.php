@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Anggaran Pendapatan Belanja Desa')
+@section('title', 'Anggaran Pendapatan Belanja Kelurahan')
 
 @section('styles')
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
@@ -29,13 +29,13 @@
                             <div
                                 class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-between text-center text-md-left">
                                 <div class="mb-3">
-                                    <h2 class="mb-0">Anggaran Pendapatan Belanja Desa</h2>
-                                    <p class="mb-0 text-sm">Kelola Anggaran Pendapatan Belanja Desa</p>
+                                    <h2 class="mb-0">Anggaran Pendapatan Belanja Kelurahan</h2>
+                                    <p class="mb-0 text-sm">Kelola Anggaran Pendapatan Belanja Kelurahan</p>
                                 </div>
                                 <div class="mb-3">
 
-                                    <a href="{{ route('printLaporan', request('tahun')) }}" class="btn btn-outline-primary" title="Print"><i
-                                            class="fas fa-print"></i> Cetak
+                                    <a href="{{ route('printLaporan', request('tahun')) }}"
+                                        class="btn btn-outline-primary" title="Print"><i class="fas fa-print"></i> Cetak
                                         <a href="{{ route('anggaran-realisasi.create') }}?jenis={{ request('jenis') }}&tahun={{ request('tahun') }}&page={{ request('page') }}"
                                             class="btn btn-success" title="Tambah"><i class="fas fa-plus"></i> Tambah
                                             APBDes</a>
@@ -314,6 +314,5 @@
                 $("tbody").html(`<tr><td colspan="7" align="center">Loading ...</td></tr>`);
             });
         });
-
     </script>
 @endpush

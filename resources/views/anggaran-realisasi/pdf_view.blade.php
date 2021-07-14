@@ -19,37 +19,37 @@
 </style>
 <?php
 $nama = [
-'Hasil Usaha Desa',
-'Hasil Aset Desa',
-'Swadaya, Partisipasi dan
+    'Hasil Usaha',
+    'Hasil Aset',
+    'Swadaya, Partisipasi dan
 Gotong Royong',
-'Lain-Lain Pendapatan Asli Desa',
-'Dana Desa',
-'Bagi Hasil Pajak dan Retribusi',
-'Alokasi Dana Desa',
-'Bantuan Keuangan Provinsi',
-'Bantuan Keuangan Kabupaten/Kota',
-'Penerimaan dari Hasil Kerjasama Antar Desa',
-'Penerimaan dari Hasil Kerjasama dengan Pihak Ketiga',
-'Penerimaan Bantuan dari Perusahaan yang Berlokasi di Desa',
-'Hibah dan Sumbangan dari Pihak Ketiga',
-'Koreksi Kesalahan Belanja Tahun-tahun Sebelumnya',
-'Bunga Bank',
-'Lain-lain Pendapatan Desa Yang Sah',
-// Belanja
-'Penyelenggaraan Pemerintahan desa',
-'Pelaksanaan Pembangunan Desa',
-'Pembinaan kemasyarakatan',
-'Pemberdayaan Masyarakat',
-'Penanggulangan Bencana, Darurat dan Mendesak Desa',
-// Pembiayaan
-'SILPA Tahun Sebelumnya',
-'Pencairan Dana Cadangan',
-'Hasil Penjualan Kekayaan Desa Yang Dipisahkan',
-'Penerimaan Pembiayaan Lainnya',
-'Pembentukan Dana Cadangan',
-'Penyertaan Modal Desa',
-'Pengeluaran Pembiayaan Lainnya',
+    'Lain-Lain Pendapatan Asli',
+    'Dana Desa/Kelurahan',
+    'Bagi Hasil Pajak dan Retribusi',
+    'Alokasi Dana Desa/Kelurahan',
+    'Bantuan Keuangan Provinsi',
+    'Bantuan Keuangan Kabupaten/Kota',
+    'Penerimaan dari Hasil Kerjasama Antar Desa/Kelurahan',
+    'Penerimaan dari Hasil Kerjasama dengan Pihak Ketiga',
+    'Penerimaan Bantuan dari Perusahaan yang Berlokasi di Desa/Kelurahan',
+    'Hibah dan Sumbangan dari Pihak Ketiga',
+    'Koreksi Kesalahan Belanja Tahun-tahun Sebelumnya',
+    'Bunga Bank',
+    'Lain-lain Pendapatan Yang Sah',
+    // Belanja
+    'Penyelenggaraan Pemerintahan',
+    'Pelaksanaan Pembangunan',
+    'Pembinaan kemasyarakatan',
+    'Pemberdayaan Masyarakat',
+    'Penanggulangan Bencana, Darurat dan Mendesak',
+    // Pembiayaan
+    'SILPA Tahun Sebelumnya',
+    'Pencairan Dana Cadangan',
+    'Hasil Penjualan Kekayaan Desa/Kelurahan Yang Dipisahkan',
+    'Penerimaan Pembiayaan Lainnya',
+    'Pembentukan Dana Cadangan',
+    'Penyertaan Modal Desa/Kelurahan',
+    'Pengeluaran Pembiayaan Lainnya',
 ];
 $suma1 = 0;
 $suma2 = 0;
@@ -90,7 +90,7 @@ $nc = 0;
                     <td colspan="4" style="font-size: 14"><b>1. PENDAPATAN</b></td>
                 </tr>
                 <tr>
-                    <td><b>1.1 Pendapatan Asli Desa</b></td>
+                    <td><b>1.1 Pendapatan Asli Desa/Kelurahan</b></td>
 
                     @foreach ($pendapatan_asli_total ?? '' as $a)
                         <td><b>{{ number_format($a->total) }}</b></td>

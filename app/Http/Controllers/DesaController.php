@@ -30,7 +30,7 @@ class DesaController extends Controller
     public function update(Request $request, Desa $desa)
     {
         if (request()->ajax()) {
-            $validator = Validator::make($request->all(),[
+            $validator = Validator::make($request->all(), [
                 'logo'   => ['required', 'image', 'max:2048']
             ]);
 
@@ -42,7 +42,7 @@ class DesaController extends Controller
             }
 
             if ($desa->logo != 'logo.png') {
-                File::delete(storage_path('app/'.$desa->logo));
+                File::delete(storage_path('app/' . $desa->logo));
             }
 
             $desa->logo = $request->file('logo')->store('public/logo');
@@ -64,11 +64,10 @@ class DesaController extends Controller
 
             if ($request->nama_desa != $desa->nama_desa  || $request->nama_kecamatan != $desa->nama_kecamatan || $request->nama_kabupaten != $desa->nama_kabupaten || $request->alamat != $desa->alamat || $request->nama_kepala_desa != $desa->nama_kepala_desa || $request->alamat_kepala_desa != $desa->alamat_kepala_desa) {
                 $desa->update($data);
-                return redirect()->back()->with('success','Profil desa berhasil di perbarui');
+                return redirect()->back()->with('success', 'Profil kelurahan berhasil di perbarui');
             } else {
-                return redirect()->back()->with('error','Tidak ada perubahan yang berhasil disimpan');
+                return redirect()->back()->with('error', 'Tidak ada perubahan yang berhasil disimpan');
             }
         }
     }
-
 }

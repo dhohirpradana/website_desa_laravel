@@ -55,9 +55,9 @@ class PendudukExport implements FromView, ShouldAutoSize, WithColumnFormatting
                     'penduduk.nik_ibu',
                     'penduduk.nama_ayah',
                     'penduduk.nama_ibu',
-                    'dusun.nama AS dusun',
-                    'detail_dusun.rw AS rw',
-                    'detail_dusun.rt AS rt',
+                    // 'dusun.nama AS dusun',
+                    // 'detail_dusun.rw AS rw',
+                    // 'detail_dusun.rt AS rt',
                     'alamat',
                 )
                 ->get()
